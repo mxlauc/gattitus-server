@@ -34,7 +34,7 @@ Route::get('/auth/callback/facebook', function () {
     //$user_social->token,
 
     if(!$user){
-        $url_imagen = "https://graph.facebook.com/v3.3/{$user->id}/picture?type=small&access_token={$user->token}";
+        $url_imagen = "https://graph.facebook.com/v3.3/{$user_social->id}/picture?type=small&access_token={$user_social->token}";
         $fileContents = file_get_contents($url_imagen);
         //File::put(public_path() . '/storage/usuarios_imagen/' . $user->getId() . ".jpg", $fileContents);
         $path_image = $user_social->getId() . "_" . round(microtime(true) * 1000) . "_" . rand(30000, 60000) . ".jpg";
