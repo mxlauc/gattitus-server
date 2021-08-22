@@ -16,10 +16,13 @@ use Laravel\Socialite\Facades\Socialite;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('pages.home');
+})->name('home');
 
 Route::get('/auth/login/facebook', [AuthController::class, 'loginFacebook'])->name("login.facebook");
 Route::get('/auth/callback/facebook', [AuthController::class, 'callbackFacebook']);
 Route::post('/auth/logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::get('editor', function(){
+    return view('pages.editor');
+})->name('editor');
