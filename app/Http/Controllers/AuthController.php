@@ -28,13 +28,14 @@ class AuthController extends Controller
                 'email'         => $user_social->getEmail(),
                 'avatar'        => $path_image,
                 'facebook_id'   => $user_social->getId(),
+                'role_id'       => 1,
             ]);
         }
 
-        $this->login($user);
+        return $this->login($user);
     }
 
-    function login($user){
+    public function login($user){
         Auth::login($user);
         return redirect("/");
     }
