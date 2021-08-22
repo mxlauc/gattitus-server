@@ -1,0 +1,23 @@
+// Required
+@import "../../node_modules/bootstrap/scss/functions";
+
+
+// Default variable overrides
+$primary: #fd7e14;
+$min-contrast-ratio: 2.5;
+
+$btn-border-radius:           20px;
+$light: #ffffff;
+//$btn-border-radius-sm:        100px;
+//$btn-border-radius-lg:        100px;
+
+
+
+@import "../../node_modules/bootstrap/scss/variables";
+// Required
+@import "../../node_modules/bootstrap/scss/mixins";
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+body{
+    background-color: $gray-200;
+}
