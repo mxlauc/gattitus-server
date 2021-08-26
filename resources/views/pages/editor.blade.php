@@ -10,7 +10,8 @@
 
     <script>
         var editor;
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function(e) {
+
             editor = new EditorJS({
                 data: {
                     "time": 1629663049769,
@@ -106,9 +107,36 @@
 
 @section('style')
 <style>
+    #editorjs{
+        min-height: 70vh;
+    }
     #editorjs h2{
         color: #f90;
         font-weight: bold;
+    }
+    #editorjs .ce-toolbar__settings-btn{
+        border-radius: 5px;
+        background-color: #fff;
+        border: 1px solid #eee;
+    }
+    #editorjs .icon--dots{
+        color: #f90;
+    }
+    #editorjs  .ce-settings__button{
+        color: #f90;
+    }
+    #editorjs  .ce-inline-toolbar__dropdown{
+        color: #f90;
+    }
+    #editorjs  .ce-inline-tool{
+        color: #f90;
+    }
+    #editorjs  .ce-toolbox__button{
+        color: #f90;
+    }
+    #editorjs  .ce-toolbar__plus {
+        color: #f90;
+
     }
 </style>
 @endsection

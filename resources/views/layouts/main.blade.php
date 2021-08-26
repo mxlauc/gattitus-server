@@ -25,15 +25,54 @@
     </style>
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <link rel="stylesheet" href="{{ mix('css/custom.css') }}">
-    <script src="{{ mix('js/app.js') }}"></script>
-    @yield('style')
-    @yield('script')
+
+    <style>
+@media (max-width: 1199.98px) {
+    #sidebar{
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        transform: translateX(-100%);
+        transition: transform 0.4s ease-out;
+        z-index: 1200;
+    }
+    #dark{
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000;
+        z-index: 1100;
+        display: none;
+        opacity: 0;
+        transition:  opacity 0.4s ease-out;
+    }
+    .show-sidebar{
+        transform: translateX(0%) !important;
+    }
+    .show-dark{
+        display: block !important;
+        opacity: 0.5 !important;
+    }
+}
+
+
+
+    </style>
+
+
+@yield('style')
+@yield('script')
+
 
 </head>
 
 <body>
-    <div class="row g-0">
-        <div class="col-auto sticky-top bg-white" style="width: 260px; height: 100vh;">
+    <div class="row g-0" id="app">
+        <div id="dark">
+        </div>
+        <div class="col-auto sticky-top bg-white" id="sidebar" style="width: 260px; height: 100vh;">
             @include('sections.sidebar')
         </div>
         <div class="col">
@@ -43,6 +82,29 @@
             </div>
         </div>
     </div>
+
+    <script src="{{ mix('js/app.js') }}"></script>
+    <script>
+@auth
+        userLogged = {
+            id: {{Auth::user()->id}},
+            name: "{{Auth::user()->name}}",
+            avatar: "{{Auth::user()->getAvatarUrl()}}",
+            url: "{{Auth::user()->getUrl()}}",
+        };
+@else
+        userLogged = null;
+@endauth
+        app.provide("userLogged", userLogged);
+        app.mount("#app");
+    </script>
+    <script>
+        document.querySelector("#dark").addEventListener("click", function(){
+            document.querySelector("#sidebar").classList.remove('show-sidebar')
+            document.querySelector("#dark").classList.remove('show-dark');
+            document.body.style.overflow = 'auto';
+        });
+    </script>
 </body>
 
 </html>
