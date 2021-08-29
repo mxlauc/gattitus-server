@@ -36,9 +36,48 @@
                     image: {
                         class: ImageTool,
                         config: {
-                            endpoints: {
-                                byFile: 'http://localhost:8008/uploadFile', // Your backend file uploader endpoint
-                                byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
+                            buttonContent: "Escoge una image",
+                            uploader: {
+                                uploadByFile(file) {
+                                    console.log(file);
+                                    const storageRef = firebase.ref(firebase.getStorage(),
+                                        'prueba/editorimagen23456.png');
+                                    const uploadTask = firebase.uploadBytesResumable(storageRef, file);
+
+                                    return new Promise((resolve, reject) => {
+                                        let task = uploadTask.on('state_changed',
+                                            (snapshot) => {
+                                                // Observe state change events such as progress, pause, and resume
+                                                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                                                const progress = (snapshot.bytesTransferred /
+                                                    snapshot
+                                                    .totalBytes) * 100;
+                                                console.log('Upload is ' + progress + '% done');
+                                            },
+                                            (error) => {
+                                                // Handle unsuccessful uploads
+                                                reject();
+                                            },
+                                            () => {
+                                                // Handle successful uploads on complete
+                                                // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                                                firebase.getDownloadURL(uploadTask.snapshot.ref)
+                                                    .then((
+                                                        downloadURL) => {
+                                                        console.log('File available at',
+                                                            downloadURL);
+                                                        resolve({
+                                                            success: 1,
+                                                            file: {
+                                                                url: downloadURL
+                                                            }
+                                                        });
+                                                    });
+                                            }
+                                        );
+                                    });
+
+                                }
                             }
                         }
                     },
@@ -106,39 +145,48 @@
 @endsection
 
 @section('style')
-<style>
-    #editorjs{
-        min-height: 70vh;
-    }
-    #editorjs h2{
-        color: #f90;
-        font-weight: bold;
-    }
-    #editorjs .ce-toolbar__settings-btn{
-        border-radius: 5px;
-        background-color: #fff;
-        border: 1px solid #eee;
-    }
-    #editorjs .icon--dots{
-        color: #f90;
-    }
-    #editorjs  .ce-settings__button{
-        color: #f90;
-    }
-    #editorjs  .ce-inline-toolbar__dropdown{
-        color: #f90;
-    }
-    #editorjs  .ce-inline-tool{
-        color: #f90;
-    }
-    #editorjs  .ce-toolbox__button{
-        color: #f90;
-    }
-    #editorjs  .ce-toolbar__plus {
-        color: #f90;
+    <style>
+        #editorjs {
+            min-height: 70vh;
+        }
 
-    }
-</style>
+        #editorjs h2 {
+            color: #f90;
+            font-weight: bold;
+        }
+
+        #editorjs .ce-toolbar__settings-btn {
+            border-radius: 5px;
+            background-color: #fff;
+            border: 1px solid #eee;
+        }
+
+        #editorjs .icon--dots {
+            color: #f90;
+        }
+
+        #editorjs .ce-settings__button {
+            color: #f90;
+        }
+
+        #editorjs .ce-inline-toolbar__dropdown {
+            color: #f90;
+        }
+
+        #editorjs .ce-inline-tool {
+            color: #f90;
+        }
+
+        #editorjs .ce-toolbox__button {
+            color: #f90;
+        }
+
+        #editorjs .ce-toolbar__plus {
+            color: #f90;
+
+        }
+
+    </style>
 @endsection
 
 @section('content')

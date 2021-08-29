@@ -11,11 +11,11 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <!-- Styles -->
     <style>
         * {
-            font-family: 'Varela Round', sans-serif;
+            font-family: 'Roboto', sans-serif;
         }
 
         .f-fredoka {

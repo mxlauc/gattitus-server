@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -17,6 +18,8 @@ class AuthController extends Controller
     public function callbackFacebook(){
         $user_social = Socialite::driver('facebook')->user();
         $user = User::where('facebook_id', $user_social->getId())->first();
+
+
 
         if(!$user){
             $url_imagen = "https://graph.facebook.com/v3.3/{$user_social->id}/picture?type=small&access_token={$user_social->token}";
@@ -31,7 +34,14 @@ class AuthController extends Controller
                 'role_id'       => 1,
             ]);
         }
-
+        //Cookie::queue('login_token_to_firebase', $user_social->token, 10);
+        Cookie::queue('login_token_to_firebase',
+                $user_social->token,
+                10,
+                null,
+                null,
+                null,
+                false);
         return $this->login($user);
     }
 

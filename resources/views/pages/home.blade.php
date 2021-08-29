@@ -6,7 +6,8 @@
 
 <div class="row">
     <div class="col">
-        @yield('content')
+        <button>crear</button>
+        <crear-publicacion-component></crear-publicacion-component>
         <div style="margin-left: 15%; margin-right: 15%; ">
             <p style="word-break: break-all">
                 @json(Auth::user())
