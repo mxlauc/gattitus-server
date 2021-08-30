@@ -125,13 +125,21 @@
     </div>
 </template>
 <script>
+import { getFunctions, httpsCallable, connectFunctionsEmulator } from "firebase/functions";
 export default {
     inject: ["usuarioLogin"],
     data() {
         return {
             imagenPreview: null,
             textareaLength: 0,
+            subirImagen: null
         };
+    },
+    mounted(){
+        let functions = getFunctions();
+        connectFunctionsEmulator(functions, "localhost", 5001);
+        this.subirImagen = httpsCallable(functions, 'addMessage');
+
     },
     computed:{
         disableButton(){
@@ -147,15 +155,11 @@ export default {
             e.preventDefault();
 
             var formData = new FormData(this.$refs.formCrear);
-            axios.post('/posts', formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            })
+            axios.get('http://localhost:5001/proyectoxdxd-6a713/us-central1/helloWorld', {adsfsd: "sdvdv"})
             .then((response) => {
-                console.log(response.data.data);
-                this.$emit("postCreated", response.data.data);
-                this.ocultarModal();
+                console.log(response.data);
+                //this.$emit("postCreated", response.data.data);
+                //this.ocultarModal();
             })
             .catch((error) => {
                 let indices = Object.keys(error.response.data.errors);

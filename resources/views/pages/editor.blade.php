@@ -39,8 +39,14 @@
                             buttonContent: "Escoge una image",
                             uploader: {
                                 uploadByFile(file) {
+
+                                    const storage = firebase.getStorage();
+                                    console.log(firebase);
+                                    firebase.connectStorageEmulator(storage, "localhost", 9199);
+
+
                                     console.log(file);
-                                    const storageRef = firebase.ref(firebase.getStorage(),
+                                    const storageRef = firebase.ref(storage,
                                         'prueba/editorimagen23456.png');
                                     const uploadTask = firebase.uploadBytesResumable(storageRef, file);
 
