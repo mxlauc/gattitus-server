@@ -46,11 +46,11 @@
                             <div class="mb-2">
                                 <label>
                                     <img
-                                        v-bind:src="usuarioLogin?.avatar"
+                                        v-bind:src="userLogged?.avatar"
                                         class="rounded-circle"
                                         style="height: 40px"
                                     />
-                                    {{ usuarioLogin?.nombre }}
+                                    {{ userLogged?.nombre }}
                                 </label>
                             </div>
                             <form
@@ -126,8 +126,9 @@
 </template>
 <script>
 import { getFunctions, httpsCallable, connectFunctionsEmulator } from "firebase/functions";
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
 export default {
-    inject: ["usuarioLogin"],
+    inject: ["userLogged"],
     data() {
         return {
             imagenPreview: null,
@@ -139,6 +140,7 @@ export default {
         let functions = getFunctions();
         connectFunctionsEmulator(functions, "localhost", 5001);
         this.subirImagen = httpsCallable(functions, 'addMessage');
+        console.log(this.userLogged);
 
     },
     computed:{
@@ -175,7 +177,23 @@ export default {
             this.$refs.formCrear.reset();
         },
         mostrarPreview(e) {
-            this.imagenPreview = URL.createObjectURL(e.target.files[0]);
+            //this.imagenPreview = URL.createObjectURL(e.target.files[0]);
+            let formData = new FormData();
+            formData.append('file', e.target.files[0]);
+
+            axios.post('/images/upload', formData,{
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+            .then(response=>{
+                console.log(response.data.url);
+                this.imagenPreview = response.data.url;
+            })
+            .catch(response=>{
+                console.log(response);
+            });
+
         },
         borrarImagen(){
             this.$refs.formCrear.imagen.value = ''
