@@ -3,6 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\SimplePublicationController;
+use App\Models\Image;
+use App\Models\SimplePublication;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +19,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('pages.home');
+    $publications =  SimplePublication::with(['image', 'user'])->orderBy('created_at', 'DESC')->get();
+    return view('pages.home', compact('publications'));
 })->name('home');
 
 Route::get('/auth/login/facebook', [AuthController::class, 'loginFacebook'])->name("login.facebook");

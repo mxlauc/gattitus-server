@@ -2,16 +2,26 @@
 
 @section('content')
 @include('sections.posts_top')
-<a href="{{ route('login.facebook') }}"> facebok</a>
-
 <div class="row">
     <div class="col">
-        <button>crear</button>
-        <crear-publicacion-component></crear-publicacion-component>
+        <!-- <crear-publicacion-component></crear-publicacion-component> -->
         <div style="margin-left: 15%; margin-right: 15%; ">
-            <p style="word-break: break-all">
-                @json(Auth::user())
-            </p>
+            @foreach($publications as $publication)
+            <simple-publication-component
+                :publication="{
+                    color: 321,
+                    image: '{{$publication->image->public_path}}',
+                    description : '{{$publication->description}}',
+                    user : {
+                        url : '/home',
+                        name : '{{$publication->user->name}}',
+                        avatar : '/storage/{{$publication->user->avatar}}',
+                    }
+                }"
+            ></simple-publication-component>
+            
+            @endforeach
+            
             <div class="card" >
 
                 <div class="card-body">
