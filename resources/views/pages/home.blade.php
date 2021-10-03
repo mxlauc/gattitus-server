@@ -4,8 +4,7 @@
 @include('sections.posts_top')
 <div class="row">
     <div class="col">
-        <!-- <crear-publicacion-component></crear-publicacion-component> -->
-        <div style="margin-left: 15%; margin-right: 15%; ">
+        <div>
             @foreach($publications as $publication)
             <simple-publication-component
                 :publication="{
@@ -51,7 +50,7 @@
             </div>
         </div>
     </div>
-    <div class="col-auto" style="width: 400px; max-width: 100%;">
+    <div class="col-auto sticky-top" style="width: 400px; max-width: 100%; align-self: flex-start; top: 80px;">
         <div class="card" >
 
             <div class="card-body">

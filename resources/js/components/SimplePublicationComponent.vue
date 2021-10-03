@@ -46,8 +46,7 @@
             />
           </svg>
           <br />
-          <span class="spanAction" 
-            >Visto por {{ vistosContador }}</span
+          <span class="spanAction">Visto por 45</span
           >
         </div>
         <div class="itemAction">
@@ -120,11 +119,13 @@ export default {
     background-size: 100%;
     background-position: center center;
     background-repeat: no-repeat;
+    max-width: 500px;
+    margin: auto;
 }
 @media (min-width: 992px) {
     .card-publication{
         border-radius: .25rem;
-        height: 500px;
+        height: 560px;
     }
 }
 .card-publication{

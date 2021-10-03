@@ -1,4 +1,4 @@
-<div class="d-flex flex-column h-100">
+<div class="d-flex flex-column h-100 shadow-sm">
     <div>
         <a class="navbar-brand fw-bold text-black d-inline-block p-1 m-3 mb-0" href="/" style="font-size: 30px;">
             <img src="https://www.gattitus.com/assets/icons/icon-72x72.png" style="height: 40px; margin-top: -10px;">

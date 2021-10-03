@@ -2,7 +2,7 @@
     display: block;
     list-style-type: none;
     padding: 0px;
-    color: #666;
+    color: #999;
 }
 
 .options-sidebar > li{
@@ -11,31 +11,16 @@
     margin: 2px 20px;
     padding: 10px 16px;
     border-radius: 10px;
-    transition: background-color 0.4s ease-out,
-        color 0.2s ease-out;
+    
 }
-.options-sidebar > li:nth-child(1) > svg{
-    color: #ff6db6;
-}
-.options-sidebar > li:nth-child(2) > svg{
-    color: #47d476;
-}
-.options-sidebar > li:nth-child(3) > svg{
-    color: #ffb731;
-}
-.options-sidebar > li:nth-child(4) > svg{
-    color: #4cb8eb;
-}
-.options-sidebar > li:nth-child(5) > svg{
-    color: #e65b80;
-}
+
 
 .options-sidebar > li > span{
     margin-left: 20px;
     font-weight: bold;
 }
 .options-sidebar > li:hover{
-    background-color: rgb(255, 115, 0);
+    background-color: #f90;
     color: #fff;
 }
 .options-sidebar > li:hover > svg{
