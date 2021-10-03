@@ -39,48 +39,28 @@
                             buttonContent: "Escoge una image",
                             uploader: {
                                 uploadByFile(file) {
-
-                                    const storage = firebase.getStorage();
-                                    console.log(firebase);
-                                    firebase.connectStorageEmulator(storage, "localhost", 9199);
-
-
-                                    console.log(file);
-                                    const storageRef = firebase.ref(storage,
-                                        'prueba/editorimagen23456.png');
-                                    const uploadTask = firebase.uploadBytesResumable(storageRef, file);
+                                    
 
                                     return new Promise((resolve, reject) => {
-                                        let task = uploadTask.on('state_changed',
-                                            (snapshot) => {
-                                                // Observe state change events such as progress, pause, and resume
-                                                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                                                const progress = (snapshot.bytesTransferred /
-                                                    snapshot
-                                                    .totalBytes) * 100;
-                                                console.log('Upload is ' + progress + '% done');
-                                            },
-                                            (error) => {
-                                                // Handle unsuccessful uploads
-                                                reject();
-                                            },
-                                            () => {
-                                                // Handle successful uploads on complete
-                                                // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-                                                firebase.getDownloadURL(uploadTask.snapshot.ref)
-                                                    .then((
-                                                        downloadURL) => {
-                                                        console.log('File available at',
-                                                            downloadURL);
-                                                        resolve({
-                                                            success: 1,
-                                                            file: {
-                                                                url: downloadURL
-                                                            }
-                                                        });
-                                                    });
+                                        let formData = new FormData();
+                                        formData.append('file', file);
+                                        axios.post('/images', formData, {
+                                            headers: {
+                                                'Content-Type': 'multipart/form-data'
                                             }
-                                        );
+                                        })
+                                        .then(response =>{
+                                            resolve({
+                                                success: 1,
+                                                file: {
+                                                    url: response.data.url
+                                                }
+                                            });
+                                        })
+                                        .catch(error=>{
+                                            console.log(error);
+                                            reject();
+                                        });
                                     });
 
                                 }
