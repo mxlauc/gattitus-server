@@ -16,47 +16,41 @@ use Intervention\Image\Facades\Image;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::post('images/upload', function(Request $request){
+function uploadFileFirebase($name, $fileStream){
     $bucket = app('firebase.storage')->getBucket();
     $uuid = Uuid::uuid4()->toString();
+
+    $bucket->upload($fileStream, [
+        'name' => $name,
+        'metadata' => [
+            'metadata' => [
+                'firebaseStorageDownloadTokens' => $uuid
+            ]
+        ]
+    ]);
+    
+    return "https://firebasestorage.googleapis.com/v0/b/{$bucket->name()}/o/{$name}?alt=media&token={$uuid}";
+}
+
+Route::post('images/upload', function(Request $request){
     $name = 'img.jpg';
 
-    $bucket->upload(fopen($request->file('file')->getRealPath(), 'r'), [
-        'name' => $name,
-        'metadata' => [
-            'metadata' => [
-                'firebaseStorageDownloadTokens' => $uuid
-            ]
-        ]
-    ]);
-    
-    
-    // open an image file
     $img = Image::make($request->file('file')->getRealPath());
+    $limite = 1000;
+    if ($img->height() > $limite || $img->width() > $limite){
+        $img->resize($limite, $limite, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();
+        });
+        $fileStream = $img->stream('jpg', 85);
+    }else{
+        $fileStream = fopen($request->file('file')->getRealPath(), 'r');
+    }
+    $url = uploadFileFirebase($name, $fileStream);
 
-    // now you are able to resize the instance
-    $img->resize(200, 200, function ($constraint) {
-        $constraint->aspectRatio();
-        $constraint->upsize();
-    });
-
-    // finally we save the image as a new file
-    $img->save(sys_get_temp_dir() . $uuid);
-
-    $name = 'xd' . $name;
-
-    $bucket->upload(fopen(sys_get_temp_dir() . $uuid, 'r'), [
-        'name' => $name,
-        'metadata' => [
-            'metadata' => [
-                'firebaseStorageDownloadTokens' => $uuid
-            ]
-        ]
-    ]);
     return [
         "estado" => "ok",
-        "url" => "https://firebasestorage.googleapis.com/v0/b/{$bucket->name()}/o/{$name}?alt=media&token={$uuid}"
+        "url" => $url
     ];
 });
 
