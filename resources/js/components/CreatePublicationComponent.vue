@@ -60,7 +60,7 @@
                                 method="POST"
                             >
                                 <textarea
-                                    name="descripcion"
+                                    name="description"
                                     style="
                                         width: 100%;
                                         height: 100px;
@@ -133,7 +133,8 @@ export default {
         return {
             imagenPreview: null,
             textareaLength: 0,
-            subirImagen: null
+            subirImagen: null,
+            imageId: null,
         };
     },
     mounted(){
@@ -157,7 +158,8 @@ export default {
             e.preventDefault();
 
             var formData = new FormData(this.$refs.formCrear);
-            axios.get('http://localhost:5001/proyectoxdxd-6a713/us-central1/helloWorld', {adsfsd: "sdvdv"})
+            formData.append('image_id', this.imageId);
+            axios.post('/simplepublication', formData)
             .then((response) => {
                 console.log(response.data);
                 //this.$emit("postCreated", response.data.data);
@@ -189,6 +191,7 @@ export default {
             .then(response=>{
                 console.log(response.data.url);
                 this.imagenPreview = response.data.url;
+                this.imageId = response.data.imageId;
             })
             .catch(response=>{
                 console.log(response);

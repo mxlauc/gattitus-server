@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SimplePublicationController;
 use App\Models\Image as ModelsImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,7 +57,7 @@ Route::post('images/upload', function(Request $request){
     }
     $url = uploadFileFirebase($name, $fileStream);
 
-    ModelsImage::create([
+    $image = ModelsImage::create([
         'private_path' => $name,
         'public_path' => $url,
         'user_id' => Auth::user()->id
@@ -64,7 +65,8 @@ Route::post('images/upload', function(Request $request){
 
     return [
         "estado" => "ok",
-        "url" => $url
+        "imageId" => $image->id,
+        "url" => $url,
     ];
 });
 
@@ -83,3 +85,5 @@ Route::get('editor', function(){
 Route::get('hey.js', function(){
     return 'jeje';
 });
+
+Route::resource('simplepublication', SimplePublicationController::class)->names('simplepublication');
