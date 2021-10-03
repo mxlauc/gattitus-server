@@ -62,7 +62,6 @@
                                 ></textarea>
                                 <input
                                     type="file"
-                                    name="imagen"
                                     id="imagen"
                                     class="d-none"
                                     accept="image/png, image/jpeg"
