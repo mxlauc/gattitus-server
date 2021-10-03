@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Models\Image as ModelsImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 use Ramsey\Uuid\Uuid;
@@ -28,12 +30,18 @@ function uploadFileFirebase($name, $fileStream){
             ]
         ]
     ]);
-    
-    return "https://firebasestorage.googleapis.com/v0/b/{$bucket->name()}/o/{$name}?alt=media&token={$uuid}";
+    $name_formated = str_replace('/', '%2F', $name);
+    return "https://firebasestorage.googleapis.com/v0/b/{$bucket->name()}/o/{$name_formated}?alt=media&token={$uuid}";
 }
 
 Route::post('images/upload', function(Request $request){
-    $name = 'img.jpg';
+    if(!Auth::user()){
+        return [
+            'estado' => 'error',
+            'url' => null
+        ];
+    }
+    $name = Auth::user()->facebook_id . '/' . 'images' . '/' . round(microtime(true) * 1000) . "_" . rand(30000, 60000) . ".jpg";
 
     $img = Image::make($request->file('file')->getRealPath());
     $limite = 1000;
@@ -47,6 +55,12 @@ Route::post('images/upload', function(Request $request){
         $fileStream = fopen($request->file('file')->getRealPath(), 'r');
     }
     $url = uploadFileFirebase($name, $fileStream);
+
+    ModelsImage::create([
+        'private_path' => $name,
+        'public_path' => $url,
+        'user_id' => Auth::user()->id
+    ]);
 
     return [
         "estado" => "ok",
