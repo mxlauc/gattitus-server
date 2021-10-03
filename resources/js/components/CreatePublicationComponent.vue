@@ -1,18 +1,6 @@
 <template>
     <div>
-        <div class="row justify-content-center">
-            <div class="col col-8">
-                <label
-                    class="form-control text-muted mb-4"
-                    role="button"
-                    tabindex="0"
-                    data-bs-toggle="modal"
-                    data-bs-target="#crearPublicacionModal"
-                >
-                    Post something...
-                </label>
-            </div>
-        </div>
+        
 
         <!-- Modal -->
         <div
@@ -60,7 +48,7 @@
                                 method="POST"
                             >
                                 <textarea
-                                    name="descripcion"
+                                    name="description"
                                     style="
                                         width: 100%;
                                         height: 100px;
@@ -125,23 +113,18 @@
     </div>
 </template>
 <script>
-import { getFunctions, httpsCallable, connectFunctionsEmulator } from "firebase/functions";
-import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
+import {Modal} from 'bootstrap';
+
 export default {
     inject: ["userLogged"],
     data() {
         return {
             imagenPreview: null,
             textareaLength: 0,
-            subirImagen: null
+            imageId: null,
         };
     },
     mounted(){
-        let functions = getFunctions();
-        connectFunctionsEmulator(functions, "localhost", 5001);
-        this.subirImagen = httpsCallable(functions, 'addMessage');
-        console.log(this.userLogged);
-
     },
     computed:{
         disableButton(){
@@ -157,17 +140,21 @@ export default {
             e.preventDefault();
 
             var formData = new FormData(this.$refs.formCrear);
-            axios.get('http://localhost:5001/proyectoxdxd-6a713/us-central1/helloWorld', {adsfsd: "sdvdv"})
+            formData.append('image_id', this.imageId);
+            axios.post('/simplepublications', formData)
             .then((response) => {
                 console.log(response.data);
+                this.$refs.formCrear.reset();
+                this.imageId = null;
+                this.textareaLength = 0;
+                this.imagenPreview = null;
+                let modal = Modal.getInstance(document.getElementById('crearPublicacionModal'));
+                modal.hide();
                 //this.$emit("postCreated", response.data.data);
                 //this.ocultarModal();
             })
             .catch((error) => {
-                let indices = Object.keys(error.response.data.errors);
-                if(indices.length > 0){
-                    alert(error.response.data.errors[indices[0]]);
-                }
+                console.log(error);
             });
         },
         ocultarModal() {
@@ -181,7 +168,7 @@ export default {
             let formData = new FormData();
             formData.append('file', e.target.files[0]);
 
-            axios.post('/images/upload', formData,{
+            axios.post('/images', formData,{
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -189,6 +176,7 @@ export default {
             .then(response=>{
                 console.log(response.data.url);
                 this.imagenPreview = response.data.url;
+                this.imageId = response.data.imageId;
             })
             .catch(response=>{
                 console.log(response);

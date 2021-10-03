@@ -80,13 +80,14 @@ onAuthStateChanged(auth, (user) => {
 
 import { createApp, provide } from 'vue';
 import HeaderComponent from './components/HeaderComponent.vue';
-import CrearPublicacionComponent from './components/CreatePublicationComponent.vue';
+
+import SimplePublicationComponent from './components/SimplePublicationComponent.vue';
 import { result } from "lodash";
 
 window.app = createApp({
     components: {
         HeaderComponent,
-        CrearPublicacionComponent,
+        SimplePublicationComponent,
     }
 });
 

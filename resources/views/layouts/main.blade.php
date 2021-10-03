@@ -77,7 +77,7 @@
         </div>
         <div class="col">
             @include('sections.header')
-            <div class="p-4">
+            <div class="px-4" style="padding-top: 80px;">
                 @yield('content')
             </div>
         </div>

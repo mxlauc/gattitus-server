@@ -1,11 +1,12 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\ImageController;
+use App\Http\Controllers\SimplePublicationController;
+use App\Models\Image;
+use App\Models\SimplePublication;
 use Illuminate\Support\Facades\Route;
-use Laravel\Socialite\Facades\Socialite;
-use Ramsey\Uuid\Uuid;
-use Intervention\Image\Facades\Image;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,46 +17,10 @@ use Intervention\Image\Facades\Image;
 | contains the "web" middleware group. Now create something great!
 |
 */
-function uploadFileFirebase($name, $fileStream){
-    $bucket = app('firebase.storage')->getBucket();
-    $uuid = Uuid::uuid4()->toString();
-
-    $bucket->upload($fileStream, [
-        'name' => $name,
-        'metadata' => [
-            'metadata' => [
-                'firebaseStorageDownloadTokens' => $uuid
-            ]
-        ]
-    ]);
-    
-    return "https://firebasestorage.googleapis.com/v0/b/{$bucket->name()}/o/{$name}?alt=media&token={$uuid}";
-}
-
-Route::post('images/upload', function(Request $request){
-    $name = 'img.jpg';
-
-    $img = Image::make($request->file('file')->getRealPath());
-    $limite = 1000;
-    if ($img->height() > $limite || $img->width() > $limite){
-        $img->resize($limite, $limite, function ($constraint) {
-            $constraint->aspectRatio();
-            $constraint->upsize();
-        });
-        $fileStream = $img->stream('jpg', 85);
-    }else{
-        $fileStream = fopen($request->file('file')->getRealPath(), 'r');
-    }
-    $url = uploadFileFirebase($name, $fileStream);
-
-    return [
-        "estado" => "ok",
-        "url" => $url
-    ];
-});
 
 Route::get('/', function () {
-    return view('pages.home');
+    $publications =  SimplePublication::with(['image', 'user'])->orderBy('created_at', 'DESC')->get();
+    return view('pages.home', compact('publications'));
 })->name('home');
 
 Route::get('/auth/login/facebook', [AuthController::class, 'loginFacebook'])->name("login.facebook");
@@ -69,3 +34,6 @@ Route::get('editor', function(){
 Route::get('hey.js', function(){
     return 'jeje';
 });
+
+Route::resource('images', ImageController::class)->names('images');
+Route::resource('simplepublications', SimplePublicationController::class)->names('simplepublication');
