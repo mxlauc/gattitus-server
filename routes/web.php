@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CatController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\SimplePublicationController;
 use App\Models\Image;
@@ -37,3 +38,4 @@ Route::get('hey.js', function(){
 
 Route::resource('images', ImageController::class)->names('images');
 Route::resource('simplepublications', SimplePublicationController::class)->names('simplepublication');
+Route::resource('cats', CatController::class)->names('cats');
