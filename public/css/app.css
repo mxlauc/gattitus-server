@@ -1,1 +1,32 @@
-.options-sidebar{color:#666;display:block;list-style-type:none;padding:0}.options-sidebar>li{border-radius:10px;cursor:pointer;list-style-type:none;margin:2px 20px;padding:10px 16px;transition:background-color .4s ease-out,color .2s ease-out}.options-sidebar>li:first-child>svg{color:#ff6db6}.options-sidebar>li:nth-child(2)>svg{color:#47d476}.options-sidebar>li:nth-child(3)>svg{color:#ffb731}.options-sidebar>li:nth-child(4)>svg{color:#4cb8eb}.options-sidebar>li:nth-child(5)>svg{color:#e65b80}.options-sidebar>li>span{font-weight:700;margin-left:20px}.options-sidebar>li:hover{background-color:#ff7300;color:#fff}.options-sidebar>li:hover>svg{color:#fff!important}.image-tool__caption{display:none}
+.options-sidebar{
+    display: block;
+    list-style-type: none;
+    padding: 0px;
+    color: #999;
+}
+
+.options-sidebar > li{
+    cursor: pointer;
+    list-style-type: none;
+    margin: 2px 20px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    
+}
+
+
+.options-sidebar > li > span{
+    margin-left: 20px;
+    font-weight: bold;
+}
+.options-sidebar > li:hover{
+    background-color: #f90;
+    color: #fff;
+}
+.options-sidebar > li:hover > svg{
+    color: #fff !important;
+}
+.image-tool__caption{
+    display: none;
+}
+
