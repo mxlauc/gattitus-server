@@ -12,6 +12,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+
     <!-- Styles -->
     <style>
         * {
@@ -20,6 +22,9 @@
 
         .f-fredoka {
             font-family: 'Fredoka One', cursive;
+        }
+        .f-rubick label, .f-rubick p, .f-rubick span{
+            font-family: 'Rubik', sans-serif !important;
         }
 
     </style>
@@ -77,7 +82,7 @@
         </div>
         <div class="col">
             @include('sections.header')
-            <div class="px-4" style="padding-top: 80px;">
+            <div class="px-0 px-sm-4" style="padding-top: 80px;">
                 @yield('content')
             </div>
         </div>
