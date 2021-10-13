@@ -3,14 +3,14 @@
 @section('content')
 @include('sections.posts_top')
 <div class="row">
-    <div class="col">
+    <div class="col-12 col-md-7">
         <div style="max-width: 480px; margin: auto;">
             @foreach($publications as $publication)
             <simple-publication-component
                 :publication="{
                     color: 321,
                     image: '{{$publication->image->public_path}}',
-                    description : '{{$publication->description}}',
+                    description : `{{$publication->description}}`,
                     user : {
                         url : '/home',
                         name : '{{$publication->user->name}}',
@@ -23,7 +23,7 @@
             
         </div>
     </div>
-    <div class="col-auto sticky-top" style="width: 400px; max-width: 100%; align-self: flex-start; top: 80px;">
+    <div class="col-12 col-md-5 sticky-top" style="max-width: 400px; max-width: 100%; align-self: flex-start; top: 80px;">
         <div class="card" >
 
             <div class="card-body">
