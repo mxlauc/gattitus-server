@@ -1,14 +1,14 @@
 <template>
   <div class="card card-publication rounded-5 border-0 shadow f-rubick mb-4">
     <div class="card-body">
-      <div class="row">
+      <div class="row g-0">
         <div class="col-auto">
           <img
               class="img-user-publication shadow"
               :src="publication.user.avatar"
             />
         </div>
-        <div class="col">
+        <div class="col px-2">
           <span class="name-user-publication fw-bold" role="button">{{publication.user.name}}</span>
           <span class="d-block text-black-50 fs-6" role="button"><small>Hace 5 minutos</small></span>
         </div>
@@ -30,7 +30,7 @@
       </div>
       
         <img
-          class="img-publication img-fluid w-100 shadow rounded-5 my-2"
+          class="img-publication img-fluid w-100 shadow-sm rounded-5 my-2"
           :src="publication.image"
         />
         <p class="fs-6 text-muted">
@@ -99,7 +99,7 @@ export default {
   border-radius: 0.8rem;
 }
 .img-publication{
-  max-height: 300px;
+  max-height: 500px;
   object-fit: cover;
 }
 

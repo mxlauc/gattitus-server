@@ -1,13 +1,7 @@
 require('./bootstrap');
 
-
-// Import the functions you need from the SDKs you need
-window.firebase = require("firebase/storage");
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithCredential, FacebookAuthProvider, onAuthStateChanged, signOut } from "firebase/auth";
-
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -20,7 +14,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 
 const auth = getAuth()
 
@@ -38,24 +32,15 @@ function get_cookie(name) {
 
 onAuthStateChanged(auth, (user) => {
     if (user) {
-        console.log(user);
-        const uid = user.uid;
-        // ...
+        console.log('usuario logeado');
     } else {
-        console.log("no hay usuario");
         let login_token_to_firebase = get_cookie('login_token_to_firebase');
         if (login_token_to_firebase) {//inicio sesion en laravel, ahora iniciamos sesion en js
-
-            const credential = FacebookAuthProvider.credential(
-                login_token_to_firebase
-            );
-
+            const credential = FacebookAuthProvider.credential(login_token_to_firebase);
             // Sign in with the credential from the Facebook user.
             signInWithCredential(auth, credential)
                 .then(result => {
-                    console.log(result);
-                    console.log(FacebookAuthProvider.credentialFromResult(result).accessToken);
-                    console.log(auth.currentUser);
+                    console.log('usuario logeado por facebook');
                 })
                 .catch((error) => {
                     if (error.code == "auth/invalid-credential") {
@@ -82,7 +67,6 @@ import { createApp, provide } from 'vue';
 import HeaderComponent from './components/HeaderComponent.vue';
 
 import SimplePublicationComponent from './components/SimplePublicationComponent.vue';
-import { result } from "lodash";
 
 window.app = createApp({
     components: {
