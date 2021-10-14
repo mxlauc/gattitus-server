@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-@include('sections.posts_top')
+
 <div class="row g-0">
     <div class="col-12 col-md-7">
         <div style="max-width: 480px; margin: auto;">

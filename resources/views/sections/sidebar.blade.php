@@ -42,9 +42,5 @@
 
         </ul>
     </div>
-    <div class="flex-grow-1" style="overflow-y: auto;">
-        hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>hola<br>
-
-
-    </div>
+    
   </div>
