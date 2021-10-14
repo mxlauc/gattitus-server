@@ -2,14 +2,19 @@
 
 @section('content')
 @include('sections.posts_top')
-<div class="row">
+<div class="row g-0">
     <div class="col-12 col-md-7">
         <div style="max-width: 480px; margin: auto;">
             @foreach($publications as $publication)
             <simple-publication-component
                 :publication="{
                     color: 321,
-                    image: '{{$publication->image->public_path}}',
+                    image: {
+                        'url' : '{{$publication->image->public_path}}',
+                        'aspect_ratio' : {{json_decode($publication->image->meta_data)->aspect_ratio}},
+                        'color_bl' : '{{json_decode($publication->image->meta_data)->color_bl}}',
+                        'color_tr' : '{{json_decode($publication->image->meta_data)->color_tr}}'
+                    },
                     description : `{{$publication->description}}`,
                     user : {
                         url : '/home',

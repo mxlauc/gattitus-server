@@ -48,7 +48,9 @@ class ImageController extends Controller
     
         $img = Image::make($request->file('file')->getRealPath());
         $limite = 1000;
-        if ($img->height() > $limite || $img->width() > $limite){
+        $w = $img->width();
+        $h = $img->height();
+        if ($h > $limite || $w > $limite){
             $img->resize($limite, $limite, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
@@ -59,9 +61,21 @@ class ImageController extends Controller
         }
         $url = $this->uploadFileFirebase($name, $fileStream);
     
+        // resize image to fixed size
+        $img->resize(90, 90);
+        $img->pixelate(30);
+        $img->brightness(30);
+        $color1 = $img->pickColor(10, 80, 'hex');
+        $color2 = $img->pickColor(80, 10, 'hex');
+
         $image = ModelsImage::create([
             'private_path' => $name,
             'public_path' => $url,
+            'meta_data' => json_encode([
+                    'aspect_ratio' => round($w / $h, 2),
+                    'color_bl' => $color1,
+                    'color_tr' => $color2,
+                ]),
             'user_id' => Auth::user()->id
         ]);
     
