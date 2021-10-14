@@ -28,11 +28,14 @@
 
         </div>
       </div>
-      
-        <img
-          class="img-publication img-fluid w-100 shadow-sm rounded-5 my-2"
-          :src="publication.image"
-        />
+        <div class="rounded-5 img-container-publication shadow-sm my-2 position-relative"
+        :style="{ aspectRatio: publication.image.aspect_ratio, background: `linear-gradient(45deg, ${publication.image.color_bl} 0%, ${publication.image.color_tr} 100%)`}">
+          <img class="img-publication img-fluid w-100 shadow-sm opacity-0"
+            :src="publication.image.url"
+            @load="onLoadImage"/>
+            <div class="position-absolute top-0 start-0 end-0 bottom-0"></div>
+        </div>
+        
         <p class="fs-6 text-muted">
           {{publication.description}}
         </p>
@@ -80,6 +83,9 @@ export default {
         },
         doubleclick(){
 
+        },
+        onLoadImage(e){
+          e.currentTarget.classList.remove('opacity-0')
         }
     },
 };
@@ -98,9 +104,16 @@ export default {
   height: 40px;
   border-radius: 0.8rem;
 }
-.img-publication{
-  max-height: 500px;
-  object-fit: cover;
+.img-container-publication{
+  overflow: hidden;
 }
+.img-publication{
+  object-fit: cover;
+  transition: opacity 0.3s ease-out;
+}
+.opacity-0{
+  opacity: 0;
+}
+
 
 </style>

@@ -12,6 +12,7 @@ class Image extends Model
     protected $fillable = [
         'private_path',
         'public_path',
+        'meta_data',
         'user_id',
     ];
 }
