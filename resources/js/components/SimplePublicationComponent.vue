@@ -32,7 +32,6 @@
         :style="{ aspectRatio: publication.image.aspect_ratio < 0.8 ? 0.8 : publication.image.aspect_ratio, background: `linear-gradient(45deg, ${publication.image.color_bl} 0%, ${publication.image.color_tr} 100%)`}">
           <img class="img-publication img-fluid w-100 shadow-sm opacity-0"
             :src="publication.image.url"
-            :style="{ aspectRatio: publication.image.aspect_ratio < 0.8 ? 0.8 : publication.image.aspect_ratio}"
             @load="onLoadImage"/>
             <div class="position-absolute top-0 start-0 end-0 bottom-0"></div>
         </div>
@@ -106,6 +105,7 @@ export default {
 }
 .img-publication{
   object-fit: cover;
+  height: 100%;
   transition: opacity 0.3s ease-out;
 }
 .opacity-0{
