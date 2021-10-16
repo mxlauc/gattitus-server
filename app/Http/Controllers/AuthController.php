@@ -26,13 +26,14 @@ class AuthController extends Controller
             $fileContents = file_get_contents($url_imagen);
             $path_image = $user_social->getId() . "_" . round(microtime(true) * 1000) . "_" . rand(30000, 60000) . ".jpg";
             Storage::put($path_image, $fileContents);
-            $user = User::create([
-                'name'          => $user_social->getName(),
-                'email'         => $user_social->getEmail(),
-                'avatar'        => $path_image,
-                'facebook_id'   => $user_social->getId(),
-                'role_id'       => 1,
-            ]);
+            $user = new User();
+            $user->name = $user_social->getName();
+            $user->email = $user_social->getEmail();
+            $user->avatar = $path_image;
+            $user->facebook_id = $user_social->getId();
+            $user->role_id = 1;
+            $user->username = null;
+            $user->save();
         }
         //Cookie::queue('login_token_to_firebase', $user_social->token, 10);
         Cookie::queue('login_token_to_firebase',
