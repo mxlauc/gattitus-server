@@ -64,7 +64,7 @@ class ImageController extends Controller
         // resize image to fixed size
         $img->resize(90, 90);
         $img->pixelate(30);
-        $img->brightness(30);
+        $img->brightness(20);
         $color1 = $img->pickColor(10, 80, 'hex');
         $color2 = $img->pickColor(80, 10, 'hex');
 
