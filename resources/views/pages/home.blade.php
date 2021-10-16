@@ -17,7 +17,7 @@
                     },
                     description : `{{$publication->description}}`,
                     user : {
-                        url : '/home',
+                        url : '{{$publication->user->getUrl()}}',
                         name : '{{$publication->user->name}}',
                         avatar : '/storage/{{$publication->user->avatar}}',
                     }

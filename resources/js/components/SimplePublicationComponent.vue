@@ -3,14 +3,18 @@
     <div class="card-body pb-0">
       <div class="row g-0">
         <div class="col-auto">
-          <img
-              class="img-user-publication shadow"
-              :src="publication.user.avatar"
-            />
+          <a :href="publication.user.url">
+            <img class="img-user-publication shadow"
+              :src="publication.user.avatar">
+          </a>
+          
         </div>
         <div class="col px-2">
-          <span class="name-user-publication fw-bold" role="button">{{publication.user.name}}</span>
+          <a :href="publication.user.url" class="name-user-publication fw-bold text-decoration-none text-dark" >
+            {{publication.user.name}}
+          </a>
           <span class="d-block text-black-50 fs-6" role="button"><small>Hace 5 minutos</small></span>
+          
         </div>
         <div class="col-auto">
           

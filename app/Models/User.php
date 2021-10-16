@@ -20,6 +20,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
         'email',
         'avatar',
         'facebook_id',
@@ -45,10 +46,28 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function getUrl()
-    {
-        return "/";
+
+    public function setUsernameAttribute($value){
+        if(!$value){
+            $value = $this->generateUsername();
+            while(User::whereUsername($value)->exists()){
+                $value = $this->generateUsername();
+            }
+        }
+        
+        $this->attributes['username'] = $value;
     }
+
+    private function generateUsername(){
+        $result = "user" . dechex(intval(microtime(true))) . dechex(rand());
+        return $result;
+    }
+
+
+    public function getUrl(){
+        return "/@$this->username";
+    }
+
     public function getAvatarUrl()
     {
         return Storage::url($this->avatar);
