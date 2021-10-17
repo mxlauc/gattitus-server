@@ -38,6 +38,7 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', ModelsImage::class);
         if(!Auth::user()){
             return [
                 'estado' => 'error',
