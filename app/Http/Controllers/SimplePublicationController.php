@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class SimplePublicationController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(SimplePublication::class);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -35,6 +41,7 @@ class SimplePublicationController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', SimplePublication::class);
         SimplePublication::create([
             'description' => $request->description,
             'user_id' => $request->user()->id,
