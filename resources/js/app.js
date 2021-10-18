@@ -67,11 +67,12 @@ import { createApp, provide } from 'vue';
 import HeaderComponent from './components/HeaderComponent.vue';
 
 import SimplePublicationComponent from './components/SimplePublicationComponent.vue';
-
+import CatItemComponent from './components/CatItemComponent.vue';
 window.app = createApp({
     components: {
         HeaderComponent,
         SimplePublicationComponent,
+        CatItemComponent,
     }
 });
 
