@@ -10,7 +10,7 @@
                 :publication="{
                     color: 321,
                     image: {
-                        'url' : '{{$publication->image->public_path}}',
+                        'url' : '{{$publication->image->url_lg}}',
                         'aspect_ratio' : {{json_decode($publication->image->meta_data)->aspect_ratio}},
                         'color_bl' : '{{json_decode($publication->image->meta_data)->color_bl}}',
                         'color_tr' : '{{json_decode($publication->image->meta_data)->color_tr}}'

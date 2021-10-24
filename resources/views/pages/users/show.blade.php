@@ -50,7 +50,7 @@
                     <div class="col-4 col-lg-3">
                         <cat-item-component
                         name="{{$cat->name}}"
-                        image="{{$cat->image->public_path}}"
+                        image="{{$cat->image->url_sm}}"
                         />
                     </div>
                     @endforeach
