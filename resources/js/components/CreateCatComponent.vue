@@ -35,12 +35,14 @@
                                 ref="formCrear"
                                 method="POST"
                             >
-                                <div class="row">
-                                    <div class="col-5">
+                                <div class="row gy-3">
+                                    <div class="col-sm-5">
+                                        <span class="d-block form-label">Foto</span>
                                         <div class="position-relative" v-if="imagenPreview">
                                             <img
                                             v-bind:src="imagenPreview"
-                                            class="w-100 rounded-3">
+                                            class="w-100 rounded-3"
+                                            style="aspect-ratio: 1;">
                                             <button
                                                 type="button"
                                                 class="btn-close bg-white shadow position-absolute top-0 end-0 m-3 p-2 rounded-circle"
@@ -53,8 +55,8 @@
                                             class="form-control"
                                             tabindex="0"
                                             role="button"
-                                            v-else
-                                        >
+                                            style="aspect-ratio: 1; display: flex; align-items: center; justify-content: center;"
+                                            v-else>
                                             <img
                                                 src="https://img.icons8.com/cotton/2x/image-file-add--v2.png"
                                                 style="height: 20px"
@@ -62,7 +64,7 @@
                                             Add image
                                         </label>
                                     </div>
-                                    <div class="col-7">
+                                    <div class="col-sm-7">
                                         <div class="mb-3">
                                             <label class="form-label">Nombre</label>
                                             <input type="text" class="form-control" placeholder="Ejemplo: El señor Bigotes" name="name">
@@ -184,7 +186,7 @@ export default {
 
         },
         borrarImagen(){
-            this.$refs.formCrear.imagen.value = ''
+            this.$refs.formCrear.imageCat.value = ''
             this.imagenPreview = null;
         },
     },
