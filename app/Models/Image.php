@@ -10,8 +10,12 @@ class Image extends Model
     use HasFactory;
 
     protected $fillable = [
-        'private_path',
-        'public_path',
+        'directory',
+        'url_xl',
+        'url_lg',
+        'url_md',
+        'url_sm',
+        'url_xs',
         'meta_data',
         'user_id',
     ];

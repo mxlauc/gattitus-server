@@ -68,8 +68,8 @@ class User extends Authenticatable
         return "/@$this->username";
     }
 
-    public function getAvatarUrl()
-    {
-        return Storage::url($this->avatar);
+    public function image(){
+        return $this->belongsTo(Image::class);
     }
+
 }
