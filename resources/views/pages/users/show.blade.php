@@ -42,43 +42,18 @@
         </div>
     </div>
     <div class="col-12 col-md-5 order-1 order-md-2">
-        <div class="card shadow" style="min-height: 400px;">
+        <div class="card shadow" style="max-height: 400px; overflow-y: auto;">
             <div class="card-body p-4">
                 <h1 class="pb-3 fw-bold">Mis gatos</h1>
                 <div class="row gy-3">
+                    @foreach ($cats as $cat)
                     <div class="col-4 col-lg-3">
-                        <cat-item-component></cat-item-component>
+                        <cat-item-component
+                        name="{{$cat->name}}"
+                        image="{{$cat->image->public_path}}"
+                        />
                     </div>
-                    <div class="col-4 col-lg-3">
-                        <cat-item-component></cat-item-component>
-                    </div>
-                    <div class="col-4 col-lg-3">
-                        <cat-item-component></cat-item-component>
-                    </div>
-                    <div class="col-4 col-lg-3">
-                        <cat-item-component></cat-item-component>
-                    </div>
-                    <div class="col-4 col-lg-3">
-                        <cat-item-component></cat-item-component>
-                    </div>
-                    <div class="col-4 col-lg-3">
-                        <cat-item-component></cat-item-component>
-                    </div>
-                    <div class="col-4 col-lg-3">
-                        <cat-item-component></cat-item-component>
-                    </div>
-                    <div class="col-4 col-lg-3">
-                        <cat-item-component></cat-item-component>
-                    </div>
-                    <div class="col-4 col-lg-3">
-                        <cat-item-component></cat-item-component>
-                    </div>
-                    <div class="col-4 col-lg-3">
-                        <cat-item-component></cat-item-component>
-                    </div>
-                    <div class="col-4 col-lg-3">
-                        <cat-item-component></cat-item-component>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
