@@ -94,7 +94,7 @@
         userLogged = {
             id: {{Auth::user()->id}},
             name: "{{Auth::user()->name}}",
-            avatar: "{{Auth::user()->getAvatarUrl()}}",
+            avatar: "{!!Auth::user()->image->url_xs!!}",
             url: "{{Auth::user()->getUrl()}}",
         };
 @else

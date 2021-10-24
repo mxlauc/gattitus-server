@@ -14,10 +14,14 @@ class CustomFirebaseUploader{
         $this->bucket = app('firebase.storage')->getBucket();
     }
 
-    public function upload($path){
+    public function upload($path, $facebook_id = null){
         $result = [];
 
-        $directory = 'gattitus/' . Auth::user()->facebook_id . '/' . 'imgs' . '/' . dechex(round(microtime(true) * 1000)) . "_" . Uuid::uuid4()->toString();
+        if(!$facebook_id){
+            $facebook_id = Auth::user()->facebook_id;
+        }
+
+        $directory = 'gattitus/' . $facebook_id . '/' . 'imgs' . '/' . dechex(round(microtime(true) * 1000)) . "_" . Uuid::uuid4()->toString();
         $name = $directory . "/{SIZE}.jpg";
         $result['directory'] = $directory;
 

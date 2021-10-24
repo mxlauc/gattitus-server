@@ -19,7 +19,7 @@
                     user : {
                         url : '{{$publication->user->getUrl()}}',
                         name : '{{$publication->user->name}}',
-                        avatar : '/storage/{{$publication->user->avatar}}',
+                        avatar : '{{$publication->user->image->url_xs}}',
                     }
                 }"
             ></simple-publication-component>

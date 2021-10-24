@@ -5,7 +5,7 @@
     <div class="card-body p-4">
         <div class="row gy-3">
             <div class="col-12 col-sm-3 col-md-2 text-center">
-                <img src="{{Storage::url($user->avatar)}}" class="img-fluid shadow w-100" style="max-width: 160px; border-radius: 20%;">
+                <img src="{!!$user->image->url_md!!}" class="img-fluid shadow w-100" style="max-width: 160px; border-radius: 20%;">
             </div>
             <div class="col-12 col-sm-9 col-md-10 text-center text-sm-start">
                 <h1 class="mb-0" style="font-weight: 900">{{$user->name}}</h1>
