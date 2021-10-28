@@ -2,11 +2,28 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>Gattitus</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <link rel="shortcut icon" href="https://www.gattitus.com/gattitus.png" type="image/png">
+    <base href="/">
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="theme-color" content="#e35300">
+  
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta name="keywords" content="gatos, michi, gatitos, minino, fotos de gatos, fotos, gututus">
+    <meta property="og:title" content="Gattitus">
+    <meta property="og:description" content="Comparte fotos de tu gato y descubre fotos de gatos de otros usuarios. Únete a Gattitus.">
+    <meta name="description" content="Comparte fotos de tu gato y descubre fotos de gatos de otros usuarios. Únete a Gattitus.">
+    <meta property="og:image" content="https://gattitus.com/gattitus-wallpaper.png">
+    <meta property="og:url" content="https://www.gattitus.com/">
+
+    <!-- Twitter -->
+    <meta property="twitter:url" content="https://www.gattitus.com/">
+    <meta property="twitter:title" content="Gattitus">
+    <meta property="twitter:description" content="Comparte fotos de tu gato y descubre fotos de gatos de otros usuarios. Únete a Gattitus.">
+    <meta property="twitter:image" content="https://gattitus.com/gattitus-wallpaper.png">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
