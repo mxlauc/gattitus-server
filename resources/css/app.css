@@ -45,3 +45,10 @@
 .rounded-5{
     border-radius: 0.7rem !important;
 }
+
+@media (max-width: 575.98px) {
+    .card{
+        border-radius: unset !important;
+    }
+}
+  

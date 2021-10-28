@@ -91,14 +91,6 @@ export default {
 };
 </script>
 <style scoped>
-
-@media (max-width: 575.98px) {
-  .card-publication{
-    border-radius: unset !important;
-  }
-}
-
-
 .img-user-publication{
   width: 40px;
   height: 40px;

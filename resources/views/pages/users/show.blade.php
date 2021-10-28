@@ -3,7 +3,7 @@
 @section('content')
 <div class="card shadow">
     <div class="card-body p-4">
-        <div class="row gy-3">
+        <div class="row gy-3 gx-0">
             <div class="col-12 col-sm-3 col-md-2 text-center">
                 <img src="{!!$user->image->url_md!!}" class="img-fluid shadow w-100" style="max-width: 160px; border-radius: 20%;">
             </div>
@@ -17,7 +17,7 @@
         </div>    
     </div>
 </div>
-<div class="row gy-4 mt-0">
+<div class="row gy-4 gx-0 mt-0">
     <div class="col-12 col-md-7 order-2 order-md-1 text-center">
         <div style="max-width: 460px; margin: auto;">
             <div class="card shadow mb-4" style="height: 500px">
