@@ -78,3 +78,12 @@ window.app = createApp({
 
 
 
+// register service worker
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw-worker.js').then(function(reg) {
+        console.log('Service worker registration succeeded:', reg);
+    }).catch(function(error) {
+        console.log('Service worker registration failed:', error);
+    });
+}
