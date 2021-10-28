@@ -1,5 +1,5 @@
 <template>
-  <div class="card card-publication shadow f-rubick mb-4">
+  <div class="card card-publication shadow-sm f-rubick mb-4">
     <div class="card-body pb-0">
       <div class="row g-0">
         <div class="col-auto">
