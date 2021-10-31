@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CatController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\ReactionSimplePublicationController;
 use App\Http\Controllers\SimplePublicationController;
 use App\Http\Controllers\UserController;
 use App\Models\Image;
@@ -39,6 +40,7 @@ Route::get('hey.js', function(){
 
 Route::resource('images', ImageController::class)->names('images');
 Route::resource('simplepublications', SimplePublicationController::class)->names('simplepublication');
+Route::resource('simplepublications.reactions', ReactionSimplePublicationController::class)->shallow()->names('simplepublications.reactions');
 Route::resource('cats', CatController::class)->names('cats');
 
 Route::get('/@{user:username}', [UserController::class, 'show'])->name('user.show');

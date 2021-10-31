@@ -92,6 +92,7 @@
 
 <body>
     <div class="row g-0" id="app">
+        <audio src="https://www.gattitus.com/assets/audio/cat_meow.mp3" id="soundMeow" preload="auto" style="display: none;"></audio>
         <div id="dark">
         </div>
         <div class="col-auto sticky-top bg-white" id="sidebar" style="width: 260px; height: 100vh;">

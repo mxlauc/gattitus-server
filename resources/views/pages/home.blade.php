@@ -8,6 +8,7 @@
             @foreach($publications as $publication)
             <simple-publication-component
                 :publication="{
+                    id: {{$publication->id}},
                     color: 321,
                     image: {
                         'url' : '{{$publication->image->url_lg}}',

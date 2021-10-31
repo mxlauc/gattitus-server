@@ -47,8 +47,17 @@
 
 
         <div class="row text-secondary g-0 fw-bold" role="button" style="user-select: none; font-size: 14px;">
-          <div class="col text-center py-3 guide-3">
+          <div class="col text-center py-3 guide-3" @click="react">
             <svg xmlns="http://www.w3.org/2000/svg"
+                v-if="ownReaction"
+                width="30"
+                height="20"
+                fill="currentColor"
+                viewBox="0 0 16 16">
+                <path d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg"
+                v-else
                 width="30"
                 height="20"
                 fill="currentColor"
@@ -75,18 +84,32 @@
 </template>
 <script>
 export default {
+    data(){
+      return {
+        ownReaction: null
+      };
+    },
     inject: ["userLogged"],
     props: ["publication"],
     methods: {
-        click(){
+      react(){
+        //document.getElementById("soundMeow").play();
+        axios.post(`/simplepublications/${this.publication.id}/reactions`)
+        .then(response => {
+          console.log(response.data);
+          this.ownReaction = response.data.own_reaction;
 
-        },
-        doubleclick(){
+        });
+      },
+      click(){
 
-        },
-        onLoadImage(e){
+      },
+      doubleclick(){
+
+      },
+      onLoadImage(e){
           e.currentTarget.classList.remove('opacity-0')
-        }
+      }
     },
 };
 </script>

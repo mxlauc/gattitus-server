@@ -22,4 +22,8 @@ class SimplePublication extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function reactions(){
+        return $this->belongsToMany(Reaction::class)->using(ReactionSimplePublication::class)->withTimestamps();
+    }
 }
