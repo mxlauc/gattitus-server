@@ -49,18 +49,39 @@ class User extends Authenticatable
 
     public function setUsernameAttribute($value){
         if(!$value){
-            $value = $this->generateUsername();
+            $contador = 1;
+            $value = $this->generateUsername($contador);
             while(User::whereUsername($value)->exists()){
-                $value = $this->generateUsername();
+                $value = $this->generateUsername($contador);
+                $contador++;
             }
         }
         
         $this->attributes['username'] = $value;
     }
 
-    private function generateUsername(){
-        $result = "user" . dechex(intval(microtime(true))) . dechex(rand());
-        return $result;
+    private function generateUsername($num = 0){
+        $name = $this->attributes['name'];
+        $name = mb_strtolower($name);
+        $name = str_replace("ñ", "n", $name);
+        $name = str_replace(".", " ", $name);
+
+        $words = str_split("abcdefghijklmnopqrstuvwxyz ");
+        $new_name = "";
+
+        foreach(str_split($name) as $c){
+            if(in_array($c, $words)){
+                $new_name .= $c;
+            }
+        }
+
+        $new_name = str_replace(" ", ".", trim($new_name));
+        $new_name = preg_replace('/\.+/', '.', $new_name);
+        if(strlen($new_name) > 15){
+            $new_name = substr($new_name, 0, 15);
+        }
+
+        return $new_name . $num;
     }
 
 

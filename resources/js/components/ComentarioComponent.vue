@@ -1,21 +1,26 @@
 <template>
-    <div>
+    <div class="py-1">
         <div class="row g-0">
             <div class="col col-auto py-1 ps-2">
                 <a :href="comentario.user.url">
-                    <img v-bind:src="comentario.user.image.url_sm" class="imagenUsuario" />
+                    <img v-bind:src="comentario.user.image.url_sm" class="imagenUsuario shadow" />
                 </a>
             </div>
-            <div class="col col-auto ps-2 pt-1" style="max-width: 70%">
-                <span class="textarea text-break" style="font-size: 12px">
-                    <a :href="comentario.user.url" class="fw-bold text-dark text-decoration-none">
-                        {{ comentario.user.name }}
+            <div class="col ps-2 pt-1">
+                <span class="text-break" style="font-size: 15px">
+                    <a :href="comentario.user.url" class="text-dark text-decoration-none d-block mb-1">
+                        <span class="fw-bold">
+                            {{ comentario.user.name }}
+                        </span>
+                        <span style="color: #bbb;">
+                            @{{ comentario.user.username }}
+                        </span>
                     </a>
-                    <p class="m-0">
+                    <p class="m-0" style="color: #777;">
                         {{ comentario.description}}
                     </p>
                     <div class="position-relative" v-if="comentario.gif_url">
-                        <img :src="comentario.gif_url" class="img-fluid rounded">
+                        <img :src="comentario.gif_url" class="img-fluid shadow-sm" style="border-radius: 10px;">
                         <span
                             class="px-1 rounded position-absolute bottom-0 start-0 m-1"
                             style="background-color:rgba(255,255,255,0.4);">
@@ -25,6 +30,24 @@
                         </span>
                     </div>
                 </span>
+                <div class="mb-1 pt-2 text-muted" style="font-size:13px;">
+                    <span class="fw-bold" role="button" @click="like" :class="{'text-primary': miLike}" v-if="userLogged">{{__('Like')}}</span>
+                    <span v-if="userLogged && contador"> ·</span>
+                    <span class="fw-bold px-1" v-if="contador" data-bs-toggle="modal" v-bind:data-bs-target="'#likesComment' + comentario?.id" role="button"> {{contador}} </span>
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        v-if="!userLogged && contador"
+                        class="ms-1"
+                        width="14"
+                        height="12"
+                        style="margin-top: -4px;"
+                        preserveAspectRatio="none"
+                        fill="currentColor"
+                        viewBox="0 0 16 16">
+                        <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                    </svg>
+                    <span class="ms-3" v-if="userLogged || contador"></span>
+                    <span>{{timeAgo(comentario.created_at)}}</span>
+                </div>
             </div>
             <div class="col col-auto" v-if="userLogged && userLogged.id == comentario.user.id">
                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -67,24 +90,7 @@
 
             </div>
         </div>
-        <div class="mb-1 text-muted" style="padding-left: 50px; font-size:12px;">
-            <span class="fw-bold" role="button" @click="like" :class="{'text-primary': miLike}" v-if="userLogged">{{__('Like')}}</span>
-            <span v-if="userLogged && contador"> ·</span>
-            <span class="fw-bold px-1" v-if="contador" data-bs-toggle="modal" v-bind:data-bs-target="'#likesComment' + comentario?.id" role="button"> {{contador}} </span>
-            <svg xmlns="http://www.w3.org/2000/svg"
-                v-if="!userLogged && contador"
-                class="ms-1"
-                width="14"
-                height="12"
-                style="margin-top: -4px;"
-                preserveAspectRatio="none"
-                fill="currentColor"
-                viewBox="0 0 16 16">
-                <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
-            </svg>
-            <span class="ms-3" v-if="userLogged || contador"></span>
-            <span>{{timeAgo(comentario.created_at)}}</span>
-        </div>
+        
         <!-- Modal Ver Likes -->
     <div
         class="modal fade"
@@ -160,17 +166,9 @@ export default {
 
 <style scoped>
 .imagenUsuario {
-    border-radius: 50%;
-    height: 30px;
+    border-radius: 30%;
+    height: 40px;
 }
 
-.textarea {
-    white-space: pre-wrap;
-    background-color: #eee;
-    border-radius: 12px;
-    padding: 5px 10px;
-    display: block;
-    font-size: 14px;
-}
 </style>
 
