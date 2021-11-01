@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="row g-0">
-    <div class="col-12 col-md-7">
+    <div class="col-12 col-md-8">
         <div style="max-width: 440px; margin: auto;">
             @foreach($publications as $publication)
             <simple-publication-component
@@ -30,7 +30,7 @@
             
         </div>
     </div>
-    <div class="col-12 col-md-5 sticky-top" style="max-width: 400px; max-width: 100%; align-self: flex-start; top: 80px;">
+    <div class="col-12 col-md-4 sticky-top" style="max-width: 400px; max-width: 100%; align-self: flex-start; top: 80px;">
         <div class="card shadow-sm mb-3" >
 
             <div class="card-body">

@@ -68,11 +68,16 @@ import HeaderComponent from './components/HeaderComponent.vue';
 
 import SimplePublicationComponent from './components/SimplePublicationComponent.vue';
 import CatItemComponent from './components/CatItemComponent.vue';
+import CreatePublicationComponent from './components/CreatePublicationComponent.vue';
+import CreateCatComponent from './components/CreateCatComponent.vue';
+
 window.app = createApp({
     components: {
         HeaderComponent,
         SimplePublicationComponent,
         CatItemComponent,
+        CreatePublicationComponent,
+        CreateCatComponent,
     }
 });
 

@@ -50,7 +50,8 @@ class ReactionSimplePublicationController extends Controller
         }
         
         return [
-            'own_reaction' => $ownReaction ? $ownReaction->name : null
+            'own_reaction' => $ownReaction ? $ownReaction->name : null,
+            'reactions_count' => $simplePublication->reactions()->count()
         ];
     }
 

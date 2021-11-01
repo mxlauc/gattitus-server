@@ -91,17 +91,19 @@
 </head>
 
 <body>
-    <div class="row g-0" id="app">
-        <audio src="https://www.gattitus.com/assets/audio/cat_meow.mp3" id="soundMeow" preload="auto" style="display: none;"></audio>
-        <div id="dark">
-        </div>
-        <div class="col-auto sticky-top bg-white" id="sidebar" style="width: 260px; height: 100vh;">
-            @include('sections.sidebar')
-        </div>
-        <div class="col">
-            @include('sections.header')
-            <div class="px-0 px-sm-4" style="padding-top: 80px;">
-                @yield('content')
+    <audio src="https://www.gattitus.com/assets/audio/cat_meow.mp3" id="soundMeow" preload="auto" style="display: none;"></audio>
+    <div class="container-xxl" id="app">
+        @include('sections.header')
+        <div class="row g-0">
+            <div id="dark">
+            </div>
+            <div class="col-auto sticky-top bg-white" id="sidebar" style="width: 260px; height: 100vh;">
+                @include('sections.sidebar')
+            </div>
+            <div class="col">
+                <div class="px-0 px-sm-4" style="padding-top: 80px;">
+                    @yield('content')
+                </div>
             </div>
         </div>
     </div>
