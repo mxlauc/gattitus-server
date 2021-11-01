@@ -1,5 +1,5 @@
 <template>
-<div class="py-2 pe-1 pe-sm-4 container-xxl"><!--px-1 px-sm-4-->
+<div class="py-2 px-0 pe-1 pe-sm-4 container-xxl"><!--px-1 px-sm-4-->
     <div class="row g-0">
         <div class="col-auto d-xl-none">
             <span  @click="toggleMenu" class="d-inline-block  py-2 px-3">

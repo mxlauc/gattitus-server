@@ -33,7 +33,7 @@
         </div>
       </div>
         <div class="rounded-5 img-container-publication shadow-sm my-2 position-relative"
-        :style="{ aspectRatio: publication.image.aspect_ratio < 0.8 ? 0.8 : publication.image.aspect_ratio, background: `linear-gradient(45deg, ${publication.image.color_bl} 0%, ${publication.image.color_tr} 100%)`}">
+        :style="{ aspectRatio: publication.image.aspect_ratio < 0.9 ? 0.9 : publication.image.aspect_ratio, background: `linear-gradient(45deg, ${publication.image.color_bl} 0%, ${publication.image.color_tr} 100%)`}">
           <img class="img-publication img-fluid w-100 shadow-sm opacity-0"
             :src="publication.image.url"
             @load="onLoadImage"/>
@@ -45,6 +45,17 @@
         </p>
         <hr class="my-0" style="opacity: 0.1;">
 
+        <div class="row g-0 py-2">
+          <div class="col text-center">
+            <span class="text-muted">{{reactions_count}} Reacciones</span>
+          </div>
+          <div class="col text-center">
+            <span class="text-muted">{{reactions_count}} Reacciones</span>
+          </div>
+        </div>
+        
+
+        <hr class="my-0" style="opacity: 0.1;">
 
         <div class="row text-secondary g-0 fw-bold" role="button" style="user-select: none; font-size: 14px;">
           <div class="col text-center py-3 guide-3" @click="react">
@@ -86,6 +97,7 @@
 export default {
     data(){
       return {
+        reactions_count: this.publication.reactions_count,
         myReaction: this.publication.myReaction,
         reactioning: false,
       };
@@ -108,6 +120,7 @@ export default {
         .then(response => {
           console.log(response.data);
           this.myReaction = response.data.own_reaction;
+          this.reactions_count = response.data.reactions_count;
         })
         .finally(() => {
           this.reactioning = false;

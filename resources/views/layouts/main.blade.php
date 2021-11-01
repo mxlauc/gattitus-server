@@ -92,9 +92,9 @@
 
 <body>
     <audio src="https://www.gattitus.com/assets/audio/cat_meow.mp3" id="soundMeow" preload="auto" style="display: none;"></audio>
-    <div class="container-xxl" id="app">
+    <div class="container-xxl px-0" id="app">
         @include('sections.header')
-        <div class="row g-0">
+        <div class="row gx-0">
             <div id="dark">
             </div>
             <div class="col-auto sticky-top bg-white" id="sidebar" style="width: 260px; height: 100vh;">

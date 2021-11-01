@@ -22,6 +22,7 @@
                         name : "{{$publication->user->name}}",
                         avatar : "{{$publication->user->image->url_xs}}",
                     },
+                    reactions_count : {{$publication->reactions_count}},
                     myReaction: {!! $publication->my_reaction ?? "null" !!}
                 }'
             ></simple-publication-component>
