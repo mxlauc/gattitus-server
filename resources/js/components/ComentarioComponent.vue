@@ -1,15 +1,20 @@
 <template>
-    <div>
+    <div class="py-1">
         <div class="row g-0">
             <div class="col col-auto py-1 ps-2">
                 <a :href="comentario.user.url">
                     <img v-bind:src="comentario.user.image.url_sm" class="imagenUsuario" />
                 </a>
             </div>
-            <div class="col col-auto ps-2 pt-1" style="max-width: 70%">
-                <span class="textarea text-break" style="font-size: 12px">
-                    <a :href="comentario.user.url" class="fw-bold text-dark text-decoration-none">
-                        {{ comentario.user.name }}
+            <div class="col ps-2 pt-1">
+                <span class="text-break" style="font-size: 15px">
+                    <a :href="comentario.user.url" class="text-dark text-decoration-none">
+                        <span class="fw-bold">
+                            {{ comentario.user.name }}
+                        </span>
+                        <span class="text-muted">
+                            @{{ comentario.user.username }}
+                        </span>
                     </a>
                     <p class="m-0">
                         {{ comentario.description}}
@@ -164,13 +169,5 @@ export default {
     height: 30px;
 }
 
-.textarea {
-    white-space: pre-wrap;
-    background-color: #eee;
-    border-radius: 12px;
-    padding: 5px 10px;
-    display: block;
-    font-size: 14px;
-}
 </style>
 
