@@ -5,8 +5,10 @@ namespace App\Providers;
 use App\Models\Image;
 use App\Models\ReactionSimplePublication;
 use App\Models\SimplePublication;
+use App\Models\SimplePublicationComment;
 use App\Policies\ImagePolicy;
 use App\Policies\ReactionSimplePublicationPolicy;
+use App\Policies\SimplePublicationCommentPolicy;
 use App\Policies\SimplePublicationPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -21,6 +23,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
         SimplePublication::class => SimplePublicationPolicy::class,
+        SimplePublicationComment::class => SimplePublicationCommentPolicy::class,
         Image::class => ImagePolicy::class,
         ReactionSimplePublication::class => ReactionSimplePublicationPolicy::class,
     ];

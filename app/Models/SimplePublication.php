@@ -44,4 +44,8 @@ class SimplePublication extends Model
     public function getOwnReactionAttribute(){
         return $this->reactions()->where('reactions.id', '>', 0)->first() ?? null;
     }
+
+    public function comments(){
+        return $this->hasMany(SimplePublicationComment::class);
+    }
 }

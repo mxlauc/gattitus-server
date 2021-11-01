@@ -20,7 +20,7 @@ class SimplePublicationController extends Controller
      */
     public function index()
     {
-        //
+        return SimplePublication::all();
     }
 
     /**

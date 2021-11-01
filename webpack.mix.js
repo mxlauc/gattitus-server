@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+require('laravel-vue-lang/mix');
 
 /*
  |--------------------------------------------------------------------------
@@ -19,4 +20,4 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/scss/custom.scss', 'public/css', [
         //
     ])
-    .version();
+    .version().lang();

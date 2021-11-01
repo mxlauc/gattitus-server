@@ -58,7 +58,7 @@
         <hr class="my-0" style="opacity: 0.1;">
 
         <div class="row text-secondary g-0 fw-bold" role="button" style="user-select: none; font-size: 14px;">
-          <div class="col text-center py-3 guide-3" @click="react">
+          <div class="col text-center py-3 guide-3" @click="react" v-wave>
             <svg xmlns="http://www.w3.org/2000/svg"
                 v-if="myReaction"
                 width="30"
@@ -77,7 +77,7 @@
             </svg>
             Me encanta
           </div>
-          <div class="col text-center py-3">
+          <div class="col text-center py-3" v-wave>
             <svg xmlns="http://www.w3.org/2000/svg"
                 width="30"
                 height="20"
@@ -89,12 +89,18 @@
           </div>
         </div>
 
+        <seccion-comentarios-component></seccion-comentarios-component>
+
     </div>
   </div>
 
 </template>
 <script>
+import SeccionComentariosComponent from './SeccionComentariosComponent.vue';
 export default {
+    components: {
+      SeccionComentariosComponent
+    },
     data(){
       return {
         reactions_count: this.publication.reactions_count,
@@ -104,6 +110,11 @@ export default {
     },
     inject: ["userLogged"],
     props: ["publication"],
+    provide(){
+      return {
+        simplePublicationId: this.publication.id
+      };
+    },
     methods: {
       reactLove(){
         if(!this.myReaction){
