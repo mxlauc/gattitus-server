@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class SimplePublication extends Model
 {
@@ -24,6 +25,23 @@ class SimplePublication extends Model
     }
 
     public function reactions(){
-        return $this->belongsToMany(Reaction::class)->using(ReactionSimplePublication::class)->withTimestamps();
+        return $this->belongsToMany(Reaction::class)
+                ->using(ReactionSimplePublication::class)
+                ->withTimestamps();
+    }
+
+    public function myReaction(){
+        return $this->belongsToMany(Reaction::class)
+                ->using(ReactionSimplePublication::class)
+                ->withTimestamps()
+                ->wherePivot('user_id', Auth::user()->id ?? -1);
+    }
+
+    public function getMyReactionAttribute(){
+        return $this->myReaction()->first();
+    }
+
+    public function getOwnReactionAttribute(){
+        return $this->reactions()->where('reactions.id', '>', 0)->first() ?? null;
     }
 }

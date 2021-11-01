@@ -6,6 +6,7 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ReactionSimplePublicationController;
 use App\Http\Controllers\SimplePublicationController;
 use App\Http\Controllers\UserController;
+use App\Http\Resources\SimplePublicationResource;
 use App\Models\Image;
 use App\Models\SimplePublication;
 use Illuminate\Support\Facades\Route;
@@ -22,7 +23,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $publications =  SimplePublication::with(['image', 'user'])->orderBy('created_at', 'DESC')->get();
+    $publications =  SimplePublication::with(['image', 'user', 'myReaction'])->withCount('reactions')->orderBy('created_at', 'DESC')->get();
+
     return view('pages.home', compact('publications'));
 })->name('home');
 

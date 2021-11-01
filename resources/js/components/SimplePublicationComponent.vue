@@ -37,7 +37,7 @@
           <img class="img-publication img-fluid w-100 shadow-sm opacity-0"
             :src="publication.image.url"
             @load="onLoadImage"/>
-            <div class="position-absolute top-0 start-0 end-0 bottom-0"></div>
+            <div class="position-absolute top-0 start-0 end-0 bottom-0" @dblclick="reactLove"></div>
         </div>
         
         <p class="fs-6 mb-2 text-muted">
@@ -49,7 +49,7 @@
         <div class="row text-secondary g-0 fw-bold" role="button" style="user-select: none; font-size: 14px;">
           <div class="col text-center py-3 guide-3" @click="react">
             <svg xmlns="http://www.w3.org/2000/svg"
-                v-if="ownReaction"
+                v-if="myReaction"
                 width="30"
                 height="20"
                 fill="currentColor"
@@ -86,19 +86,31 @@
 export default {
     data(){
       return {
-        ownReaction: null
+        myReaction: this.publication.myReaction,
+        reactioning: false,
       };
     },
     inject: ["userLogged"],
     props: ["publication"],
     methods: {
+      reactLove(){
+        if(!this.myReaction){
+          this.react();
+        }
+      },
       react(){
+        if(this.reactioning){
+          return;
+        }
+        this.reactioning = true;
         //document.getElementById("soundMeow").play();
         axios.post(`/simplepublications/${this.publication.id}/reactions`)
         .then(response => {
           console.log(response.data);
-          this.ownReaction = response.data.own_reaction;
-
+          this.myReaction = response.data.own_reaction;
+        })
+        .finally(() => {
+          this.reactioning = false;
         });
       },
       click(){
