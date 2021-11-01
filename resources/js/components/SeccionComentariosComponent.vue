@@ -3,12 +3,14 @@
         <hr class="my-0" v-if="comentarios?.length">
         <a
             v-if="comentariosPaginador && comentariosPaginador.next"
-            class="text-muted fw-bold ms-2"
-            style="font-size: 12px; text-decoration:none"
+            class="d-block text-muted text-center py-2 fw-bold ms-2"
+            style="font-size: 12px; text-decoration:none;"
             role="button"
+            v-wave
             @click="cargarMasComentarios">
             {{__('Previous comments')}}
         </a>
+        <hr class="my-0" v-if="comentariosPaginador && comentariosPaginador.next">
         <div >
             <transition-group name="grupo-comentarios">
                 <comentario-component
