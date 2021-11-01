@@ -2,17 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SimplePublication;
 use Illuminate\Http\Request;
 
-class SimplePublicationController extends Controller
+class ReactionController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->authorizeResource(SimplePublication::class);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +13,7 @@ class SimplePublicationController extends Controller
      */
     public function index()
     {
-        return SimplePublication::all();
+        //
     }
 
     /**
@@ -41,16 +34,7 @@ class SimplePublicationController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', SimplePublication::class);
-        SimplePublication::create([
-            'description' => $request->description,
-            'user_id' => $request->user()->id,
-            'image_id' => $request->image_id
-        ]);
-
-        return [
-            "estado" => 'ok'
-        ];
+        //
     }
 
     /**

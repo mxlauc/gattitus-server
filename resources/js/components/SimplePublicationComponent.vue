@@ -33,11 +33,11 @@
         </div>
       </div>
         <div class="rounded-5 img-container-publication shadow-sm my-2 position-relative"
-        :style="{ aspectRatio: publication.image.aspect_ratio < 0.8 ? 0.8 : publication.image.aspect_ratio, background: `linear-gradient(45deg, ${publication.image.color_bl} 0%, ${publication.image.color_tr} 100%)`}">
+        :style="{ aspectRatio: publication.image.aspect_ratio < 0.9 ? 0.9 : publication.image.aspect_ratio, background: `linear-gradient(45deg, ${publication.image.color_bl} 0%, ${publication.image.color_tr} 100%)`}">
           <img class="img-publication img-fluid w-100 shadow-sm opacity-0"
             :src="publication.image.url"
             @load="onLoadImage"/>
-            <div class="position-absolute top-0 start-0 end-0 bottom-0"></div>
+            <div class="position-absolute top-0 start-0 end-0 bottom-0" @dblclick="reactLove"></div>
         </div>
         
         <p class="fs-6 mb-2 text-muted">
@@ -45,10 +45,30 @@
         </p>
         <hr class="my-0" style="opacity: 0.1;">
 
+        <div class="row g-0 py-2">
+          <div class="col text-center">
+            <span class="text-muted">{{reactions_count}} Reacciones</span>
+          </div>
+          <div class="col text-center">
+            <span class="text-muted">{{reactions_count}} Reacciones</span>
+          </div>
+        </div>
+        
+
+        <hr class="my-0" style="opacity: 0.1;">
 
         <div class="row text-secondary g-0 fw-bold" role="button" style="user-select: none; font-size: 14px;">
-          <div class="col text-center py-3 guide-3">
+          <div class="col text-center py-3 guide-3" @click="react" v-wave>
             <svg xmlns="http://www.w3.org/2000/svg"
+                v-if="myReaction"
+                width="30"
+                height="20"
+                fill="currentColor"
+                viewBox="0 0 16 16">
+                <path d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg"
+                v-else
                 width="30"
                 height="20"
                 fill="currentColor"
@@ -57,7 +77,7 @@
             </svg>
             Me encanta
           </div>
-          <div class="col text-center py-3">
+          <div class="col text-center py-3" v-wave>
             <svg xmlns="http://www.w3.org/2000/svg"
                 width="30"
                 height="20"
@@ -69,24 +89,63 @@
           </div>
         </div>
 
+        <seccion-comentarios-component></seccion-comentarios-component>
+
     </div>
   </div>
 
 </template>
 <script>
+import SeccionComentariosComponent from './SeccionComentariosComponent.vue';
 export default {
+    components: {
+      SeccionComentariosComponent
+    },
+    data(){
+      return {
+        reactions_count: this.publication.reactions_count,
+        myReaction: this.publication.myReaction,
+        reactioning: false,
+      };
+    },
     inject: ["userLogged"],
     props: ["publication"],
+    provide(){
+      return {
+        simplePublicationId: this.publication.id
+      };
+    },
     methods: {
-        click(){
-
-        },
-        doubleclick(){
-
-        },
-        onLoadImage(e){
-          e.currentTarget.classList.remove('opacity-0')
+      reactLove(){
+        if(!this.myReaction){
+          this.react();
         }
+      },
+      react(){
+        if(this.reactioning){
+          return;
+        }
+        this.reactioning = true;
+        //document.getElementById("soundMeow").play();
+        axios.post(`/simplepublications/${this.publication.id}/reactions`)
+        .then(response => {
+          console.log(response.data);
+          this.myReaction = response.data.own_reaction;
+          this.reactions_count = response.data.reactions_count;
+        })
+        .finally(() => {
+          this.reactioning = false;
+        });
+      },
+      click(){
+
+      },
+      doubleclick(){
+
+      },
+      onLoadImage(e){
+          e.currentTarget.classList.remove('opacity-0')
+      }
     },
 };
 </script>

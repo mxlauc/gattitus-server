@@ -3,10 +3,15 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CatController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\ReactionSimplePublicationController;
+use App\Http\Controllers\SimplePublicationCommentController;
 use App\Http\Controllers\SimplePublicationController;
 use App\Http\Controllers\UserController;
+use App\Http\Resources\SimplePublicationCommentCollection;
+use App\Http\Resources\SimplePublicationResource;
 use App\Models\Image;
 use App\Models\SimplePublication;
+use App\Models\SimplePublicationComment;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,7 +26,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $publications =  SimplePublication::with(['image', 'user'])->orderBy('created_at', 'DESC')->get();
+    $publications =  SimplePublication::with(['image', 'user', 'myReaction'])->withCount('reactions')->orderBy('created_at', 'DESC')->get();
+
     return view('pages.home', compact('publications'));
 })->name('home');
 
@@ -39,6 +45,8 @@ Route::get('hey.js', function(){
 
 Route::resource('images', ImageController::class)->names('images');
 Route::resource('simplepublications', SimplePublicationController::class)->names('simplepublication');
+Route::resource('simplepublications.comments', SimplePublicationCommentController::class)->shallow()->names('simplepublication.comments');
+Route::resource('simplepublications.reactions', ReactionSimplePublicationController::class)->shallow()->names('simplepublications.reactions');
 Route::resource('cats', CatController::class)->names('cats');
 
 Route::get('/@{user:username}', [UserController::class, 'show'])->name('user.show');

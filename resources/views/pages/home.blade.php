@@ -3,32 +3,35 @@
 @section('content')
 
 <div class="row g-0">
-    <div class="col-12 col-md-7">
+    <div class="col-12 col-md-8">
         <div style="max-width: 440px; margin: auto;">
             @foreach($publications as $publication)
             <simple-publication-component
-                :publication="{
+                :publication='{
+                    id: {{$publication->id}},
                     color: 321,
                     image: {
-                        'url' : '{{$publication->image->url_lg}}',
-                        'aspect_ratio' : {{json_decode($publication->image->meta_data)->aspect_ratio}},
-                        'color_bl' : '{{json_decode($publication->image->meta_data)->color_bl}}',
-                        'color_tr' : '{{json_decode($publication->image->meta_data)->color_tr}}'
+                        "url" : "{{$publication->image->url_lg}}",
+                        "aspect_ratio" : {{json_decode($publication->image->meta_data)->aspect_ratio}},
+                        "color_bl" : "{{json_decode($publication->image->meta_data)->color_bl}}",
+                        "color_tr" : "{{json_decode($publication->image->meta_data)->color_tr}}"
                     },
                     description : `{{$publication->description}}`,
                     user : {
-                        url : '{{$publication->user->getUrl()}}',
-                        name : '{{$publication->user->name}}',
-                        avatar : '{{$publication->user->image->url_xs}}',
-                    }
-                }"
+                        url : "{{$publication->user->getUrl()}}",
+                        name : "{{$publication->user->name}}",
+                        avatar : "{{$publication->user->image->url_xs}}",
+                    },
+                    reactions_count : {{$publication->reactions_count}},
+                    myReaction: {!! $publication->my_reaction ?? "null" !!}
+                }'
             ></simple-publication-component>
             
             @endforeach
             
         </div>
     </div>
-    <div class="col-12 col-md-5 sticky-top" style="max-width: 400px; max-width: 100%; align-self: flex-start; top: 80px;">
+    <div class="col-12 col-md-4 sticky-top" style="max-width: 400px; max-width: 100%; align-self: flex-start; top: 80px;">
         <div class="card shadow-sm mb-3" >
 
             <div class="card-body">
