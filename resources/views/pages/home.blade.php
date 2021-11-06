@@ -4,7 +4,7 @@
 
 <div class="row g-0">
     <div class="col-12 col-md-8">
-        <div style="max-width: 440px; margin: auto;">
+        <div style="max-width: 500px; margin: auto;">
             @foreach($publications as $publication)
             <simple-publication-component
                 :publication='{

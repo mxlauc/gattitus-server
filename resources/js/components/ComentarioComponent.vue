@@ -1,7 +1,7 @@
 <template>
     <div class="py-1">
         <div class="row g-0">
-            <div class="col col-auto py-1 ps-2">
+            <div class="col col-auto py-1">
                 <a :href="comentario.user.url">
                     <img v-bind:src="comentario.user.image.url_sm" class="imagenUsuario shadow" />
                 </a>
