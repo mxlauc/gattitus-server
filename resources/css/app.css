@@ -19,11 +19,11 @@
     margin-left: 20px;
     font-weight: bold;
 }
-.options-sidebar > li:hover{
+.options-sidebar > li:hover, .options-sidebar-active{
     background-color: #f90;
     color: #fff;
 }
-.options-sidebar > li:hover > svg{
+.options-sidebar > li:hover > svg, .options-sidebar-active > svg{
     color: #fff !important;
 }
 .image-tool__caption{
