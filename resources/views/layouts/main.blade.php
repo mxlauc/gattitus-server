@@ -48,40 +48,6 @@
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <link rel="stylesheet" href="{{ mix('css/custom.css') }}">
 
-    <style>
-@media (max-width: 1199.98px) {
-    #sidebar{
-        position: fixed;
-        top: 0px;
-        left: 0px;
-        transform: translateX(-100%);
-        transition: transform 0.4s ease-out;
-        z-index: 1200;
-    }
-    #dark{
-        position: fixed;
-        top: 0px;
-        left: 0px;
-        width: 100vw;
-        height: 100vh;
-        background-color: #000;
-        z-index: 1100;
-        display: none;
-        opacity: 0;
-        transition:  opacity 0.4s ease-out;
-    }
-    .show-sidebar{
-        transform: translateX(0%) !important;
-    }
-    .show-dark{
-        display: block !important;
-        opacity: 0.5 !important;
-    }
-}
-
-
-
-    </style>
 
 
 @yield('style')
@@ -97,9 +63,9 @@
         <div class="row gx-0">
             <div id="dark">
             </div>
-            <div class="col-auto sticky-top bg-white" id="sidebar" style="width: 260px; height: 100vh;">
-                @include('sections.sidebar')
-            </div>
+            
+            @include('sections.sidebar')
+            
             <div class="col">
                 <div class="px-0 px-sm-4" style="padding-top: 80px;">
                     @yield('content')
@@ -114,6 +80,7 @@
         userLogged = {
             id: {{Auth::user()->id}},
             name: "{{Auth::user()->name}}",
+            username: "{{Auth::user()->username}}",
             avatar: "{!!Auth::user()->image->url_xs!!}",
             url: "{{Auth::user()->getUrl()}}",
         };

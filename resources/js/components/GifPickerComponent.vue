@@ -1,8 +1,8 @@
 <template>
     <div class="dropdown d-inline-block" role="button">
         <svg xmlns="http://www.w3.org/2000/svg"
-            width="30"
-            height="30"
+            width="35"
+            height="35"
             data-bs-toggle="dropdown" aria-expanded="false"
             fill="currentColor"
             class="p-1"
