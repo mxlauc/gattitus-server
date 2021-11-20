@@ -50,3 +50,10 @@ Route::resource('simplepublications.reactions', ReactionSimplePublicationControl
 Route::resource('cats', CatController::class)->names('cats');
 
 Route::get('/@{user:username}', [UserController::class, 'show'])->name('user.show');
+
+Route::get('/admin', function () {
+    return view('admin.index');
+});
+Route::get('/admin/{path}', function () {
+    return view('admin.index');
+})->where('path', '.*');
