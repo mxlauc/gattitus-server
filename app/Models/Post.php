@@ -6,33 +6,31 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
-class SimplePublication extends Model
+class Post extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'description',
         'user_id',
-        'image_id',
     ];
-
-    public function image(){
-        return $this->belongsTo(Image::class);
-    }
 
     public function user(){
         return $this->belongsTo(User::class);
     }
 
+    public function simple_publications(){
+        return $this->belongsTo(SimplePost::class);
+    }
+
     public function reactions(){
         return $this->belongsToMany(Reaction::class)
-                ->using(ReactionSimplePublication::class)
+                ->using(ReactionPost::class)
                 ->withTimestamps();
     }
 
     public function myReaction(){
         return $this->belongsToMany(Reaction::class)
-                ->using(ReactionSimplePublication::class)
+                ->using(ReactionPost::class)
                 ->withTimestamps()
                 ->wherePivot('user_id', Auth::user()->id ?? -1);
     }
@@ -46,6 +44,6 @@ class SimplePublication extends Model
     }
 
     public function comments(){
-        return $this->hasMany(SimplePublicationComment::class);
+        return $this->hasMany(PostComment::class);
     }
 }

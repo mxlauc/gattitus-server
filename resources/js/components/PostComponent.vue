@@ -1,17 +1,17 @@
 <template>
-  <div class="card card-publication shadow-sm f-rubick mb-4">
+  <div class="card card-post shadow-sm f-rubick mb-4">
     <div class="card-body pb-0">
       <div class="row g-0">
         <div class="col-auto">
-          <a :href="publication.user.url">
-            <img class="img-user-publication shadow"
-              :src="publication.user.avatar">
+          <a :href="post.user.url">
+            <img class="img-user-post shadow"
+              :src="post.user.avatar">
           </a>
           
         </div>
         <div class="col px-2">
-          <a :href="publication.user.url" class="name-user-publication fw-bold text-decoration-none text-dark" >
-            {{publication.user.name}}
+          <a :href="post.user.url" class="name-user-post fw-bold text-decoration-none text-dark" >
+            {{post.user.name}}
           </a>
           <span class="d-block text-black-50 fs-6" role="button"><small>Hace 5 minutos</small></span>
           
@@ -32,16 +32,16 @@
 
         </div>
       </div>
-        <div class="rounded-5 img-container-publication shadow-sm my-2 position-relative"
-        :style="{ aspectRatio: publication.image.aspect_ratio < 0.9 ? 0.9 : publication.image.aspect_ratio, background: `linear-gradient(45deg, ${publication.image.color_bl} 0%, ${publication.image.color_tr} 100%)`}">
-          <img class="img-publication img-fluid w-100 shadow-sm opacity-0"
-            :src="publication.image.url"
+        <div class="rounded-5 img-container-post shadow-sm my-2 position-relative"
+        :style="{ aspectRatio: post.image.aspect_ratio < 0.9 ? 0.9 : post.image.aspect_ratio, background: `linear-gradient(45deg, ${post.image.color_bl} 0%, ${post.image.color_tr} 100%)`}">
+          <img class="img-post img-fluid w-100 shadow-sm opacity-0"
+            :src="post.image.url"
             @load="onLoadImage"/>
             <div class="position-absolute top-0 start-0 end-0 bottom-0" @dblclick="reactLove"></div>
         </div>
         
         <p class="fs-6 mb-2 text-muted">
-          {{publication.description}}
+          {{post.description}}
         </p>
         <hr class="my-0" style="opacity: 0.1;">
 
@@ -103,16 +103,16 @@ export default {
     },
     data(){
       return {
-        reactions_count: this.publication.reactions_count,
-        myReaction: this.publication.myReaction,
+        reactions_count: this.post.reactions_count,
+        myReaction: this.post.myReaction,
         reactioning: false,
       };
     },
     inject: ["userLogged"],
-    props: ["publication"],
+    props: ["post"],
     provide(){
       return {
-        simplePublicationId: this.publication.id
+        postId: this.post.id
       };
     },
     methods: {
@@ -127,7 +127,7 @@ export default {
         }
         this.reactioning = true;
         //document.getElementById("soundMeow").play();
-        axios.post(`/simplepublications/${this.publication.id}/reactions`)
+        axios.post(`/posts/${this.post.id}/reactions`)
         .then(response => {
           console.log(response.data);
           this.myReaction = response.data.own_reaction;
@@ -150,15 +150,15 @@ export default {
 };
 </script>
 <style scoped>
-.img-user-publication{
+.img-user-post{
   width: 40px;
   height: 40px;
   border-radius: 0.8rem;
 }
-.img-container-publication{
+.img-container-post{
   overflow: hidden;
 }
-.img-publication{
+.img-post{
   object-fit: cover;
   height: 100%;
   transition: opacity 0.3s ease-out;

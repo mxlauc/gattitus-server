@@ -3,15 +3,15 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CatController;
 use App\Http\Controllers\ImageController;
-use App\Http\Controllers\ReactionSimplePublicationController;
-use App\Http\Controllers\SimplePublicationCommentController;
-use App\Http\Controllers\SimplePublicationController;
+use App\Http\Controllers\ReactionPostController;
+use App\Http\Controllers\PostCommentController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
-use App\Http\Resources\SimplePublicationCommentCollection;
-use App\Http\Resources\SimplePublicationResource;
+use App\Http\Resources\PostCommentCollection;
+use App\Http\Resources\PostResource;
 use App\Models\Image;
-use App\Models\SimplePublication;
-use App\Models\SimplePublicationComment;
+use App\Models\Post;
+use App\Models\PostComment;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,9 +26,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $publications =  SimplePublication::with(['image', 'user', 'myReaction'])->withCount('reactions')->orderBy('created_at', 'DESC')->get();
+    $posts =  Post::with(['image', 'user', 'myReaction'])->withCount('reactions')->orderBy('created_at', 'DESC')->get();
 
-    return view('pages.home', compact('publications'));
+    return view('pages.home', compact('posts'));
 })->name('home');
 
 Route::get('/auth/login/facebook', [AuthController::class, 'loginFacebook'])->name("login.facebook");
@@ -44,9 +44,9 @@ Route::get('hey.js', function(){
 });
 
 Route::resource('images', ImageController::class)->names('images');
-Route::resource('simplepublications', SimplePublicationController::class)->names('simplepublication');
-Route::resource('simplepublications.comments', SimplePublicationCommentController::class)->shallow()->names('simplepublication.comments');
-Route::resource('simplepublications.reactions', ReactionSimplePublicationController::class)->shallow()->names('simplepublications.reactions');
+Route::resource('posts', PostController::class)->names('post');
+Route::resource('posts.comments', PostCommentController::class)->shallow()->names('post.comments');
+Route::resource('posts.reactions', ReactionPostController::class)->shallow()->names('posts.reactions');
 Route::resource('cats', CatController::class)->names('cats');
 
 Route::get('/@{user:username}', [UserController::class, 'show'])->name('user.show');

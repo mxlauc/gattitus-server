@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateReactionSimplePublicationTable extends Migration
+class CreateReactionPostTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateReactionSimplePublicationTable extends Migration
      */
     public function up()
     {
-        Schema::create('reaction_simple_publication', function (Blueprint $table) {
+        Schema::create('reaction_post', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('simple_publication_id')->constrained()->onDelete('cascade');
+            $table->foreignId('post_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('reaction_id')->constrained()->onDelete('cascade');
-            $table->unique(['simple_publication_id', 'user_id']);
+            $table->unique(['post_id', 'user_id']);
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateReactionSimplePublicationTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reaction_simple_publication');
+        Schema::dropIfExists('reaction_post');
     }
 }

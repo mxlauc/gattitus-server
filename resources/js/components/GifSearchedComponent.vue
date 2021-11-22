@@ -8,10 +8,10 @@
 import Masonry from 'masonry-layout';
 export default {
     props: ['imgUrl'],
-    inject: ['simplePublicationId'],
+    inject: ['postId'],
     mounted(){
         new ResizeObserver(()=> {
-            var msnry = new Masonry("#masonry-gifs-row" + this.simplePublicationId, {
+            var msnry = new Masonry("#masonry-gifs-row" + this.postId, {
                 percentPosition: true,
             });
         }).observe(this.$refs.img);

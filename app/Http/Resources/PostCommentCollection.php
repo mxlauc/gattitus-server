@@ -2,10 +2,10 @@
 
 namespace App\Http\Resources;
 
-use App\Models\SimplePublicationComment;
+use App\Models\PostComment;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class SimplePublicationCommentCollection extends ResourceCollection
+class PostCommentCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -18,7 +18,7 @@ class SimplePublicationCommentCollection extends ResourceCollection
         return [
             "data" => $this->collection,
             "meta" => [
-                "total" => SimplePublicationComment::where('simple_publication_id', $request->post)->count()
+                "total" => PostComment::where('post_id', $request->post)->count()
             ],
         ];
     }

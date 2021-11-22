@@ -69,9 +69,9 @@ onAuthStateChanged(auth, (user) => {
 import { createApp, provide } from 'vue';
 import HeaderComponent from './components/HeaderComponent.vue';
 
-import SimplePublicationComponent from './components/SimplePublicationComponent.vue';
+import PostComponent from './components/PostComponent.vue';
 import CatItemComponent from './components/CatItemComponent.vue';
-import CreatePublicationComponent from './components/CreatePublicationComponent.vue';
+import CreatePostComponent from './components/CreatePostComponent.vue';
 import CreateCatComponent from './components/CreateCatComponent.vue';
 import VWave from 'v-wave';
 import { Lang } from 'laravel-vue-lang';
@@ -120,9 +120,9 @@ let mixin = {
 window.app = createApp({
     components: {
         HeaderComponent,
-        SimplePublicationComponent,
+        PostComponent,
         CatItemComponent,
-        CreatePublicationComponent,
+        CreatePostComponent,
         CreateCatComponent,
     }
 })
