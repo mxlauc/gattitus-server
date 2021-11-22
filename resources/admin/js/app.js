@@ -72,6 +72,8 @@ import { createApp, provide } from 'vue';
 import HeaderComponent from './components/HeaderComponent.vue';
 import MenuComponent from './components/MenuComponent.vue';
 import DashboardComponent from './components/DashboardComponent.vue';
+import ReactionsComponent from './components/reactions/ReactionsComponent.vue';
+import CreateReactionComponent from './components/reactions/CreateReactionComponent';
 
 import VWave from 'v-wave';
 import { Lang } from 'laravel-vue-lang';
@@ -122,6 +124,12 @@ window.app = createApp({
         HeaderComponent,
         MenuComponent,
         DashboardComponent,
+        ReactionsComponent,
+    },
+    computed: {
+        pageTitle: function() {
+            return document.title;
+        }
     }
 })
 .use(VWave)
@@ -129,17 +137,30 @@ window.app = createApp({
 app.mixin(mixin);
 
 
-// 1. Define route components.
-// These can be imported from other files
 
-const About = { template: '<div>Reacciones</div>' }
 
 // 2. Define some routes
 // Each route should map to a component.
 // We'll talk about nested routes later.
 const routes = [
-  { path: '/', component: DashboardComponent },
-  { path: '/reactions', component: About },
+    {
+        path: '/',
+        component: DashboardComponent
+    },
+    {
+        path: '/reactions',
+        component: ReactionsComponent,
+        meta: {
+            title: 'Reacciones'
+        }
+    },
+    {
+        path: '/reactions/create',
+        component: CreateReactionComponent,
+        meta: {
+            title: 'Crear reaccion'
+        }
+    }
 ]
 
 // 3. Create the router instance and pass the `routes` option
@@ -150,6 +171,11 @@ const router = createRouter({
   history: createWebHistory('/admin'),
   routes, // short for `routes: routes`
 })
+
+router.beforeEach((to, from, next) => {
+    document.title = to.meta.title ?? 'Gattitus';
+    next();
+});
 
 // Make sure to _use_ the router instance to make the
 // whole app router-aware.

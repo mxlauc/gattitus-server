@@ -63,7 +63,10 @@
                     <menu-component></menu-component>
                 </div>
                 <div class="col">
-                    <router-view></router-view>
+                    <div class="card shadow p-3">
+                        <h1 class="mb-4">@{{ $route.meta.title }}</h1>                        
+                        <router-view></router-view>
+                    </div>
                 </div>
             </div>
         </div>
