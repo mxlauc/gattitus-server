@@ -18,8 +18,8 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function simple_publications(){
-        return $this->belongsTo(SimplePost::class);
+    public function simple_post(){
+        return $this->hasOne(SimplePost::class);
     }
 
     public function reactions(){

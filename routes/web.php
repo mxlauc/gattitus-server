@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $posts =  Post::with(['image', 'user', 'myReaction'])->withCount('reactions')->orderBy('created_at', 'DESC')->get();
+    $posts =  Post::with(['simple_post.image', 'user', 'myReaction'])->withCount('reactions')->orderBy('created_at', 'DESC')->get();
 
     return view('pages.home', compact('posts'));
 })->name('home');

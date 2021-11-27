@@ -13,6 +13,7 @@ class SimplePost extends Model
     protected $fillable = [
         'description',
         'image_id',
+        'post_id',
     ];
 
     public function image(){

@@ -11,10 +11,10 @@
                     id: {{$post->id}},
                     color: 321,
                     image: {
-                        "url" : "{{$post->image->url_lg}}",
-                        "aspect_ratio" : {{json_decode($post->image->meta_data)->aspect_ratio}},
-                        "color_bl" : "{{json_decode($post->image->meta_data)->color_bl}}",
-                        "color_tr" : "{{json_decode($post->image->meta_data)->color_tr}}"
+                        "url" : "{{$post->simple_post->image->url_lg}}",
+                        "aspect_ratio" : {{json_decode($post->simple_post->image->meta_data)->aspect_ratio}},
+                        "color_bl" : "{{json_decode($post->simple_post->image->meta_data)->color_bl}}",
+                        "color_tr" : "{{json_decode($post->simple_post->image->meta_data)->color_tr}}"
                     },
                     description : `{{$post->description}}`,
                     user : {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\SimplePost;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -42,13 +43,26 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $this->authorize('create', Post::class);
-        Post::create([
+        $post = Post::create([
             'user_id' => $request->user()->id,
+        ]);
+
+        SimplePost::create([
+            'description' => $request->description,
+            'post_id' => $post->id,
+            'image_id' => $request->image_id,
         ]);
 
         return [
             "estado" => 'ok'
         ];
+
+        
+
+
+      
+
+
     }
 
     /**

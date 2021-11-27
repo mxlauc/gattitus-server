@@ -69,7 +69,7 @@ onAuthStateChanged(auth, (user) => {
 import { createApp, provide } from 'vue';
 import HeaderComponent from './components/HeaderComponent.vue';
 
-import PostComponent from './components/PostComponent.vue';
+import SimplePostComponent from './components/PostComponent.vue';
 import CatItemComponent from './components/CatItemComponent.vue';
 import CreatePostComponent from './components/CreatePostComponent.vue';
 import CreateCatComponent from './components/CreateCatComponent.vue';
@@ -120,7 +120,7 @@ let mixin = {
 window.app = createApp({
     components: {
         HeaderComponent,
-        PostComponent,
+        SimplePostComponent,
         CatItemComponent,
         CreatePostComponent,
         CreateCatComponent,
