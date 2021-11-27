@@ -16,8 +16,8 @@ class CreateSimplePostsTable extends Migration
         Schema::create('simple_posts', function (Blueprint $table) {
             $table->id();
             $table->text('description', 1000);
-            $table->foreignId('post_id')->constrained()->onDelete('cascade');
-            $table->foreignId('image_id')->constrained();
+            $table->foreignId('post_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('image_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
         });
     }

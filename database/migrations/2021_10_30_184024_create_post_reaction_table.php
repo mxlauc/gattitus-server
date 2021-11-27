@@ -15,9 +15,9 @@ class CreatePostReactionTable extends Migration
     {
         Schema::create('post_reaction', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('post_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('reaction_id')->constrained()->onDelete('cascade');
+            $table->foreignId('post_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('reaction_id')->constrained()->cascadeOnDelete();
             $table->unique(['post_id', 'user_id']);
             $table->timestamps();
         });

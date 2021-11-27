@@ -17,8 +17,8 @@ class CreateCatsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('nickname');
-            $table->foreignId('image_id')->constrained();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('image_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
