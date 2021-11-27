@@ -71,9 +71,7 @@ import { createApp, provide } from 'vue';
 
 import HeaderComponent from './components/HeaderComponent.vue';
 import MenuComponent from './components/MenuComponent.vue';
-import DashboardComponent from './components/DashboardComponent.vue';
-import ReactionsComponent from './components/reactions/ReactionsComponent.vue';
-import CreateReactionComponent from './components/reactions/CreateReactionComponent';
+
 
 import VWave from 'v-wave';
 import { Lang } from 'laravel-vue-lang';
@@ -123,8 +121,6 @@ window.app = createApp({
     components: {
         HeaderComponent,
         MenuComponent,
-        DashboardComponent,
-        ReactionsComponent,
     },
     computed: {
         pageTitle: function() {
@@ -145,18 +141,18 @@ app.mixin(mixin);
 const routes = [
     {
         path: '/',
-        component: DashboardComponent
+        component: () => import(/* webpackChunkName: "dashboard" */ './components/DashboardComponent.vue'),
     },
     {
         path: '/reactions',
-        component: ReactionsComponent,
+        component: () => import(/* webpackChunkName: "reactions" */ './components/reactions/ReactionsComponent.vue'),
         meta: {
             title: 'Reacciones'
         }
     },
     {
         path: '/reactions/create',
-        component: CreateReactionComponent,
+        component: () => import(/* webpackChunkName: "reactions.create" */ './components/reactions/CreateReactionComponent'),
         meta: {
             title: 'Crear reaccion'
         }
