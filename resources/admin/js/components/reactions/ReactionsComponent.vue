@@ -6,27 +6,21 @@
                 <tr>
                     <th scope="col"></th>
                     <th scope="col">Nombre</th>
+                    <th scope="col">Nombre a mostrar</th>
+                    <th scope="col">Nombre a mostrar</th>
                     <th scope="col">Imagenes</th>
-                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
+                <tr v-for="(r, i) in reactions" :key="r">
+                    <th scope="row">{{ i + 1 }}</th>
+                    <td>{{r.name}}</td>
+                    <td>{{r.display_name}}</td>
+                    <td>{{r.display_name_es}}</td>
+                    <td>
+                        <img :src="r.image_svg" class="reaction-img">
+                        <img :src="r.image_gif" class="reaction-img">
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -34,7 +28,33 @@
 </template>
 
 <script>
-export default {};
+export default {
+    data(){
+        return {
+            reactions: null,
+        }
+    },
+    mounted(){
+        this.getReactions();
+    },
+    methods:{
+        getReactions(){
+            axios.get('/reactions')
+            .then(response => {
+                this.reactions = response.data;
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        }
+    }
+};
 </script>
 <style scoped>
+.reaction-img{
+    object-fit: contain;
+    width: 30px;
+    height: 30px;
+
+}
 </style>

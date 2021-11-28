@@ -14,12 +14,12 @@ class AddUrlsAndDirectoryFieldsToImagesTable extends Migration
     public function up()
     {
         Schema::table('images', function (Blueprint $table) {
-            $table->string('directory')->after('id');
-            $table->string('url_xl')->after('id');
-            $table->string('url_lg')->after('id');
-            $table->string('url_md')->after('id');
-            $table->string('url_sm')->after('id');
-            $table->string('url_xs')->after('id');
+            $table->string('directory')->after('id')->nullable();
+            $table->string('url_xl')->after('id')->nullable();
+            $table->string('url_lg')->after('id')->nullable();
+            $table->string('url_md')->after('id')->nullable();
+            $table->string('url_sm')->after('id')->nullable();
+            $table->string('url_xs')->after('id')->nullable();
         });
     }
 

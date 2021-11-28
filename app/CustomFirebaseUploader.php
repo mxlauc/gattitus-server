@@ -45,7 +45,7 @@ class CustomFirebaseUploader{
         return $result;
     }
 
-    private function uploadFileFirebase($name, $fileStream){
+    public function uploadFileFirebase($name, $fileStream){
         $uuid = Uuid::uuid4()->toString();
     
         $this->bucket->upload($fileStream, [

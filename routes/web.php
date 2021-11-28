@@ -6,6 +6,7 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ReactionPostController;
 use App\Http\Controllers\PostCommentController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ReactionController;
 use App\Http\Controllers\UserController;
 use App\Http\Resources\PostCommentCollection;
 use App\Http\Resources\PostResource;
@@ -57,3 +58,6 @@ Route::get('/admin', function () {
 Route::get('/admin/{path}', function () {
     return view('admin.index');
 })->where('path', '.*');
+
+
+Route::resource('reactions', ReactionController::class)->names('reactions');

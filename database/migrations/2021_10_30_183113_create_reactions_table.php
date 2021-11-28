@@ -19,7 +19,8 @@ class CreateReactionsTable extends Migration
             $table->string('name');
             $table->string('display_name');
             $table->string('display_name_es');
-            $table->string('image');
+            $table->string('image_svg');
+            $table->string('image_gif');
             $table->timestamps();
         });
 
@@ -28,7 +29,8 @@ class CreateReactionsTable extends Migration
             'name' => 'love',
             'display_name' => 'I love it',
             'display_name_es' => 'Me encanta',
-            'image' => 'https://lh3.googleusercontent.com/proxy/ZJeJZ-ZkSijdR_oBwhJXJcW84-vSm7AVELiYX_i4cXpt2VG_LB6IWHXLVIo5ZZC_ypCHcJiSpKXBYytiippO3-MhMGhtLLA-ZaNjqjiUp-O5UmrobeGQ2aNLP6L24b16EPliH_lm1_-ckbLylqr3cODFV7yctPZyEb6N1Vhm7QCSHdpOOFvBV6vRUKCPKnrtkAv6',
+            'image_svg' => 'https://lh3.googleusercontent.com/proxy/ZJeJZ-ZkSijdR_oBwhJXJcW84-vSm7AVELiYX_i4cXpt2VG_LB6IWHXLVIo5ZZC_ypCHcJiSpKXBYytiippO3-MhMGhtLLA-ZaNjqjiUp-O5UmrobeGQ2aNLP6L24b16EPliH_lm1_-ckbLylqr3cODFV7yctPZyEb6N1Vhm7QCSHdpOOFvBV6vRUKCPKnrtkAv6',
+            'image_gif' => 'https://lh3.googleusercontent.com/proxy/ZJeJZ-ZkSijdR_oBwhJXJcW84-vSm7AVELiYX_i4cXpt2VG_LB6IWHXLVIo5ZZC_ypCHcJiSpKXBYytiippO3-MhMGhtLLA-ZaNjqjiUp-O5UmrobeGQ2aNLP6L24b16EPliH_lm1_-ckbLylqr3cODFV7yctPZyEb6N1Vhm7QCSHdpOOFvBV6vRUKCPKnrtkAv6',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
