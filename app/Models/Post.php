@@ -24,13 +24,13 @@ class Post extends Model
 
     public function reactions(){
         return $this->belongsToMany(Reaction::class)
-                ->using(ReactionPost::class)
+                ->using(PostReaction::class)
                 ->withTimestamps();
     }
 
     public function myReaction(){
         return $this->belongsToMany(Reaction::class)
-                ->using(ReactionPost::class)
+                ->using(PostReaction::class)
                 ->withTimestamps()
                 ->wherePivot('user_id', Auth::user()->id ?? -1);
     }

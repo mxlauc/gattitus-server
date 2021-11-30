@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Reaction;
-use App\Models\ReactionPost;
-use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class ReactionPostController extends Controller
+class FollowersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +15,7 @@ class ReactionPostController extends Controller
      */
     public function index()
     {
-        
+        //
     }
 
     /**
@@ -35,24 +34,24 @@ class ReactionPostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $postId)
+    public function store(Request $request)
     {
-        $this->authorize('create', ReactionPost::class);
-        $ownReaction = null;
-        $post = Post::find($postId);
-        if($post->reactions()->where('user_id', $request->user()->id)->exists()){
-            $post->reactions()->detach(1);
+        $user = User::find($request->user_id);
+
+        $siguiendo = false;
+        if(DB::table('user_user')->whereFollowerId($request->user()->id)->whereFollowedId($user->id)->count()){
+            $request->user()->followeds()->detach($user->id);
         }else{
-            $post->reactions()->attach(1, [
-                'user_id' => $request->user()->id,
-            ]);
-            $ownReaction = Reaction::find(1);
+            $request->user()->followeds()->syncWithoutDetaching($user->id);
+            $siguiendo = true;
         }
-        
-        return [
-            'own_reaction' => $ownReaction ? $ownReaction->name : null,
-            'reactions_count' => $post->reactions()->count()
-        ];
+        $followers = DB::table('user_user')->whereFollowedId($user->id)->count();
+        $followeds = DB::table('user_user')->whereFollowerId($user->id)->count();
+        return response()->json([
+            "following" => $siguiendo,
+            "followers" => $followers,
+            "followeds" => $followeds,
+        ]);
     }
 
     /**

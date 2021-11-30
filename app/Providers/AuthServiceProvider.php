@@ -3,11 +3,11 @@
 namespace App\Providers;
 
 use App\Models\Image;
-use App\Models\ReactionPost;
+use App\Models\PostReaction;
 use App\Models\Post;
 use App\Models\PostComment;
 use App\Policies\ImagePolicy;
-use App\Policies\ReactionPostPolicy;
+use App\Policies\PostReactionPolicy;
 use App\Policies\PostCommentPolicy;
 use App\Policies\PostPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -25,7 +25,7 @@ class AuthServiceProvider extends ServiceProvider
         Post::class => PostPolicy::class,
         PostComment::class => PostCommentPolicy::class,
         Image::class => ImagePolicy::class,
-        ReactionPost::class => ReactionPostPolicy::class,
+        PostReaction::class => PostReactionPolicy::class,
     ];
 
     /**

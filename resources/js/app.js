@@ -73,6 +73,7 @@ import SimplePostComponent from './components/PostComponent.vue';
 import CatItemComponent from './components/CatItemComponent.vue';
 import CreatePostComponent from './components/CreatePostComponent.vue';
 import CreateCatComponent from './components/CreateCatComponent.vue';
+import UserHeaderComponent from './components/UserHeaderComponent.vue';
 import VWave from 'v-wave';
 import { Lang } from 'laravel-vue-lang';
 
@@ -124,6 +125,7 @@ window.app = createApp({
         CatItemComponent,
         CreatePostComponent,
         CreateCatComponent,
+        UserHeaderComponent,
     }
 })
 .use(VWave)

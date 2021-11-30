@@ -2,8 +2,9 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CatController;
+use App\Http\Controllers\FollowersController;
 use App\Http\Controllers\ImageController;
-use App\Http\Controllers\ReactionPostController;
+use App\Http\Controllers\PostReactionController;
 use App\Http\Controllers\PostCommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ReactionController;
@@ -47,7 +48,7 @@ Route::get('hey.js', function(){
 Route::resource('images', ImageController::class)->names('images');
 Route::resource('posts', PostController::class)->names('post');
 Route::resource('posts.comments', PostCommentController::class)->shallow()->names('post.comments');
-Route::resource('posts.reactions', ReactionPostController::class)->shallow()->names('posts.reactions');
+Route::resource('posts.reactions', PostReactionController::class)->shallow()->names('posts.reactions');
 Route::resource('cats', CatController::class)->names('cats');
 
 Route::get('/@{user:username}', [UserController::class, 'show'])->name('user.show');
@@ -61,3 +62,4 @@ Route::get('/admin/{path}', function () {
 
 
 Route::resource('reactions', ReactionController::class)->names('reactions');
+Route::resource('followers', FollowersController::class)->names('followers');

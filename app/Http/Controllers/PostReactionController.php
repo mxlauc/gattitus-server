@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cat;
-use App\Models\User;
+use App\Models\Reaction;
+use App\Models\PostReaction;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class PostReactionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -34,24 +35,35 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $postId)
     {
-        //
+        $this->authorize('create', PostReaction::class);
+        $ownReaction = null;
+        $post = Post::find($postId);
+        if($post->reactions()->where('user_id', $request->user()->id)->exists()){
+            $post->reactions()->detach(1);
+        }else{
+            $post->reactions()->attach(1, [
+                'user_id' => $request->user()->id,
+            ]);
+            $ownReaction = Reaction::find(1);
+        }
+        
+        return [
+            'own_reaction' => $ownReaction ? $ownReaction->name : null,
+            'reactions_count' => $post->reactions()->count()
+        ];
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, User $user)
+    public function show($id)
     {
-        if($request->ajax()){
-            return User::with('image', 'myFollow')->find($user->id);
-        }
-        $cats = Cat::with('image')->get();
-        return view('pages.users.show', compact('user', 'cats'));
+        //
     }
 
     /**
