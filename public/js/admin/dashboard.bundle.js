@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[966],{7944:(e,n,r)=>{r.r(n),r.d(n,{default:()=>u});const s={render:function(e,n,r,s,u,t){return" dashboard "}},u=s}}]);
