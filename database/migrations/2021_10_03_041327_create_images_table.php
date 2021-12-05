@@ -17,8 +17,8 @@ class CreateImagesTable extends Migration
             $table->id();
             $table->string('private_path');
             $table->string('public_path');
-            $table->json('meta_data');
-            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
+            $table->json('meta_data')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

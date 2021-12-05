@@ -1,7 +1,8 @@
-require('./bootstrap');
+require('../../js/bootstrap');
 
 window.bootstrap = require('bootstrap');;
 
+import { createRouter, createWebHistory } from 'vue-router';
 
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithCredential, FacebookAuthProvider, onAuthStateChanged, signOut } from "firebase/auth";
@@ -67,13 +68,11 @@ onAuthStateChanged(auth, (user) => {
 
 
 import { createApp, provide } from 'vue';
-import HeaderComponent from './components/HeaderComponent.vue';
 
-import SimplePostComponent from './components/PostComponent.vue';
-import CatItemComponent from './components/CatItemComponent.vue';
-import CreatePostComponent from './components/CreatePostComponent.vue';
-import CreateCatComponent from './components/CreateCatComponent.vue';
-import UserHeaderComponent from './components/UserHeaderComponent.vue';
+import HeaderComponent from './components/HeaderComponent.vue';
+import MenuComponent from './components/MenuComponent.vue';
+
+
 import VWave from 'v-wave';
 import { Lang } from 'laravel-vue-lang';
 
@@ -121,16 +120,64 @@ let mixin = {
 window.app = createApp({
     components: {
         HeaderComponent,
-        SimplePostComponent,
-        CatItemComponent,
-        CreatePostComponent,
-        CreateCatComponent,
-        UserHeaderComponent,
+        MenuComponent,
+    },
+    computed: {
+        pageTitle: function() {
+            return document.title;
+        }
     }
 })
 .use(VWave)
 .use(Lang);
 app.mixin(mixin);
+
+
+
+
+// 2. Define some routes
+// Each route should map to a component.
+// We'll talk about nested routes later.
+const routes = [
+    {
+        path: '/',
+        component: () => import(/* webpackChunkName: "dashboard" */ './components/DashboardComponent.vue'),
+    },
+    {
+        path: '/reactions',
+        component: () => import(/* webpackChunkName: "reactions" */ './components/reactions/ReactionsComponent.vue'),
+        meta: {
+            title: 'Reacciones'
+        }
+    },
+    {
+        path: '/reactions/create',
+        component: () => import(/* webpackChunkName: "reactions.create" */ './components/reactions/CreateReactionComponent'),
+        meta: {
+            title: 'Crear reaccion'
+        }
+    }
+]
+
+// 3. Create the router instance and pass the `routes` option
+// You can pass in additional options here, but let's
+// keep it simple for now.
+const router = createRouter({
+  // 4. Provide the history implementation to use. We are using the hash history for simplicity here.
+  history: createWebHistory('/admin'),
+  routes, // short for `routes: routes`
+})
+
+router.beforeEach((to, from, next) => {
+    document.title = to.meta.title ?? 'Gattitus';
+    next();
+});
+
+// Make sure to _use_ the router instance to make the
+// whole app router-aware.
+app.use(router)
+
+
 
 
 // register service worker

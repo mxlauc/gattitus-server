@@ -31,7 +31,7 @@
                 <div class="row g-0 contenedorTextarea">
                     <div class="col">
                         <span
-                            v-bind:id="'cajaTexto' + simplePublicationId"
+                            v-bind:id="'cajaTexto' + postId"
                             class="textarea text-break"
                             contenteditable
                             ref="textarea"
@@ -69,7 +69,7 @@
         <div
             v-if="userLogged"
             class="modal fade"
-            v-bind:id="'eliminarComentarioModal' + simplePublicationId"
+            v-bind:id="'eliminarComentarioModal' + postId"
             tabindex="-1"
             aria-hidden="true"
         >
@@ -140,7 +140,7 @@
         <div
             v-if="userLogged"
             class="modal fade"
-            v-bind:id="'editarComentarioModal' + simplePublicationId"
+            v-bind:id="'editarComentarioModal' + postId"
             tabindex="-1"
             aria-hidden="true"
         >
@@ -221,12 +221,12 @@ export default {
             gifSeleccionado: null
         };
     },
-    inject: ["userLogged", "simplePublicationId"],
+    inject: ["userLogged", "postId"],
     emits: ["contadorActualizado"],
     mounted() {
         axios({
             method: "get",
-            url: `/simplepublications/${this.simplePublicationId}/comments`,
+            url: `/posts/${this.postId}/comments`,
         })
             .then((response) => {
                 this.$emit("contadorActualizado", response.data.meta.total);
@@ -240,7 +240,7 @@ export default {
         if(this.userLogged){
             var thisComponent = this;
             document
-                .getElementById("eliminarComentarioModal" + this.simplePublicationId)
+                .getElementById("eliminarComentarioModal" + this.postId)
                 .addEventListener("show.bs.modal", function (event) {
                     var idComentario = event.relatedTarget.getAttribute(
                         "data-bs-id-comentario"
@@ -248,7 +248,7 @@ export default {
                     thisComponent.buscarComentarioEliminar(idComentario);
                 });
             document
-                .getElementById("editarComentarioModal" + this.simplePublicationId)
+                .getElementById("editarComentarioModal" + this.postId)
                 .addEventListener("show.bs.modal", function (event) {
                     var idComentario = event.relatedTarget.getAttribute(
                         "data-bs-id-comentario"
@@ -280,7 +280,7 @@ export default {
                 /* AJAX request */
                 axios({
                     method: "post",
-                    url: `/simplepublications/${this.simplePublicationId}/comments`,
+                    url: `/posts/${this.postId}/comments`,
                     data: {
                         description: texto,
                         gif_url: this.gifSeleccionado,
@@ -340,7 +340,7 @@ export default {
         },
         eliminarComentario() {
             var modal = bootstrap.Modal.getOrCreateInstance(
-                document.querySelector("#eliminarComentarioModal" + this.simplePublicationId)
+                document.querySelector("#eliminarComentarioModal" + this.postId)
             );
 
             axios({
@@ -367,7 +367,7 @@ export default {
         },
         editarComentario() {
             var modal = bootstrap.Modal.getOrCreateInstance(
-                document.querySelector("#editarComentarioModal" + this.simplePublicationId)
+                document.querySelector("#editarComentarioModal" + this.postId)
             );
             let texto = new DOMParser().parseFromString(
                 this.$refs.textareaEditar.innerHTML

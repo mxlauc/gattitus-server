@@ -22,6 +22,7 @@
         <div class="col-auto ms-auto">
 
             <div v-if="userLogged">
+                <a href="/admin" class="btn btn-primary me-2">Admin</a>
                 <button class="btn btn-primary"
                         data-bs-toggle="dropdown">
                     Crear

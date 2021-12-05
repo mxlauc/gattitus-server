@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\CustomFirebaseUploader;
+use App\Models\Reaction;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Uuid;
 
 class ReactionController extends Controller
 {
@@ -13,7 +16,7 @@ class ReactionController extends Controller
      */
     public function index()
     {
-        //
+        return Reaction::all();
     }
 
     /**
@@ -34,7 +37,27 @@ class ReactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $customFirebaseUploader = new CustomFirebaseUploader();
+        // image_svg
+        $fileStream = fopen($request->file('image_svg')->getRealPath(), 'r');
+        $name = 'gattitus/' . 'imgs' . '/' . dechex(round(microtime(true) * 1000)) . "_" . Uuid::uuid4()->toString() . '.svg';
+        $image_svg = $customFirebaseUploader->uploadFileFirebase($name, $fileStream);
+        // image_gif
+        $fileStream = fopen($request->file('image_gif')->getRealPath(), 'r');
+        $name = 'gattitus/' . 'imgs' . '/' . dechex(round(microtime(true) * 1000)) . "_" . Uuid::uuid4()->toString() . '.gif';
+        $image_gif = $customFirebaseUploader->uploadFileFirebase($name, $fileStream);
+
+        Reaction::create([
+            'name' => $request->name,
+            'display_name' => $request->display_name,
+            'display_name_es' => $request->display_name_es,
+            'image_svg' => $image_svg,
+            'image_gif' => $image_gif,
+        ]);
+
+        return [
+            'result' => 'ok'
+        ];
     }
 
     /**

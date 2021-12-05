@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Reaction;
-use App\Models\ReactionSimplePublication;
-use App\Models\SimplePublication;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class ReactionSimplePublicationController extends Controller
+class FollowersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +15,7 @@ class ReactionSimplePublicationController extends Controller
      */
     public function index()
     {
-        
+        //
     }
 
     /**
@@ -35,24 +34,24 @@ class ReactionSimplePublicationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $simplePublicationId)
+    public function store(Request $request)
     {
-        $this->authorize('create', ReactionSimplePublication::class);
-        $ownReaction = null;
-        $simplePublication = SimplePublication::find($simplePublicationId);
-        if($simplePublication->reactions()->where('user_id', $request->user()->id)->exists()){
-            $simplePublication->reactions()->detach(1);
+        $user = User::find($request->user_id);
+
+        $siguiendo = false;
+        if(DB::table('user_user')->whereFollowerId($request->user()->id)->whereFollowedId($user->id)->count()){
+            $request->user()->followeds()->detach($user->id);
         }else{
-            $simplePublication->reactions()->attach(1, [
-                'user_id' => $request->user()->id,
-            ]);
-            $ownReaction = Reaction::find(1);
+            $request->user()->followeds()->syncWithoutDetaching($user->id);
+            $siguiendo = true;
         }
-        
-        return [
-            'own_reaction' => $ownReaction ? $ownReaction->name : null,
-            'reactions_count' => $simplePublication->reactions()->count()
-        ];
+        $followers = DB::table('user_user')->whereFollowedId($user->id)->count();
+        $followeds = DB::table('user_user')->whereFollowerId($user->id)->count();
+        return response()->json([
+            "following" => $siguiendo,
+            "followers" => $followers,
+            "followeds" => $followeds,
+        ]);
     }
 
     /**

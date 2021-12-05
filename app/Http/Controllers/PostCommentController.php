@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 //use App\Events\NewComment;
-use App\Http\Requests\StoreSimplePublicationCommentRequest;
-use App\Http\Resources\SimplePublicationCommentCollection;
-use App\Http\Resources\SimplePublicationCommentResource;
-use App\Models\SimplePublicationComment;
-use App\Models\SimplePublication;
+use App\Http\Requests\StorePostCommentRequest;
+use App\Http\Resources\PostCommentCollection;
+use App\Http\Resources\PostCommentResource;
+use App\Models\PostComment;
+use App\Models\Post;
 
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 use SebastianBergmann\Environment\Console;
 
 
-class SimplePublicationCommentController extends Controller
+class PostCommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,26 +25,26 @@ class SimplePublicationCommentController extends Controller
      */
     public function index(Request $request, $id)
     {
-        $this->authorize(SimplePublicationComment::class);
-        return new SimplePublicationCommentCollection(SimplePublicationComment::with('user')->where('simple_publication_id', $id)->orderBy('id', 'desc')->cursorPaginate(3));
+        $this->authorize(PostComment::class);
+        return new PostCommentCollection(PostComment::with('user')->where('post_id', $id)->orderBy('id', 'desc')->cursorPaginate(3));
 
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  App\Http\Requests\StoreSimplePublicationCommentRequest  $request
+     * @param  App\Http\Requests\StorePostCommentRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($id, StoreSimplePublicationCommentRequest $request)
+    public function store($id, StorePostCommentRequest $request)
     {
-        $post = SimplePublication::find($id);
-        $this->authorize(SimplePublicationComment::class);
+        $post = Post::find($id);
+        $this->authorize(PostComment::class);
 
-        $comment = SimplePublicationComment::create([
+        $comment = PostComment::create([
             "description" => $request->description,
             "user_id" => $request->user()->id,
-            "simple_publication_id" => $id,
+            "post_id" => $id,
             "gif_url" => $request->gif_url,
         ]);
 
@@ -67,7 +67,7 @@ class SimplePublicationCommentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $comment = SimplePublicationComment::find($id);
+        $comment = PostComment::find($id);
         $this->authorize($comment);
         $comment->update([
             "description" => $request->description
@@ -83,15 +83,15 @@ class SimplePublicationCommentController extends Controller
      */
     public function destroy($id)
     {
-        $comment = SimplePublicationComment::find($id);
+        $comment = PostComment::find($id);
         $this->authorize($comment);
-        $postId = $comment->simple_publication_id;
+        $postId = $comment->post_id;
         $comment->delete();
 
         /* DB::table('notifications')->where('data->post', $postId)->where('data->tipo', 'commentPost')->where('data->user->id', Auth::user()->id)->delete(); */
 
         return response()->json([
-            "comments_count" => SimplePublication::find($postId)->comments()->count()
+            "comments_count" => Post::find($postId)->comments()->count()
         ]);
     }
 }

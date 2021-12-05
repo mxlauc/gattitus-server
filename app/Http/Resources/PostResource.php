@@ -6,7 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Facades\Auth;
 
-class SimplePublicationResource extends ResourceCollection
+class PostResource extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.

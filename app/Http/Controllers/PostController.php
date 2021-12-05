@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cat;
-use App\Models\User;
+use App\Models\Post;
+use App\Models\SimplePost;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class PostController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(Post::class);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +21,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return Post::all();
     }
 
     /**
@@ -36,22 +42,38 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->authorize('create', Post::class);
+        $post = Post::create([
+            'user_id' => $request->user()->id,
+        ]);
+
+        SimplePost::create([
+            'description' => $request->description,
+            'post_id' => $post->id,
+            'image_id' => $request->image_id,
+        ]);
+
+        return [
+            "estado" => 'ok'
+        ];
+
+        
+
+
+      
+
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, User $user)
+    public function show($id)
     {
-        if($request->ajax()){
-            return User::with('image', 'myFollow')->find($user->id);
-        }
-        $cats = Cat::with('image')->get();
-        return view('pages.users.show', compact('user', 'cats'));
+        //
     }
 
     /**

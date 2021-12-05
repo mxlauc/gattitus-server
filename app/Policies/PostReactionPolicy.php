@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\ReactionSimplePublication;
+use App\Models\PostReaction;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ReactionSimplePublicationPolicy
+class PostReactionPolicy
 {
     use HandlesAuthorization;
 
@@ -25,10 +25,10 @@ class ReactionSimplePublicationPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\ReactionSimplePublication  $reactionSimplePublication
+     * @param  \App\Models\PostReaction  $postReaction
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, ReactionSimplePublication $reactionSimplePublication)
+    public function view(User $user, PostReaction $postReaction)
     {
         return true;
     }
@@ -48,47 +48,47 @@ class ReactionSimplePublicationPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\ReactionSimplePublication  $reactionSimplePublication
+     * @param  \App\Models\PostReaction  $postReaction
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, ReactionSimplePublication $reactionSimplePublication)
+    public function update(User $user, PostReaction $postReaction)
     {
-        return $user->id === $reactionSimplePublication->user_id;
+        return $user->id === $postReaction->user_id;
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\ReactionSimplePublication  $reactionSimplePublication
+     * @param  \App\Models\PostReaction  $postReaction
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, ReactionSimplePublication $reactionSimplePublication)
+    public function delete(User $user, PostReaction $postReaction)
     {
-        return $user->id === $reactionSimplePublication->user_id;
+        return $user->id === $postReaction->user_id;
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\ReactionSimplePublication  $reactionSimplePublication
+     * @param  \App\Models\PostReaction  $postReaction
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, ReactionSimplePublication $reactionSimplePublication)
+    public function restore(User $user, PostReaction $postReaction)
     {
-        return $user->id === $reactionSimplePublication->user_id;
+        return $user->id === $postReaction->user_id;
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\ReactionSimplePublication  $reactionSimplePublication
+     * @param  \App\Models\PostReaction  $postReaction
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, ReactionSimplePublication $reactionSimplePublication)
+    public function forceDelete(User $user, PostReaction $postReaction)
     {
-        return $user->id === $reactionSimplePublication->user_id;
+        return $user->id === $postReaction->user_id;
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSimplePublicationsTable extends Migration
+class CreateUserUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateSimplePublicationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('simple_publications', function (Blueprint $table) {
+        Schema::create('user_user', function (Blueprint $table) {
             $table->id();
-            $table->text('description', 1000);
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('image_id')->constrained();
+            $table->unsignedBigInteger('followed_id');
+            $table->unsignedBigInteger('follower_id');
+            $table->foreign('followed_id')->references('id')->on('users');
+            $table->foreign('follower_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateSimplePublicationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('simple_publications');
+        Schema::dropIfExists('user_user');
     }
 }

@@ -5,27 +5,27 @@
 <div class="row g-0">
     <div class="col-12 col-md-8">
         <div style="max-width: 500px; margin: auto;">
-            @foreach($publications as $publication)
-            <simple-publication-component
-                :publication='{
-                    id: {{$publication->id}},
+            @foreach($posts as $post)
+            <simple-post-component
+                :post='{
+                    id: {{$post->id}},
                     color: 321,
                     image: {
-                        "url" : "{{$publication->image->url_lg}}",
-                        "aspect_ratio" : {{json_decode($publication->image->meta_data)->aspect_ratio}},
-                        "color_bl" : "{{json_decode($publication->image->meta_data)->color_bl}}",
-                        "color_tr" : "{{json_decode($publication->image->meta_data)->color_tr}}"
+                        "url" : "{{$post->simple_post->image->url_lg}}",
+                        "aspect_ratio" : {{json_decode($post->simple_post->image->meta_data)->aspect_ratio}},
+                        "color_bl" : "{{json_decode($post->simple_post->image->meta_data)->color_bl}}",
+                        "color_tr" : "{{json_decode($post->simple_post->image->meta_data)->color_tr}}"
                     },
-                    description : `{{$publication->description}}`,
+                    description : `{{$post->description}}`,
                     user : {
-                        url : "{{$publication->user->getUrl()}}",
-                        name : "{{$publication->user->name}}",
-                        avatar : "{{$publication->user->image->url_xs}}",
+                        url : "{{$post->user->getUrl()}}",
+                        name : "{{$post->user->name}}",
+                        avatar : "{{$post->user->image->url_xs}}",
                     },
-                    reactions_count : {{$publication->reactions_count}},
-                    myReaction: {!! $publication->my_reaction ?? "null" !!}
+                    reactions_count : {{$post->reactions_count}},
+                    myReaction: {!! $post->my_reaction ?? "null" !!}
                 }'
-            ></simple-publication-component>
+            ></simple-post-component>
             
             @endforeach
             

@@ -140,7 +140,7 @@ export default {
 
             var formData = new FormData(this.$refs.formCrear);
             formData.append('image_id', this.imageId);
-            axios.post('/simplepublications', formData)
+            axios.post('/posts', formData)
             .then((response) => {
                 console.log(response.data);
                 this.$refs.formCrear.reset();

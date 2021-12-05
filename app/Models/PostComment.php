@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SimplePublicationComment extends Model
+class PostComment extends Model
 {
     use HasFactory;
 
@@ -18,7 +18,7 @@ class SimplePublicationComment extends Model
         'description',
         'user_id',
         'gif_url',
-        'simple_publication_id',
+        'post_id',
     ];
 
     /**
@@ -36,9 +36,9 @@ class SimplePublicationComment extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function simplePublication()
+    public function Post()
     {
-        return $this->belongsTo(SimplePublication::class);
+        return $this->belongsTo(Post::class);
     }
 
 }

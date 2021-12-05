@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCatsTable extends Migration
+class CreatePostReactionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateCatsTable extends Migration
      */
     public function up()
     {
-        Schema::create('cats', function (Blueprint $table) {
+        Schema::create('post_reaction', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('nickname');
-            $table->foreignId('image_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('post_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('reaction_id')->constrained()->cascadeOnDelete();
+            $table->unique(['post_id', 'user_id']);
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateCatsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cats');
+        Schema::dropIfExists('post_reaction');
     }
 }

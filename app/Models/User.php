@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -91,6 +92,31 @@ class User extends Authenticatable
 
     public function image(){
         return $this->belongsTo(Image::class);
+    }
+
+    /**
+     * The followers that belong to the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'user_user', 'followed_id', 'follower_id');
+    }
+
+    /**
+     * The followed that belong to the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function followeds()
+    {
+        return $this->belongsToMany(User::class, 'user_user', 'follower_id', 'followed_id');
+    }
+
+    public function myFollow(){
+        return $this->belongsToMany(User::class, 'user_user', 'followed_id', 'follower_id')
+                ->wherePivot('follower_id', Auth::user()->id ?? -1);
     }
 
 }

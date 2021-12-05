@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SimplePublication;
+use App\Models\Reaction;
+use App\Models\PostReaction;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
-class SimplePublicationController extends Controller
+class PostReactionController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->authorizeResource(SimplePublication::class);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +16,7 @@ class SimplePublicationController extends Controller
      */
     public function index()
     {
-        return SimplePublication::all();
+        
     }
 
     /**
@@ -39,17 +35,23 @@ class SimplePublicationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $postId)
     {
-        $this->authorize('create', SimplePublication::class);
-        SimplePublication::create([
-            'description' => $request->description,
-            'user_id' => $request->user()->id,
-            'image_id' => $request->image_id
-        ]);
-
+        $this->authorize('create', PostReaction::class);
+        $ownReaction = null;
+        $post = Post::find($postId);
+        if($post->reactions()->where('user_id', $request->user()->id)->exists()){
+            $post->reactions()->detach(1);
+        }else{
+            $post->reactions()->attach(1, [
+                'user_id' => $request->user()->id,
+            ]);
+            $ownReaction = Reaction::find(1);
+        }
+        
         return [
-            "estado" => 'ok'
+            'own_reaction' => $ownReaction ? $ownReaction->name : null,
+            'reactions_count' => $post->reactions()->count()
         ];
     }
 
