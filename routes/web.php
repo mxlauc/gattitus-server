@@ -63,3 +63,7 @@ Route::get('/admin/{path}', function () {
 
 Route::resource('reactions', ReactionController::class)->names('reactions');
 Route::resource('followers', FollowersController::class)->names('followers');
+
+Route::get('/landing', function(){
+    return view('welcome');
+});
