@@ -178,12 +178,12 @@ const store = createStore({
   state () {
     return {
       count: 123,
-      user: null,
+      userLogged: null,
     }
   },
   mutations: {
       setUser(state, value){
-        state.user = value;
+        state.userLogged = value;
       },
     increment (state) {
       state.count++
@@ -205,7 +205,7 @@ const store = createStore({
 app.use(store);
 
 
-app.provide("userLogged", null);
+
 app.mount("#app");
 
 store.dispatch('login');

@@ -110,7 +110,6 @@ export default {
         reactioning: false,
       };
     },
-    inject: ["userLogged"],
     props: ["post"],
     provide(){
       return {
@@ -148,6 +147,11 @@ export default {
       onLoadImage(e){
           e.currentTarget.classList.remove('opacity-0')
       },
+    },
+    computed:{
+        userLogged(){
+            return this.$store.state.userLogged;
+        },
     },
 };
 </script>

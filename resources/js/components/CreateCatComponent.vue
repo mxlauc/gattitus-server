@@ -118,7 +118,7 @@
 import {Modal} from 'bootstrap';
 
 export default {
-    inject: ["userLogged"],
+    
     data() {
         return {
             imagenPreview: null,

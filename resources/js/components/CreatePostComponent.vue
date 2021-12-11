@@ -115,7 +115,7 @@
 import {Modal} from 'bootstrap';
 
 export default {
-    inject: ["userLogged"],
+    
     data() {
         return {
             imagenPreview: null,
@@ -128,7 +128,10 @@ export default {
     computed:{
         disableButton(){
             return !this.imagenPreview && !this.textareaLength;
-        }
+        },
+        userLogged(){
+            return this.$store.state.userLogged;
+        },
     },
     emits: ["postCreated"],
     methods: {

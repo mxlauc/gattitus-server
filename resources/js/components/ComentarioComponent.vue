@@ -139,7 +139,7 @@ export default {
         };
     },
     props: ["comentario"],
-    inject: ["postId", "userLogged"],
+    inject: ["postId"],
     mounted(){
         this.miLike = this.comentario.myLike;
         this.contador = this.comentario.contador;
@@ -159,6 +159,11 @@ export default {
             .catch(response=>{
                 console.log(response.data);
             });
+        },
+    },
+    computed:{
+        userLogged(){
+            return this.$store.state.userLogged;
         },
     },
 };

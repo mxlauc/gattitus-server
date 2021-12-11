@@ -221,7 +221,7 @@ export default {
             gifSeleccionado: null
         };
     },
-    inject: ["userLogged", "postId"],
+    inject: ["postId"],
     emits: ["contadorActualizado"],
     mounted() {
         axios({
@@ -396,6 +396,11 @@ export default {
         recibirGif(url){
             this.gifSeleccionado = url;
         }
+    },
+    computed:{
+        userLogged(){
+            return this.$store.state.userLogged;
+        },
     },
 };
 </script>

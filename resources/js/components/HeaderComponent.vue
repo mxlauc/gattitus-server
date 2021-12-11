@@ -62,7 +62,7 @@
 
                 <a :href="userLogged?.url" class="d-inline-block text-decoration-none text-dark btn-user-url">
                     <span class="fw-bold ms-3 me-2 d-none d-sm-inline-block">{{userLogged?.name}}</span>
-                    <img :src="userLogged?.avatar" class="user-img-small">
+                    <img :src="userLogged?.image.url_xs" class="user-img-small">
                 </a>
 
                 <span  data-bs-toggle="dropdown" aria-expanded="false" class="rounded-3 p-3 more-options">
@@ -100,8 +100,11 @@ export default {
             let saludoStr = hour < 12 ? "Buenos días" : (hour < 18 ? "Buenas tardes" : "Buenas noches");
             return `Hola ${this.userLogged?.name}, ${saludoStr} 🐱`;
         },
+        userLogged(){
+            return this.$store.state.userLogged;
+        },
     },
-    inject: ["userLogged"],
+
     methods:{
         logout(){
             axios.post("/auth/logout")
