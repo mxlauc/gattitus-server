@@ -27,6 +27,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('{path}', function (){
+    return view('index');
+})->where('path', '.*');
+/* 
 Route::get('/', function () {
     $posts =  Post::with(['simple_post.image', 'user', 'myReaction'])->withCount('reactions')->orderBy('created_at', 'DESC')->get();
 
@@ -37,13 +41,7 @@ Route::get('/auth/login/facebook', [AuthController::class, 'loginFacebook'])->na
 Route::get('/auth/callback/facebook', [AuthController::class, 'callbackFacebook']);
 Route::post('/auth/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('editor', function(){
-    return view('pages.editor');
-})->name('editor');
 
-Route::get('hey.js', function(){
-    return 'jeje';
-});
 
 Route::resource('images', ImageController::class)->names('images');
 Route::resource('posts', PostController::class)->names('post');
@@ -78,6 +76,4 @@ Route::get('/v8', function (){
     return $v8->executeString($renderer_source);
 });
 
-Route::get('/', function (){
-    return view('index');
-});
+ */
