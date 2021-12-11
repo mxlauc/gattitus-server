@@ -1,18 +1,14 @@
-@extends('layouts.main')
-
-@section('script')
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
-
-
-    <script>
-        var editor;
-        window.addEventListener('load', function(e) {
-
-            editor = new EditorJS({
+<template>
+    <div class="card border-0 shadow-sm">
+        <div class="card-body pt-3">
+            <div id="editorjs"></div>
+        </div>
+    </div>
+</template>
+<script>
+export default {
+    mounted(){
+            var editor = new EditorJS({
                 data: {
                     "time": 1629663049769,
                     "blocks": [{
@@ -125,13 +121,10 @@
                     }
                 },
             });
-        });
-
-    </script>
-@endsection
-
-@section('style')
-    <style>
+    }
+}
+</script>
+<style scoped>
         #editorjs {
             min-height: 70vh;
         }
@@ -172,13 +165,4 @@
 
         }
 
-    </style>
-@endsection
-
-@section('content')
-    <div class="card border-0 shadow-sm">
-        <div class="card-body pt-3">
-            <div id="editorjs"></div>
-        </div>
-    </div>
-@endsection
+</style>

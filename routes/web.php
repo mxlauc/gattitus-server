@@ -77,3 +77,7 @@ Route::get('/v8', function (){
     
     return $v8->executeString($renderer_source);
 });
+
+Route::get('/', function (){
+    return view('index');
+});

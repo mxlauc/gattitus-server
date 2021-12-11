@@ -30,7 +30,17 @@
     display: none;
 }
 
+/* del html */
+* {
+    font-family: 'Roboto', sans-serif;
+}
 
+.f-fredoka {
+    font-family: 'Fredoka One', cursive;
+}
+.f-rubick label, .f-rubick p, .f-rubick span{
+    font-family: 'Rubik', sans-serif !important;
+}
 
 
 

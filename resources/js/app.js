@@ -67,6 +67,7 @@ onAuthStateChanged(auth, (user) => {
 
 
 import { createApp, provide } from 'vue';
+import { createRouter, createWebHistory } from 'vue-router';
 import HeaderComponent from './components/HeaderComponent.vue';
 
 import SimplePostComponent from './components/PostComponent.vue';
@@ -132,6 +133,51 @@ window.app = createApp({
 .use(Lang);
 app.mixin(mixin);
 
+const routes = [
+    {
+        path: '/',
+        component: () => import(/* webpackChunkName: "dashboard" */ './components/sections/HomeComponent.vue'),
+    },
+    {
+        path: '/editor',
+        component: () => import(/* webpackChunkName: "dashboard" */ './components/sections/EditorComponent.vue'),
+    },
+    {
+        path: '/user',
+        component: () => import(/* webpackChunkName: "dashboard" */ './components/user/UserShowComponent.vue'),
+    },
+    {
+        path: '/landing',
+        component: () => import(/* webpackChunkName: "dashboard" */ './components/LandingPageComponent.vue'),
+    },
+    
+    
+]
+
+// 3. Create the router instance and pass the `routes` option
+// You can pass in additional options here, but let's
+// keep it simple for now.
+const router = createRouter({
+  // 4. Provide the history implementation to use. We are using the hash history for simplicity here.
+  history: createWebHistory('/'),
+  routes, // short for `routes: routes`
+})
+
+
+// Make sure to _use_ the router instance to make the
+// whole app router-aware.
+app.use(router)
+
+
+
+app.provide("userLogged", null);
+app.mount("#app");
+
+document.querySelector("#dark")?.addEventListener("click", function(){
+    document.querySelector("#sidebar").classList.remove('show-sidebar')
+    document.querySelector("#dark").classList.remove('show-dark');
+    document.body.style.overflow = 'auto';
+});
 
 // register service worker
 

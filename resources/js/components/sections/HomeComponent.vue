@@ -1,33 +1,29 @@
-@extends('layouts.main')
-
-@section('content')
-
+<template>
+    
 <div class="row g-0">
     <div class="col-12 col-md-8">
         <div style="max-width: 500px; margin: auto;">
-            @foreach($posts as $post)
+            gaaaaaaa
             <simple-post-component
                 :post='{
-                    id: {{$post->id}},
+                    id: 1,
                     color: 321,
                     image: {
-                        "url" : "{{$post->simple_post->image->url_lg}}",
-                        "aspect_ratio" : {{json_decode($post->simple_post->image->meta_data)->aspect_ratio}},
-                        "color_bl" : "{{json_decode($post->simple_post->image->meta_data)->color_bl}}",
-                        "color_tr" : "{{json_decode($post->simple_post->image->meta_data)->color_tr}}"
+                        "url" : "afsdfasdf",
+                        "aspect_ratio" : 1,
+                        "color_bl" : "#f90",
+                        "color_tr" : "#222"
                     },
-                    description : `{{$post->description}}`,
+                    description : `jasdfasdfasd fasd fasdf`,
                     user : {
-                        url : "{{$post->user->getUrl()}}",
-                        name : "{{$post->user->name}}",
-                        avatar : "{{$post->user->image->url_xs}}",
+                        url : "fasdfasdf",
+                        name : "fasdfasdf",
+                        avatar : "asdfasd fasdf asdf",
                     },
-                    reactions_count : {{$post->reactions_count}},
-                    myReaction: {!! $post->my_reaction ?? "null" !!}
+                    reactions_count : 34,
+                    myReaction: {}
                 }'
             ></simple-post-component>
-            
-            @endforeach
             
         </div>
     </div>
@@ -61,5 +57,9 @@
         </div>
     </div>
 </div>
-
-@endsection
+</template>
+<script>
+export default {
+    
+}
+</script>
