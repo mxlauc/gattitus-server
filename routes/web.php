@@ -67,3 +67,13 @@ Route::resource('followers', FollowersController::class)->names('followers');
 Route::get('/landing', function(){
     return view('welcome');
 });
+
+Route::get('/v8', function (){
+    $v8 = new V8Js();
+    $renderer_source = file_get_contents(public_path('js/admin/server.js'));
+    $js = 'var process = { env: { VUE_ENV: "server", NODE_ENV: "production" } };
+        this.global = { process: process };';
+    $v8->executeString($js);
+    
+    return $v8->executeString($renderer_source);
+});

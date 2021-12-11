@@ -20,10 +20,11 @@
             max-width: 600px;
             margin: auto;
             background-position: 100% 50%;
-            padding: 0px 50px;
+            padding: 0px 30px;
             text-align: center;
         }
         .fb-connect{
+            cursor: pointer;
             border: 0;
             border-radius: 20px;
             background: #1877f2;
@@ -87,7 +88,10 @@
                 <p style="font-family: 'Nunito'; font-weight: 200; color: #fff; text-align: center; font-size: 26px; line-height: 26px; margin-top: 50px;">
                     Un lugar donde los usuarios pueden compartir y descubrir fotos de gatos
                 </p>
-                <button style="margin-top: 30px;" class="fb-connect">Iniciar sesión con Facebook</button>
+                
+                <a href="{{ route('login.facebook') }}">
+                    <button style="margin-top: 30px;" class="fb-connect">Iniciar sesión con Facebook</button>
+                </a>
             </div>
         </div>
         <picture>
