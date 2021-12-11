@@ -68,6 +68,7 @@ onAuthStateChanged(auth, (user) => {
 
 import { createApp, provide } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
+import { createStore } from 'vuex';
 import HeaderComponent from './components/HeaderComponent.vue';
 
 import SimplePostComponent from './components/PostComponent.vue';
@@ -171,8 +172,43 @@ app.use(router)
 
 
 
+
+// Create a new store instance.
+const store = createStore({
+  state () {
+    return {
+      count: 123,
+      user: null,
+    }
+  },
+  mutations: {
+      setUser(state, value){
+        state.user = value;
+      },
+    increment (state) {
+      state.count++
+    }
+  },
+  actions: {
+      login(context){
+        axios.get('/sanctum/csrf-cookie').then( () => {
+            axios.get('/user').then(response => {
+                context.commit('setUser', response.data);
+            });
+        });
+      }
+  }
+});
+
+
+// Install the store instance as a plugin
+app.use(store);
+
+
 app.provide("userLogged", null);
 app.mount("#app");
+
+store.dispatch('login');
 
 document.querySelector("#dark")?.addEventListener("click", function(){
     document.querySelector("#sidebar").classList.remove('show-sidebar')
@@ -189,9 +225,3 @@ if ('serviceWorker' in navigator) {
         console.log('Service worker registration failed:', error);
     });
 }
-
-axios.get('/sanctum/csrf-cookie').then(response => {
-    axios.get('/user').then(r => {
-        console.log(r.data);
-    });
-});
