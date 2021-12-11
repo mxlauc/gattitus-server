@@ -15,6 +15,7 @@ use App\Http\Resources\PostResource;
 use App\Models\Image;
 use App\Models\Post;
 use App\Models\PostComment;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -81,7 +82,8 @@ Route::get('/v8', function (){
 
  */
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    
+    return User::with('image', 'myFollow')->find($request->user()->id);
 });
 Route::get('{path}', function (){
     return view('index');

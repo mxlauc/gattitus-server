@@ -33,6 +33,7 @@ export default {
         getUser(username){
             axios.get(`/user`)
             .then(response => {
+                console.log(response.data);
                 this.user = response.data;
             })
             .catch(error => {

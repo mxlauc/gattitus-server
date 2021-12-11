@@ -45,7 +45,7 @@
                         <router-link to="/" class="navbar-brand fw-bold text-black d-inline-block p-1 m-3 mb-0" style="font-size: 30px;">
                             <img src="https://www.gattitus.com/assets/icons/icon-72x72.png"
                                 style="height: 40px; margin-top: -10px;">
-                            <span>{{ env('APP_NAME') }}</span>
+                            <span>Gattitus</span>
                         </router-link>
                         <div class="card shadow mt-3 p-2">
                             <ul class="options-sidebar">
