@@ -42,11 +42,11 @@
             <div class="col-auto sticky-top ps-4" id="sidebar" style="width: 260px; height: 100vh;">
                 <div class="d-flex flex-column h-100">
                     <div class="">
-                        <a class="navbar-brand fw-bold text-black d-inline-block p-1 m-3 mb-0" href="/" style="font-size: 30px;">
+                        <router-link to="/" class="navbar-brand fw-bold text-black d-inline-block p-1 m-3 mb-0" style="font-size: 30px;">
                             <img src="https://www.gattitus.com/assets/icons/icon-72x72.png"
                                 style="height: 40px; margin-top: -10px;">
                             <span>{{ env('APP_NAME') }}</span>
-                        </a>
+                        </router-link>
                         <div class="card shadow mt-3 p-2">
                             <ul class="options-sidebar">
                                 <li class="options-sidebar-active">

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CatController;
 use App\Http\Controllers\FollowersController;
@@ -27,24 +28,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('{path}', function (){
-    return view('index');
-})->where('path', '.*');
+
 /* 
 Route::get('/', function () {
     $posts =  Post::with(['simple_post.image', 'user', 'myReaction'])->withCount('reactions')->orderBy('created_at', 'DESC')->get();
 
     return view('pages.home', compact('posts'));
 })->name('home');
+*/
 
 Route::get('/auth/login/facebook', [AuthController::class, 'loginFacebook'])->name("login.facebook");
 Route::get('/auth/callback/facebook', [AuthController::class, 'callbackFacebook']);
-Route::post('/auth/logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::get('/auth/logout', [AuthController::class, 'logout'])->name('logout');
+/*
 
 
 Route::resource('images', ImageController::class)->names('images');
-Route::resource('posts', PostController::class)->names('post');
+*/
+Route::apiResource('posts', PostController::class)->names('post');
+/*
 Route::resource('posts.comments', PostCommentController::class)->shallow()->names('post.comments');
 Route::resource('posts.reactions', PostReactionController::class)->shallow()->names('posts.reactions');
 Route::resource('cats', CatController::class)->names('cats');
@@ -77,3 +80,9 @@ Route::get('/v8', function (){
 });
 
  */
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+Route::get('{path}', function (){
+    return view('index');
+})->where('path', '.*');

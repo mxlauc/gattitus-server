@@ -77,6 +77,7 @@ import CreateCatComponent from './components/CreateCatComponent.vue';
 import UserHeaderComponent from './components/UserHeaderComponent.vue';
 import VWave from 'v-wave';
 import { Lang } from 'laravel-vue-lang';
+import axios from "axios";
 
 
 let mixin = {
@@ -188,3 +189,9 @@ if ('serviceWorker' in navigator) {
         console.log('Service worker registration failed:', error);
     });
 }
+
+axios.get('/sanctum/csrf-cookie').then(response => {
+    axios.get('/user').then(r => {
+        console.log(r.data);
+    });
+});

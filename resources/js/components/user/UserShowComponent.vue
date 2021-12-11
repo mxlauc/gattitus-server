@@ -36,7 +36,14 @@
     </div>
 </template>
 <script>
-export default {};
+
+import UserHeaderComponent from '../UserHeaderComponent.vue';
+
+export default {
+    components :{
+        UserHeaderComponent,
+    }
+};
 </script>
 <style scoped>
 </style>

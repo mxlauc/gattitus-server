@@ -25,11 +25,13 @@ export default {
     },
     props: ['username'],
     mounted(){
+        console.log("jeje");
         this.getUser(this.username);
+
     },
     methods: {
         getUser(username){
-            axios.get(`/@${username}`)
+            axios.get(`/user`)
             .then(response => {
                 this.user = response.data;
             })
