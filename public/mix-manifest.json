@@ -1,6 +1,8 @@
 {
-    "/js/app.js": "/js/app.js?id=c4d7ab6ad46c5560e31c",
-    "/js/admin/app.js": "/js/admin/app.js?id=a7710a438071108de7a7",
+    "/js/app.js": "/js/app.js?id=9cd6d262c8a43d7615ec",
+    "/js/admin/app.js": "/js/admin/app.js?id=97c519db5799b7c234e1",
+    "/js/admin/server.js": "/js/admin/server.js?id=c0f6122e6a1c6d690fad",
+    "/js/admin/client.js": "/js/admin/client.js?id=c28798f94b5913eaee55",
     "/js/admin/dashboard.bundle.js": "/js/admin/dashboard.bundle.js?id=7fbec49bb646371f3886",
     "/js/admin/reactions.bundle.js": "/js/admin/reactions.bundle.js?id=2ff54668a294cc1a08ae",
     "/js/admin/reactions.create.bundle.js": "/js/admin/reactions.create.bundle.js?id=2778f1c343a150be25ba",
