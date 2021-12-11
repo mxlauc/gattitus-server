@@ -14,6 +14,8 @@ mix.webpackConfig({
 
 mix.js('resources/js/app.js', 'public/js')
     .js('resources/admin/js/app.js', 'public/js/admin')
+    .js('resources/admin/js/server.js', 'public/js/admin')
+    .js('resources/admin/js/client.js', 'public/js/admin')
     .vue()
     .postCss('resources/css/app.css', 'public/css', [
         //

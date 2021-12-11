@@ -67,7 +67,7 @@ onAuthStateChanged(auth, (user) => {
 });
 
 
-import { createApp, provide } from 'vue';
+import { createApp, provide, createSSRApp } from 'vue';
 
 import HeaderComponent from './components/HeaderComponent.vue';
 import MenuComponent from './components/MenuComponent.vue';
@@ -117,7 +117,7 @@ let mixin = {
     }
 };
 
-window.app = createApp({
+window.app = createSSRApp({
     components: {
         HeaderComponent,
         MenuComponent,
