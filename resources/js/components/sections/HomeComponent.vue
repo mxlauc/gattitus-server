@@ -3,28 +3,7 @@
 <div class="row g-0">
     <div class="col-12 col-md-8">
         <div style="max-width: 500px; margin: auto;">
-            {{posts}}
-            <simple-post-component
-                :post='{
-                    id: 1,
-                    color: 321,
-                    image: {
-                        "url" : "afsdfasdf",
-                        "aspect_ratio" : 1,
-                        "color_bl" : "#f90",
-                        "color_tr" : "#222"
-                    },
-                    description : `jasdfasdfasd fasd fasdf`,
-                    user : {
-                        url : "fasdfasdf",
-                        name : "fasdfasdf",
-                        avatar : "asdfasd fasdf asdf",
-                    },
-                    reactions_count : 34,
-                    myReaction: {}
-                }'
-            ></simple-post-component>
-            
+            <simple-post-component v-for="p in posts" :post="p" :key="p.id"></simple-post-component>
         </div>
     </div>
     <div class="col-12 col-md-4 sticky-top" style="max-width: 400px; max-width: 100%; align-self: flex-start; top: 80px;">
@@ -59,7 +38,11 @@
 </div>
 </template>
 <script>
+import SimplePostComponent from '../PostComponent.vue';
 export default {
+    components: {
+        SimplePostComponent,
+    },
     data(){
         return {
             posts : null
@@ -68,7 +51,8 @@ export default {
     mounted(){
         axios.get('/api/posts')
         .then(response => {
-            this.posts = response.data;
+
+            this.posts = response.data.data;
         });
     }
 }

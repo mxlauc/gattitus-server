@@ -3,13 +3,11 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Http\Resources\Json\ResourceCollection;
-use Illuminate\Support\Facades\Auth;
 
-class PostResource extends ResourceCollection
+class PostResource extends JsonResource
 {
     /**
-     * Transform the resource collection into an array.
+     * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array
@@ -18,13 +16,15 @@ class PostResource extends ResourceCollection
     {
         return [
             "id" => $this->id,
-            "description" => $this->description,
-            "image" => $this->image,
-            "my_reaction" => $this->my_reaction,
-            "reactions_count" => $this->when($this->reactions_count, $this->reactions_count),
+            'simple_post' => new SimplePostResource($this->whenLoaded('simple_post')),
+            //"my_reaction" => $this->my_reaction,
+            //"reactions_count" => $this->when($this->reactions_count, $this->reactions_count),
             "created_at" => strtotime($this->created_at),
-            "user_id" => $this->user_id // new UserResource($this->whenLoaded('user')),
+            "user" => new UserResource($this->whenLoaded('user')),
+            /*
+            reactions_count : 34,
+            myReaction: {}
+            */
         ];
     }
-
 }

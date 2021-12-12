@@ -60,10 +60,10 @@
 
                 </ul>
 
-                <a :href="userLogged?.url" class="d-inline-block text-decoration-none text-dark btn-user-url">
+                <router-link :to="'/@' + userLogged?.username" class="d-inline-block text-decoration-none text-dark btn-user-url">
                     <span class="fw-bold ms-3 me-2 d-none d-sm-inline-block">{{userLogged?.name}}</span>
                     <img :src="userLogged?.image.url_xs" class="user-img-small">
-                </a>
+                </router-link>
 
                 <span  data-bs-toggle="dropdown" aria-expanded="false" class="rounded-3 p-3 more-options">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">

@@ -3,18 +3,18 @@
     <div class="card-body pb-0">
       <div class="row g-0">
         <div class="col-auto">
-          <a :href="post.user.url">
+          <a :href="post.user.image.url_lg">
             <img class="img-user-post shadow"
-              :src="post.user.avatar">
+              :src="post.user.image.url_lg">
           </a>
           
         </div>
         <div class="col px-2">
-          <a :href="post.user.url" class="name-user-post fw-bold text-decoration-none text-dark" >
+          <a :href="post.user.image.url_lg" class="name-user-post fw-bold text-decoration-none text-dark" >
             {{post.user.name}}
           </a>
           <span class="d-block text-black-50 fs-6" role="button"><small>Hace 5 minutos</small></span>
-          
+        
         </div>
         <div class="col-auto">
           
@@ -33,15 +33,15 @@
         </div>
       </div>
         <div class="rounded-5 img-container-post shadow-sm my-2 position-relative"
-        :style="{ aspectRatio: post.image.aspect_ratio < 0.9 ? 0.9 : post.image.aspect_ratio, background: `linear-gradient(45deg, ${post.image.color_bl} 0%, ${post.image.color_tr} 100%)`}">
+        :style="{aspectRatio: post.simple_post.image.meta_data.aspect_ratio < 0.9 ? 0.9 : post.simple_post.image.meta_data.aspect_ratio, background: `linear-gradient(45deg, ${post.simple_post.image.meta_data.color_bl} 0%, ${post.simple_post.image.meta_data.color_tr} 100%)`}">
           <img class="img-post img-fluid w-100 shadow-sm opacity-0"
-            :src="post.image.url"
+            :src="post.simple_post.image.url_lg"
             @load="onLoadImage"/>
             <div class="position-absolute top-0 start-0 end-0 bottom-0" @dblclick="reactLove"></div>
         </div>
         
         <p class="fs-6 mb-2 text-muted">
-          {{post.description}}
+          {{post.simple_post.description}}
         </p>
         <hr class="my-0" style="opacity: 0.1;">
 
@@ -105,8 +105,8 @@ export default {
     },
     data(){
       return {
-        reactions_count: this.post.reactions_count,
-        myReaction: this.post.myReaction,
+        reactions_count: this.post.simple_post?.reactions_count,
+        myReaction: this.post.simple_post?.myReaction,
         reactioning: false,
       };
     },
@@ -128,7 +128,7 @@ export default {
         }
         this.reactioning = true;
         //document.getElementById("soundMeow").play();
-        axios.post(`/posts/${this.post.id}/reactions`)
+        /* axios.post(`/posts/${this.post.simple_post.id}/reactions`)
         .then(response => {
           console.log(response.data);
           this.myReaction = response.data.own_reaction;
@@ -136,7 +136,7 @@ export default {
         })
         .finally(() => {
           this.reactioning = false;
-        });
+        }); */
       },
       click(){
 

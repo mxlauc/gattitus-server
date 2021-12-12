@@ -226,7 +226,7 @@ export default {
     mounted() {
         axios({
             method: "get",
-            url: `/posts/${this.postId}/comments`,
+            url: `/api/posts/${this.postId}/comments`,
         })
             .then((response) => {
                 this.$emit("contadorActualizado", response.data.meta.total);
@@ -280,7 +280,7 @@ export default {
                 /* AJAX request */
                 axios({
                     method: "post",
-                    url: `/posts/${this.postId}/comments`,
+                    url: `/api/posts/${this.postId}/comments`,
                     data: {
                         description: texto,
                         gif_url: this.gifSeleccionado,

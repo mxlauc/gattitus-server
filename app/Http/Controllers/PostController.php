@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PostResource;
 use App\Models\Post;
 use App\Models\SimplePost;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return Post::all();
+        return PostResource::collection(Post::with('user', 'simple_post.image')->orderBy('id', 'DESC')->get());
     }
 
     /**
