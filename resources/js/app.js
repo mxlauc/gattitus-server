@@ -192,7 +192,7 @@ const store = createStore({
   actions: {
       login(context){
         axios.get('/sanctum/csrf-cookie').then( () => {
-            axios.get('/user').then(response => {
+            axios.get('/api/user').then(response => {
                 context.commit('setUser', response.data);
             });
         });
