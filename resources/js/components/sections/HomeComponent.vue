@@ -3,7 +3,7 @@
 <div class="row g-0">
     <div class="col-12 col-md-8">
         <div style="max-width: 500px; margin: auto;">
-            gaaaaaaa
+            {{posts}}
             <simple-post-component
                 :post='{
                     id: 1,
@@ -60,6 +60,16 @@
 </template>
 <script>
 export default {
-    
+    data(){
+        return {
+            posts : null
+        }
+    },
+    mounted(){
+        axios.get('/api/posts')
+        .then(response => {
+            this.posts = response.data;
+        });
+    }
 }
 </script>
