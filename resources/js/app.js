@@ -145,7 +145,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "dashboard" */ './components/sections/EditorComponent.vue'),
     },
     {
-        path: '/user',
+        path: '/@:user',
         component: () => import(/* webpackChunkName: "dashboard" */ './components/user/UserShowComponent.vue'),
     },
     {

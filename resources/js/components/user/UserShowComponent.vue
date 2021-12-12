@@ -20,6 +20,7 @@
             >
                 <div class="card-body p-4">
                     <h1 class="pb-3 fw-bold">Mis gatos</h1>
+                    {{ $route.params.user }}
                     <div class="row gy-3">
                         <!-- @foreach ($cats as $cat) -->
                         <div class="col-4 col-lg-3">
@@ -42,6 +43,12 @@ import UserHeaderComponent from '../UserHeaderComponent.vue';
 export default {
     components :{
         UserHeaderComponent,
+    },
+    mounted(){
+        axios.get(`/api/@${this.$route.params.user}`)
+        .then(response =>{
+            console.log(response.data);
+        });
     }
 };
 </script>

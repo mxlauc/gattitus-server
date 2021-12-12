@@ -40,7 +40,7 @@ export default {
                                     return new Promise((resolve, reject) => {
                                         let formData = new FormData();
                                         formData.append('file', file);
-                                        axios.post('/images', formData, {
+                                        axios.post('/api/images', formData, {
                                             headers: {
                                                 'Content-Type': 'multipart/form-data'
                                             }

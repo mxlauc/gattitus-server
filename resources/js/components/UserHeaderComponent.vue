@@ -25,13 +25,12 @@ export default {
     },
     props: ['username'],
     mounted(){
-        console.log("jeje");
         this.getUser(this.username);
 
     },
     methods: {
         getUser(username){
-            axios.get(`/user`)
+            axios.get(`/api/user`)
             .then(response => {
                 console.log(response.data);
                 this.user = response.data;

@@ -143,7 +143,7 @@ export default {
 
             var formData = new FormData(this.$refs.formCrear);
             formData.append('image_id', this.imageId);
-            axios.post('/cats', formData)
+            axios.post('/api/cats', formData)
             .then((response) => {
                 console.log(response.data);
                 this.$refs.formCrear.reset();
@@ -170,7 +170,7 @@ export default {
             let formData = new FormData();
             formData.append('file', e.target.files[0]);
 
-            axios.post('/images', formData,{
+            axios.post('/api/images', formData,{
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
