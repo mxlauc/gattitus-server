@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CatController;
 use App\Http\Controllers\FollowersController;
 use App\Http\Controllers\ImageController;
@@ -23,6 +24,8 @@ use App\Models\User;
 |
 */
 Route::middleware('auth:sanctum')->group(function () {
+
+    Route::post('auth/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::apiResource('posts', PostController::class)->names('post');
     Route::apiResource('images', ImageController::class)->names('images');

@@ -28,7 +28,7 @@ Route::get('/landing', function(){
 Route::get('/auth/login/facebook', [AuthController::class, 'loginFacebook'])->name("login.facebook");
 Route::get('/auth/callback/facebook', [AuthController::class, 'callbackFacebook']);
 
-Route::get('/auth/logout', [AuthController::class, 'logout'])->name('logout');
+
 /*
 Route::get('/v8', function (){
     $v8 = new V8Js();
