@@ -119,4 +119,8 @@ class User extends Authenticatable
                 ->wherePivot('follower_id', Auth::user()->id ?? -1);
     }
 
+    public function cats(){
+        return $this->hasMany(Cat::class);
+    }
+
 }

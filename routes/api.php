@@ -10,6 +10,7 @@ use App\Http\Controllers\PostReactionController;
 use App\Http\Controllers\PostCommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ReactionController;
+use App\Http\Controllers\UserCatController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 
@@ -31,6 +32,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('images', ImageController::class)->names('images');
     Route::apiResource('posts.comments', PostCommentController::class)->shallow()->names('post.comments');
     Route::apiResource('posts.reactions', PostReactionController::class)->shallow()->names('posts.reactions');
+    Route::apiResource('users.cats', UserCatController::class)->shallow()->only(['index']);
     Route::apiResource('cats', CatController::class)->names('cats');
     Route::apiResource('reactions', ReactionController::class)->names('reactions');
     Route::apiResource('followers', FollowersController::class)->names('followers');
