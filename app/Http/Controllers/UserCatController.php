@@ -15,8 +15,8 @@ class UserCatController extends Controller
      */
     public function index($id)
     {
-        $user = User::with('cats')->findOrFail($id);
-        return CatResource::collection($user->cats());
+        $user = User::with('cats.image')->findOrFail($id);
+        return CatResource::collection($user->cats);
     }
 
 
