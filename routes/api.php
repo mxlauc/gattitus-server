@@ -26,18 +26,18 @@ use App\Models\User;
 */
 Route::middleware('auth:sanctum')->group(function () {
 
-    Route::post('auth/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::post('auth/logout', [AuthController::class, 'logout']);
 
-    Route::apiResource('posts', PostController::class)->names('post');
-    Route::apiResource('images', ImageController::class)->names('images');
-    Route::apiResource('posts.comments', PostCommentController::class)->shallow()->names('post.comments');
-    Route::apiResource('posts.reactions', PostReactionController::class)->shallow()->names('posts.reactions');
+    Route::apiResource('posts', PostController::class);
+    Route::apiResource('images', ImageController::class);
+    Route::apiResource('posts.comments', PostCommentController::class)->shallow();
+    Route::apiResource('posts.reactions', PostReactionController::class)->shallow();
     Route::apiResource('users.cats', UserCatController::class)->shallow()->only(['index']);
-    Route::apiResource('cats', CatController::class)->names('cats');
-    Route::apiResource('reactions', ReactionController::class)->names('reactions');
-    Route::apiResource('followers', FollowersController::class)->names('followers');
+    Route::apiResource('cats', CatController::class);
+    Route::apiResource('reactions', ReactionController::class);
+    Route::apiResource('followers', FollowersController::class);
 
-    Route::get('/@{user:username}', [UserController::class, 'show'])->name('user.show');
+    Route::get('/@{user:username}', [UserController::class, 'show']);
     Route::get('user', function(Request $request){
         return User::with('image', 'myFollow')->find($request->user()->id);
     });
