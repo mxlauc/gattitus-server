@@ -12,6 +12,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ReactionController;
 use App\Http\Controllers\UserCatController;
 use App\Http\Controllers\UserController;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 
 /*
@@ -30,7 +31,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResource('posts', PostController::class);
     Route::apiResource('images', ImageController::class);
-    Route::apiResource('posts.comments', PostCommentController::class)->shallow();
+    Route::apiResource('posts.comments', PostCommentController::class)->shallow()->names('posts.comments');
     Route::apiResource('posts.reactions', PostReactionController::class)->shallow();
     Route::apiResource('users.cats', UserCatController::class)->shallow()->only(['index']);
     Route::apiResource('cats', CatController::class);
@@ -39,6 +40,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/@{user:username}', [UserController::class, 'show']);
     Route::get('user', function(Request $request){
-        return User::with('image', 'myFollow')->find($request->user()->id);
+        return new UserResource(User::with('image', 'myFollow')->find($request->user()->id));
     });
 });
