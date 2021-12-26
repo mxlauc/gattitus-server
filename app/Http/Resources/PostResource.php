@@ -21,6 +21,7 @@ class PostResource extends JsonResource
             //"reactions_count" => $this->when($this->reactions_count, $this->reactions_count),
             "created_at" => strtotime($this->created_at),
             "user" => new UserResource($this->whenLoaded('user')),
+            "comments" => PostCommentResource::collection($this->whenLoaded('bestComments')),
             /*
             reactions_count : 34,
             myReaction: {}

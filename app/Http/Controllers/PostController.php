@@ -22,7 +22,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return PostResource::collection(Post::with('user.image', 'simple_post.image')->orderBy('id', 'DESC')->get());
+        return PostResource::collection(Post::with('user.image', 'simple_post.image', 'bestComments.user.image')->orderBy('id', 'DESC')->get());
     }
 
     /**

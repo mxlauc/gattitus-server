@@ -43,7 +43,8 @@ class Post extends Model
         return $this->reactions()->where('reactions.id', '>', 0)->first() ?? null;
     }
 
-    public function comments(){
-        return $this->hasMany(PostComment::class);
+    public function bestComments(){
+        // TODO: hacer query de los comentarios con mas reacciones en order de publicacion
+        return $this->hasMany(PostComment::class)->where('gif_url', '!=', null);
     }
 }
