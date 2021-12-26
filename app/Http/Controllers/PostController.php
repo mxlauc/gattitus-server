@@ -108,6 +108,10 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $this->authorize($post);
+        $post->delete();
+
+        return response()->json('ok');
     }
 }
