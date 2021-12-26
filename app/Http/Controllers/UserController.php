@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Models\Cat;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -47,11 +48,7 @@ class UserController extends Controller
      */
     public function show(Request $request, User $user)
     {
-        if($request->ajax()){
-            return User::with('image', 'myFollow')->find($user->id);
-        }
-        $cats = Cat::with('image')->get();
-        return view('pages.users.show', compact('user', 'cats'));
+        return new UserResource(User::with('image', 'myFollow')->find($user->id));
     }
 
     /**
