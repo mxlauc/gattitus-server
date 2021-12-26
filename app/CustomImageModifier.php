@@ -9,10 +9,10 @@ class CustomImageModifier{
     private $original_image = null;
 
     private $image_xl_size = 1000;
-    private $image_lg_size = 500;
+    private $image_lg_size = 420;
     private $image_md_size = 200;
     private $image_sm_size = 100;
-    private $image_xs_size = 60;
+    private $image_xs_size = 50;
 
     public function __construct($path)
     {
