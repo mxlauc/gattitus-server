@@ -17,15 +17,12 @@ class PostResource extends JsonResource
         return [
             "id" => $this->id,
             'simple_post' => new SimplePostResource($this->whenLoaded('simple_post')),
-            //"my_reaction" => $this->my_reaction,
-            //"reactions_count" => $this->when($this->reactions_count, $this->reactions_count),
+            "my_reaction" => $this->my_reaction,
+            "reactions_count" => $this->when(isset($this->reactions_count), $this->reactions_count),
+            "comments_count" => $this->when(isset($this->comments_count), $this->comments_count),
             "created_at" => strtotime($this->created_at),
             "user" => new UserResource($this->whenLoaded('user')),
             "comments" => PostCommentResource::collection($this->whenLoaded('bestComments')),
-            /*
-            reactions_count : 34,
-            myReaction: {}
-            */
         ];
     }
 }
