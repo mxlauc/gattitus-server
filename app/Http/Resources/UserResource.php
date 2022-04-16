@@ -20,6 +20,8 @@ class UserResource extends JsonResource
             'image' => new ImageResource($this->whenLoaded('image')),
             "username" => $this->username,
             "url" => "/@$this->username",
+            "rol" => $this->when($this->whenLoaded('role'), $this->role->name),
+            'created_at' => $this->when($request->user()->isAdmin(), strtotime($this->created_at)),
         ];
     }
 }

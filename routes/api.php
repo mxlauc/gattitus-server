@@ -12,6 +12,12 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ReactionController;
 use App\Http\Controllers\UserCatController;
 use App\Http\Controllers\UserController;
+
+use App\Http\Controllers\admin\UsersController;
+use App\Http\Controllers\admin\ReportTypeController;
+use App\Http\Controllers\admin\ReportController;
+use App\Http\Controllers\admin\ReportedPostController;
+
 use App\Http\Resources\UserResource;
 use App\Models\User;
 
@@ -42,4 +48,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('user', function(Request $request){
         return new UserResource(User::with('image', 'myFollow')->find($request->user()->id));
     });
+
+    Route::prefix('admin')->group(function () {
+        Route::apiResource('/users', UsersController::class);
+        Route::get('/reports/posts', ReportedPostController::class); // averiguar por que esta linea no funciona si va despues de las siguientes dos lineas
+        Route::apiResource('/reports/types', ReportTypeController::class);
+        Route::apiResource('/reports', ReportController::class);
+    });    
 });
+
+Route::get('/', function(){
+    return redirect(env("SPA_URL")); //esto puede fallar en produccion
+})->name("login");

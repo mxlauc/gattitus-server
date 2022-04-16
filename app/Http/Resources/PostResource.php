@@ -23,6 +23,7 @@ class PostResource extends JsonResource
             "created_at" => strtotime($this->created_at),
             "user" => new UserResource($this->whenLoaded('user')),
             "comments" => PostCommentResource::collection($this->whenLoaded('bestComments')),
+            "reports" => ReportResource::collection($this->whenLoaded('reports')),
         ];
     }
 }

@@ -51,4 +51,8 @@ class Post extends Model
         // TODO: hacer query de los comentarios con mas reacciones en order de publicacion
         return $this->hasMany(PostComment::class)->where('gif_url', '!=', null);
     }
+
+    public function reports(){
+        return $this->hasMany(Report::class);
+    }
 }
