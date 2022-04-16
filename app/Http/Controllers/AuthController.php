@@ -75,7 +75,7 @@ class AuthController extends Controller
     }
 
     public function login($user){
-        Auth::login($user);
+        Auth::login($user, true);
         return redirect(env('SPA_URL', '') . '/#');
     }
 
