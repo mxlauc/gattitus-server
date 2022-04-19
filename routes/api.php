@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\PunishmentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -54,6 +55,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/reports/posts', ReportedPostController::class); // averiguar por que esta linea no funciona si va despues de las siguientes dos lineas
         Route::apiResource('/reports/types', ReportTypeController::class);
         Route::apiResource('/reports', ReportController::class);
+        Route::apiResource('/punishments', PunishmentController::class);
     });    
 });
 

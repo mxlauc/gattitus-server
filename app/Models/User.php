@@ -53,7 +53,11 @@ class User extends Authenticatable
 
     public function isAdmin() {
         return $this->role->name === "Administrador";
-     }
+    }
+
+    public function punishments(){
+        return $this->hasMany(Punishment::class);
+    }
 
     public function setUsernameAttribute($value){
         if(!$value){
