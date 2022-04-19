@@ -21,7 +21,9 @@ class UserResource extends JsonResource
             "username" => $this->username,
             "url" => "/@$this->username",
             "rol" => $this->when($this->whenLoaded('role'), $this->role->name),
-            'created_at' => $this->when($request->user()->isAdmin(), strtotime($this->created_at)),
+            "my_follow" => $this->when($this->whenLoaded('myFollow'), $this->myFollow),
+            "created_at" => $this->when($request->user()->isAdmin(), strtotime($this->created_at)),
+
         ];
     }
 }
