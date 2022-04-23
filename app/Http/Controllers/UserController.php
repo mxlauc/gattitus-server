@@ -6,6 +6,7 @@ use App\Http\Resources\UserResource;
 use App\Models\Cat;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -16,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return UserResource::collection(User::with("image")->limit(3)->get());
+        return UserResource::collection(User::with("image")->withCount('cats')->whereKeyNot(Auth::user()->id)->limit(3)->get());
     }
 
     /**

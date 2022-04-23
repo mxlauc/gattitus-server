@@ -56,7 +56,7 @@ class UserSeeder extends Seeder
             }
 
             //creando gatos
-            $cats_count = random_int(0, 3);
+            $cats_count = random_int(0, 6);
 
             for($k = 0 ; $k < $cats_count; $k++){
                 Cat::factory()
