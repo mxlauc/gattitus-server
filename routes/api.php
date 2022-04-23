@@ -32,7 +32,7 @@ use App\Models\User;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::middleware('auth:sanctum')->group(function () {
+//Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('auth/logout', [AuthController::class, 'logout']);
 
@@ -45,6 +45,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('reactions', ReactionController::class);
     Route::apiResource('followers', FollowersController::class);
 
+    Route::get('/users', [UserController::class, 'index']);
     Route::get('/@{user:username}', [UserController::class, 'show']);
     Route::get('user', function(Request $request){
         return new UserResource(User::with('image', 'myFollow')->find($request->user()->id));
@@ -57,7 +58,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('/reports', ReportController::class);
         Route::apiResource('/punishments', PunishmentController::class);
     });    
-});
+//});
 
 Route::get('/', function(){
     return redirect(env("SPA_URL")); //esto puede fallar en produccion
