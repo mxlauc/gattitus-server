@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return UserResource::collection(User::with("image")->limit(3)->get());
     }
 
     /**
