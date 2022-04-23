@@ -37,6 +37,7 @@ class PostCommentFactory extends Factory
             'gif_url' => $this->faker->randomElement($this->gif_urls),
             'user_id' => 1,
             'post_id' => 1,
+            'created_at' => $this->faker->dateTimeInInterval('-5 weeks', '-2 minutes'),
         ];
     }
 }

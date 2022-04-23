@@ -23,6 +23,7 @@ class PostFactory extends Factory
     {
         return [
             'user_id' => null,
+            'created_at' => $this->faker->dateTimeInInterval('-5 weeks', '-2 minutes'),
         ];
     }
 }

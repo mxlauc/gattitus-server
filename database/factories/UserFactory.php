@@ -47,6 +47,7 @@ class UserFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'role_id' => Role::find(3),
+                'created_at' => $this->faker->dateTimeInInterval('-5 weeks', '-2 minutes'),
             ];
         });
     }
