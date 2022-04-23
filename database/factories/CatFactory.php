@@ -23,9 +23,10 @@ class CatFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'nickname' => $this->faker->word(),
+            'nickname' => $this->faker->sentence(4),
             'image_id' => null,
             'user_id' => null,
+            'created_at' => $this->faker->dateTimeInInterval('-5 weeks', '-2 minutes'),
         ];
     }
 }

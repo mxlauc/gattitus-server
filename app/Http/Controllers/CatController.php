@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CatResource;
 use App\Models\Cat;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class CatController extends Controller
      */
     public function index()
     {
-        //
+        return CatResource::collection(Cat::with('image')->limit(3)->get());
     }
 
     /**
