@@ -19,4 +19,8 @@ class SimplePost extends Model
     public function image(){
         return $this->belongsTo(Image::class);
     }
+
+    public function post(){
+        return $this->belongsTo(Post::class);
+    }
 }

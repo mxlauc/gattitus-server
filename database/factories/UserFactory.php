@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Image;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -24,23 +26,27 @@ class UserFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
+            'role_id' => Role::find(1),            
             'email' => $this->faker->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'username' => $this->faker->lexify('??????????'),
+            'facebook_id' => Str::random(20),
+            'image_id' => null,
             'remember_token' => Str::random(10),
         ];
     }
 
-    /**
-     * Indicate that the model's email address should be unverified.
-     *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
-     */
-    public function unverified()
-    {
+    public function is_admin(){
         return $this->state(function (array $attributes) {
             return [
-                'email_verified_at' => null,
+                'role_id' => Role::find(2),
+            ];
+        });
+    }
+
+    public function is_fake(){
+        return $this->state(function (array $attributes) {
+            return [
+                'role_id' => Role::find(3),
             ];
         });
     }
