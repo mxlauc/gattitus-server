@@ -12,6 +12,7 @@ class Cat extends Model
     protected $fillable = [
         'name',
         'nickname',
+        'slug',
         'image_id',
         'user_id',
     ];

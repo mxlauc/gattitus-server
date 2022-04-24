@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Cat;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CatFactory extends Factory
@@ -26,6 +27,7 @@ class CatFactory extends Factory
             'nickname' => $this->faker->sentence(4),
             'image_id' => null,
             'user_id' => null,
+            'slug' => Str::lower(Str::random(13)),
             'created_at' => $this->faker->dateTimeInInterval('-5 weeks', '-2 minutes'),
         ];
     }

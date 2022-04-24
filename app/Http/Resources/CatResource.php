@@ -18,6 +18,7 @@ class CatResource extends JsonResource
             'id' => $this->id,
             "name" => $this->name,
             "nickname" => $this->nickname,
+            'slug' => $this->slug,
             'image' => new ImageResource($this->whenLoaded('image')),
             'user' => new ImageResource($this->whenLoaded('user')),
         ];
