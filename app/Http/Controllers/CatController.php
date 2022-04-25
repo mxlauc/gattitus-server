@@ -67,12 +67,12 @@ class CatController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  String $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        return new CatResource(Cat::with('image')->where('slug',$slug)->get()->first());
     }
 
     /**
