@@ -24,6 +24,8 @@ class PostResource extends JsonResource
             "user" => new UserResource($this->whenLoaded('user')),
             "comments" => PostCommentResource::collection($this->whenLoaded('bestComments')),
             "reports" => ReportResource::collection($this->whenLoaded('reports')),
+            'cats' => CatResource::collection($this->cats),
+            'cats_count' => $this->cats_count,
         ];
     }
 }
