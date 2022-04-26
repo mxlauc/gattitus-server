@@ -18,7 +18,7 @@ use App\Http\Controllers\admin\UsersController;
 use App\Http\Controllers\admin\ReportTypeController;
 use App\Http\Controllers\admin\ReportController;
 use App\Http\Controllers\admin\ReportedPostController;
-
+use App\Http\Controllers\ShowMyCatsController;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 
@@ -41,6 +41,7 @@ use App\Models\User;
     Route::apiResource('posts.comments', PostCommentController::class)->shallow()->names('posts.comments');
     Route::apiResource('posts.reactions', PostReactionController::class)->shallow();
     Route::apiResource('users.cats', UserCatController::class)->shallow()->only(['index']);
+    Route::get('cats/mine', ShowMyCatsController::class);
     Route::apiResource('cats', CatController::class);
     Route::apiResource('reactions', ReactionController::class);
     Route::apiResource('followers', FollowersController::class);
