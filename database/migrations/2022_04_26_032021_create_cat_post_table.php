@@ -15,8 +15,8 @@ class CreateCatPostTable extends Migration
     {
         Schema::create('cat_post', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('post_id');
-            $table->foreignId('cat_id');
+            $table->foreignId('post_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('cat_id')->constrained()->cascadeOnDelete();
         });
     }
 
