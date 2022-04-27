@@ -6,8 +6,7 @@ use App\Models\Cat;
 use App\Models\Image;
 use App\Models\Post;
 use App\Models\PostComment;
-use App\Models\PostReaction;
-use App\Models\Reaction;
+use App\Models\ReactionType;
 use App\Models\SimplePost;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -46,11 +45,11 @@ class UserSeeder extends Seeder
                 SimplePost::factory()->for($post)->for($image_posts[$j])->create();
                 PostComment::factory()->count(3)->for($post)->for(User::all()->random())->create();
                 
+                //reactions
                 for($l = 0 ; $l < $users_count ; $l++){
-                    PostReaction::create([
-                        'reaction_id' => Reaction::first()->id,
+                    $post->reactions()->create([
                         'user_id' => $users[$l]->id,
-                        'post_id' => $post->id,
+                        'reaction_type_id' => ReactionType::first()->id,
                     ]);
                 }
             }

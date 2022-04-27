@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Reaction;
-use App\Models\PostReaction;
 use App\Models\Post;
+use App\Models\Reaction;
+use App\Models\ReactionType;
 use Illuminate\Http\Request;
 
 class PostReactionController extends Controller
@@ -37,16 +37,17 @@ class PostReactionController extends Controller
      */
     public function store(Request $request, $postId)
     {
-        $this->authorize('create', PostReaction::class);
+        $this->authorize('create', Reaction::class);
         $ownReaction = null;
         $post = Post::find($postId);
         if($post->reactions()->where('user_id', $request->user()->id)->exists()){
-            $post->reactions()->detach(1);
+            $post->reactions()->where('user_id', $request->user()->id)->delete();
         }else{
-            $post->reactions()->attach(1, [
+            $post->reactions()->create([
                 'user_id' => $request->user()->id,
+                'reaction_type_id' => ReactionType::first()->id,
             ]);
-            $ownReaction = Reaction::find(1);
+            $ownReaction = ReactionType::find(1);
         }
         
         return [

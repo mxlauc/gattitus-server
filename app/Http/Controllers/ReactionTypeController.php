@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\CustomFirebaseUploader;
-use App\Models\Reaction;
+use App\Models\ReactionType;
 use Illuminate\Http\Request;
 use Ramsey\Uuid\Uuid;
 
-class ReactionController extends Controller
+class ReactionTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class ReactionController extends Controller
      */
     public function index()
     {
-        return Reaction::all();
+        return ReactionType::all();
     }
 
     /**
@@ -47,7 +47,7 @@ class ReactionController extends Controller
         $name = 'gattitus/' . 'imgs' . '/' . dechex(round(microtime(true) * 1000)) . "_" . Uuid::uuid4()->toString() . '.gif';
         $image_gif = $customFirebaseUploader->uploadFileFirebase($name, $fileStream);
 
-        Reaction::create([
+        ReactionType::create([
             'name' => $request->name,
             'display_name' => $request->display_name,
             'display_name_es' => $request->display_name_es,

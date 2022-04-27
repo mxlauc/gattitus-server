@@ -10,10 +10,14 @@ class Reaction extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'display_name',
-        'display_name_es',
-        'image_svg',
-        'image_gif',
+        'reactionable_type',
+        'reactionable_id',
+        'reaction_type_id',
+        'user_id',
     ];
+
+    public function reactionable()
+    {
+        return $this->morphTo();
+    }
 }

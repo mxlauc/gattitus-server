@@ -10,7 +10,7 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PostReactionController;
 use App\Http\Controllers\PostCommentController;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\ReactionController;
+use App\Http\Controllers\ReactionTypeController;
 use App\Http\Controllers\UserCatController;
 use App\Http\Controllers\UserController;
 
@@ -43,7 +43,7 @@ use App\Models\User;
     Route::apiResource('users.cats', UserCatController::class)->shallow()->only(['index']);
     Route::get('cats/mine', ShowMyCatsController::class);
     Route::apiResource('cats', CatController::class);
-    Route::apiResource('reactions', ReactionController::class);
+    Route::apiResource('reaction_types', ReactionTypeController::class);
     Route::apiResource('followers', FollowersController::class);
 
     Route::get('/users', [UserController::class, 'index']);

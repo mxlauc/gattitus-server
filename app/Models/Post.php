@@ -23,16 +23,12 @@ class Post extends Model
     }
 
     public function reactions(){
-        return $this->belongsToMany(Reaction::class)
-                ->using(PostReaction::class)
-                ->withTimestamps();
+        return $this->morphMany(Reaction::class, 'reactionable');
     }
 
     public function myReaction(){
-        return $this->belongsToMany(Reaction::class)
-                ->using(PostReaction::class)
-                ->withTimestamps()
-                ->wherePivot('user_id', Auth::user()->id ?? -1);
+        return $this->morphMany(Reaction::class, 'reactionable')
+                ->where('user_id', Auth::user()->id ?? -1);
     }
 
     public function getMyReactionAttribute(){
