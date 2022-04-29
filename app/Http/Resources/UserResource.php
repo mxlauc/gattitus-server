@@ -20,8 +20,8 @@ class UserResource extends JsonResource
             'image' => new ImageResource($this->whenLoaded('image')),
             "username" => $this->username,
             "url" => "/@$this->username",
-            "rol" => $this->when($this->whenLoaded('role'), $this->role->name),
-            "my_follow" => $this->when($this->whenLoaded('myFollow'), $this->myFollow),
+            "rol" => $this->whenLoaded('role', $this->role->name),
+            "my_follow" => $this->whenLoaded('myFollow', $this->myFollow),
             "created_at" => $this->when($request->user()->isAdmin(), strtotime($this->created_at)),
             'pets_count' => $this->when(isset($this->pets_count), $this->pets_count),
 
