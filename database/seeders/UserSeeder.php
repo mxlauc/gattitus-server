@@ -36,25 +36,6 @@ class UserSeeder extends Seeder
             $u->save();
             $img->save();
 
-            // creando los posts
-            $posts_users_count = 3;
-            $image_posts = Image::factory()->count($posts_users_count)->for($u)->create();
-            for($j = 0; $j < $posts_users_count; $j++){
-                $post = Post::factory()
-                        ->for($u)
-                        ->create();
-                SimplePost::factory()->for($post)->for($image_posts[$j])->create();
-                PostComment::factory()->count(3)->for($post)->for(User::all()->random())->create();
-                
-                //reactions
-                for($l = 0 ; $l < $users_count ; $l++){
-                    $post->reactions()->create([
-                        'user_id' => $users[$l]->id,
-                        'reaction_type_id' => ReactionType::first()->id,
-                    ]);
-                }
-            }
-
             //creando gatos
             $cats_count = random_int(0, 6);
 
@@ -68,6 +49,31 @@ class UserSeeder extends Seeder
                     )
                     ->create();
             }
+
+            // creando los posts
+            $posts_users_count = 3;
+            $image_posts = Image::factory()->count($posts_users_count)->for($u)->create();
+            for($j = 0; $j < $posts_users_count; $j++){
+                $post = Post::factory()
+                        ->for($u)
+                        ->create();
+                SimplePost::factory()->for($post)->for($image_posts[$j])->create();
+                PostComment::factory()->count(3)->for($post)->for(User::all()->random())->create();
+                
+                //etiquetando gatos
+                $cat_ids = Pet::inRandomOrder()->limit(random_int(0, 4))->get();
+                $post->pets()->attach($cat_ids);
+
+                //reactions
+                for($l = 0 ; $l < $users_count ; $l++){
+                    $post->reactions()->create([
+                        'user_id' => $users[$l]->id,
+                        'reaction_type_id' => ReactionType::first()->id,
+                    ]);
+                }
+            }
+
+            
 
             //followers
 
