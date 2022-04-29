@@ -4,21 +4,21 @@ use App\Http\Controllers\admin\PunishmentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CatController;
+use App\Http\Controllers\PetController;
 use App\Http\Controllers\FollowersController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PostReactionController;
 use App\Http\Controllers\PostCommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ReactionTypeController;
-use App\Http\Controllers\UserCatController;
+use App\Http\Controllers\UserPetController;
 use App\Http\Controllers\UserController;
 
 use App\Http\Controllers\admin\UsersController;
 use App\Http\Controllers\admin\ReportTypeController;
 use App\Http\Controllers\admin\ReportController;
 use App\Http\Controllers\admin\ReportedPostController;
-use App\Http\Controllers\ShowMyCatsController;
+use App\Http\Controllers\ShowMyPetsController;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 
@@ -40,9 +40,9 @@ use App\Models\User;
     Route::apiResource('images', ImageController::class);
     Route::apiResource('posts.comments', PostCommentController::class)->shallow()->names('posts.comments');
     Route::apiResource('posts.reactions', PostReactionController::class)->shallow();
-    Route::apiResource('users.cats', UserCatController::class)->shallow()->only(['index']);
-    Route::get('cats/mine', ShowMyCatsController::class);
-    Route::apiResource('cats', CatController::class);
+    Route::apiResource('users.pets', UserPetController::class)->shallow()->only(['index']);
+    Route::get('pets/mine', ShowMyPetsController::class);
+    Route::apiResource('pets', PetController::class);
     Route::apiResource('reaction_types', ReactionTypeController::class);
     Route::apiResource('followers', FollowersController::class);
 

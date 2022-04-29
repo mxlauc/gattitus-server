@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\CatResource;
-use App\Models\Cat;
+use App\Http\Resources\PetResource;
+use App\Models\Pet;
+use App\Models\PetType;
 use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
-class CatController extends Controller
+class PetController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +18,7 @@ class CatController extends Controller
      */
     public function index()
     {
-        return CatResource::collection(Cat::with('image')->limit(4)->get());
+        return PetResource::collection(Pet::with('image', 'petType')->limit(4)->get());
     }
 
     /**
@@ -38,27 +39,28 @@ class CatController extends Controller
      */
     public function store(Request $request)
     {
-        $this->tryCreateCat($request);
+        $this->tryCreatePet($request);
 
         return [
             "estado" => 'ok'
         ];
     }
 
-    function tryCreateCat(Request $request, $try = 0){
+    function tryCreatePet(Request $request, $try = 0){
         $result = false;
         try{
-            $result = Cat::create([
+            $result = Pet::create([
                 'name' => $request->name,
                 'nickname' => $request->nickname,
                 'user_id' => $request->user()->id,
                 'image_id' => $request->image_id,
                 'slug' => Str::lower(Str::random(13)),
+                'pet_type_id' => PetType::first()->id,
             ]);
         }
         catch(Exception $e){
             if($try < 20){
-                 $result = $this->tryCreateCat($request, $try + 1);
+                 $result = $this->tryCreatePet($request, $try + 1);
             }
         }
         return $result;
@@ -72,7 +74,7 @@ class CatController extends Controller
      */
     public function show($slug)
     {
-        return new CatResource(Cat::with('image')->where('slug',$slug)->get()->first());
+        return new PetResource(Pet::with('image')->where('slug',$slug)->get()->first());
     }
 
     /**

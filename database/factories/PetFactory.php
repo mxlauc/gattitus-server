@@ -2,18 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\Cat;
+use App\Models\Pet;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class CatFactory extends Factory
+class PetFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Cat::class;
+    protected $model = Pet::class;
 
     /**
      * Define the model's default state.

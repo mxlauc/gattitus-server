@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CatResource extends JsonResource
+class PetResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -21,6 +21,7 @@ class CatResource extends JsonResource
             'slug' => $this->slug,
             'image' => new ImageResource($this->whenLoaded('image')),
             'user' => new ImageResource($this->whenLoaded('user')),
+            'type' => $this->whenLoaded('petType', $this->pettype->name),
         ];
     }
 }

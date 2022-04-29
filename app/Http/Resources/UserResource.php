@@ -23,7 +23,7 @@ class UserResource extends JsonResource
             "rol" => $this->when($this->whenLoaded('role'), $this->role->name),
             "my_follow" => $this->when($this->whenLoaded('myFollow'), $this->myFollow),
             "created_at" => $this->when($request->user()->isAdmin(), strtotime($this->created_at)),
-            'cats_count' => $this->when(isset($this->cats_count), $this->cats_count),
+            'pets_count' => $this->when(isset($this->pets_count), $this->pets_count),
 
         ];
     }

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\CatResource;
+use App\Http\Resources\PetResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class UserCatController extends Controller
+class UserPetController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class UserCatController extends Controller
      */
     public function index($id)
     {
-        $user = User::with('cats.image')->findOrFail($id);
-        return CatResource::collection($user->cats);
+        $user = User::with('pets.image')->findOrFail($id);
+        return PetResource::collection($user->pets);
     }
 
 

@@ -22,7 +22,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return PostResource::collection(Post::with('user.image', 'simple_post.image', 'bestComments.user.image', 'myReaction', 'cats.image')->withCount('reactions', 'comments', 'cats')->orderBy('id', 'DESC')->get());
+        return PostResource::collection(Post::with('user.image', 'simple_post.image', 'bestComments.user.image', 'myReaction', 'pets.image')->withCount('reactions', 'comments', 'pets')->orderBy('id', 'DESC')->get());
     }
 
     /**
@@ -48,7 +48,7 @@ class PostController extends Controller
             'user_id' => $request->user()->id,
         ]);
         
-        $post->cats()->attach($request->cats);
+        $post->pets()->attach($request->pets);
 
         // TODO: asegurar que los gatos sean del usuario logeado
 

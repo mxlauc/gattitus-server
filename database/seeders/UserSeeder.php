@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Cat;
+use App\Models\Pet;
 use App\Models\Image;
+use App\Models\PetType;
 use App\Models\Post;
 use App\Models\PostComment;
 use App\Models\ReactionType;
@@ -58,10 +59,11 @@ class UserSeeder extends Seeder
             $cats_count = random_int(0, 6);
 
             for($k = 0 ; $k < $cats_count; $k++){
-                Cat::factory()
+                Pet::factory()
                     ->for($u)
+                    ->for(PetType::first())
                     ->for(Image::factory()
-                            ->is_photo_cat()
+                            ->is_photo_pet()
                             ->for($u)
                     )
                     ->create();

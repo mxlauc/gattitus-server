@@ -52,7 +52,7 @@ class Post extends Model
         return $this->hasMany(Report::class);
     }
 
-    public function cats(){
-        return $this->belongsToMany(Cat::class);
+    public function pets(){
+        return $this->belongsToMany(Pet::class);
     }
 }

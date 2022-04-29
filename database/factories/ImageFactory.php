@@ -25,7 +25,7 @@ class ImageFactory extends Factory
         'https://firebasestorage.googleapis.com/v0/b/proyectoxdxd-6a713.appspot.com/o/gattitus%2F2484623438347919%2Fimgs%2F1804d227914_83708209-50b6-4916-98a9-62c99b299bbe%2Flg.jpg?alt=media&token=becd53e1-7f32-469c-950d-e32a470f9f86',
     ];
 
-    protected $photos_cats = [
+    protected $photos_pets = [
         'https://firebasestorage.googleapis.com/v0/b/proyectoxdxd-6a713.appspot.com/o/gattitus%2F2484623438347919%2Fimgs%2F18053aaa684_3daa6a85-0e09-4d0b-a34d-51d4a38ab5fc%2Flg.jpg?alt=media&token=54099d25-e73a-4243-ba85-c62fd312764f',
         'https://firebasestorage.googleapis.com/v0/b/proyectoxdxd-6a713.appspot.com/o/gattitus%2F2484623438347919%2Fimgs%2F18053aad4c9_31df1620-31c7-4d5d-bc01-7d89a7a9877d%2Flg.jpg?alt=media&token=e2ae2c92-9a1c-4d8c-9da0-07d61a901dca',
         'https://firebasestorage.googleapis.com/v0/b/proyectoxdxd-6a713.appspot.com/o/gattitus%2F2484623438347919%2Fimgs%2F18053ab1808_e96b3948-44f6-45ba-b216-ff18f0eaec15%2Flg.jpg?alt=media&token=94fdb2d5-ff4c-480d-8a2a-1bb0889de9c2',
@@ -79,10 +79,10 @@ class ImageFactory extends Factory
         });
     }
 
-    public function is_photo_cat(){
+    public function is_photo_pet(){
         return $this->state(function (array $attributes) {
             return [
-                'url_xs' => $this->faker->randomElement($this->photos_cats),
+                'url_xs' => $this->faker->randomElement($this->photos_pets),
             ];
         });
     }

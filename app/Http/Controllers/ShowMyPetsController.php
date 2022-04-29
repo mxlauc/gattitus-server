@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\CatResource;
-use App\Models\Cat;
+use App\Http\Resources\PetResource;
+use App\Models\Pet;
 use Illuminate\Http\Request;
 
-class ShowMyCatsController extends Controller
+class ShowMyPetsController extends Controller
 {
     /**
      * Handle the incoming request.
@@ -16,6 +16,7 @@ class ShowMyCatsController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return CatResource::collection(Cat::with('image')->get());
+        
+        return PetResource::collection(Pet::with('image', 'petType')->get());
     }
 }

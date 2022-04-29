@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cat extends Model
+class Pet extends Model
 {
     use HasFactory;
 
@@ -13,6 +13,7 @@ class Cat extends Model
         'name',
         'nickname',
         'slug',
+        'pet_type_id',
         'image_id',
         'user_id',
     ];
@@ -27,5 +28,9 @@ class Cat extends Model
 
     public function posts(){
         return $this->belongsToMany(Post::class);
+    }
+
+    public function petType(){
+        return $this->belongsTo(PetType::class);
     }
 }

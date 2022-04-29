@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\UserResource;
-use App\Models\Cat;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return UserResource::collection(User::with("image")->withCount('cats')->whereKeyNot(Auth::user()->id)->limit(3)->get());
+        return UserResource::collection(User::with("image")->withCount('pets')->whereKeyNot(Auth::user()->id)->limit(3)->get());
     }
 
     /**
