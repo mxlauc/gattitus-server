@@ -78,7 +78,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        return new PostResource(Post::with('user.image', 'simple_post.image', 'bestComments.user.image', 'myReaction')->withCount('reactions', 'comments')->findOrFail($id));
+        return new PostResource(Post::with('user.image', 'simple_post.image', 'myReaction', 'pets.image')->withCount('reactions', 'comments', 'pets')->findOrFail($id));
     }
 
     /**
