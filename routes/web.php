@@ -15,32 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/admin', function () {
-    return view('admin.index');
-});
-Route::get('/admin/{path}', function () {
-    return view('admin.index');
-})->where('path', '.*');
-Route::get('/landing', function(){
-    return view('welcome');
-});
-
 Route::get('/auth/login/facebook', [AuthController::class, 'loginFacebook'])->name("login.facebook");
 Route::get('/auth/callback/facebook', [AuthController::class, 'callbackFacebook']);
 
+Route::get('/', function(){
+    return redirect(env("SPA_URL")); //esto puede fallar en produccion
+})->name("login");
 
-/*
-Route::get('/v8', function (){
-    $v8 = new V8Js();
-    $renderer_source = file_get_contents(public_path('js/admin/server.js'));
-    $js = 'var process = { env: { VUE_ENV: "server", NODE_ENV: "production" } };
-        this.global = { process: process };';
-    $v8->executeString($js);
-    
-    return $v8->executeString($renderer_source);
-});
-
- */
 Route::get('{path}', function (){
-    return view('index');
+    return redirect()->route('login');
 })->where('path', '.*');

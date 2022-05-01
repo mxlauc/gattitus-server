@@ -32,7 +32,7 @@ use App\Models\User;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-//Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('auth/logout', [AuthController::class, 'logout']);
 
@@ -59,8 +59,4 @@ use App\Models\User;
         Route::apiResource('/reports', ReportController::class);
         Route::apiResource('/punishments', PunishmentController::class);
     });    
-//});
-
-Route::get('/', function(){
-    return redirect(env("SPA_URL")); //esto puede fallar en produccion
-})->name("login");
+});
