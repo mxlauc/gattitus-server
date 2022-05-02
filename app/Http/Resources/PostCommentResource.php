@@ -21,10 +21,8 @@ class PostCommentResource extends JsonResource
             "id" => $this->id,
             "description" => $this->description,
             "created_at" => strtotime($this->created_at),
-            /* "myLike" => $this->when(Auth::user(), function(){
-                return $this->myLike();
-            }),
-            "contador" => $this->contador(), */
+            "my_reaction" => $this->whenLoaded('myReaction'),
+            "reactions_count" => $this->when(isset($this->reactions_count), $this->reactions_count),
             "gif_url" => $this->gif_url,
             "user" => new UserResource($this->whenLoaded('user')),
             'url' => route('posts.comments.index', $this->post_id) . '?cursor=' . (new Cursor(['id' => $this->id + 1], true))->encode(),

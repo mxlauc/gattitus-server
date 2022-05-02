@@ -18,6 +18,7 @@ use App\Http\Controllers\admin\UsersController;
 use App\Http\Controllers\admin\ReportTypeController;
 use App\Http\Controllers\admin\ReportController;
 use App\Http\Controllers\admin\ReportedPostController;
+use App\Http\Controllers\CommentReactionController;
 use App\Http\Controllers\ShowMyPetsController;
 use App\Http\Resources\UserResource;
 use App\Models\User;
@@ -39,6 +40,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('posts', PostController::class);
     Route::apiResource('images', ImageController::class);
     Route::apiResource('posts.comments', PostCommentController::class)->shallow()->names('posts.comments');
+    Route::apiResource('comments.reactions', CommentReactionController::class)->shallow();
     Route::apiResource('posts.reactions', PostReactionController::class)->shallow();
     Route::apiResource('users.pets', UserPetController::class)->shallow()->only(['index']);
     Route::get('pets/mine', ShowMyPetsController::class);

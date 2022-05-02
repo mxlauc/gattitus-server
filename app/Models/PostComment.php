@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class PostComment extends Model
 {
@@ -41,4 +42,16 @@ class PostComment extends Model
         return $this->belongsTo(Post::class);
     }
 
+    public function reactions(){
+        return $this->morphMany(Reaction::class, 'reactionable');
+    }
+
+    public function myReaction(){
+        return $this->morphMany(Reaction::class, 'reactionable')
+                ->where('user_id', Auth::user()->id ?? -1);
+    }
+
+    public function getMyReactionAttribute(){
+        return $this->myReaction()->first();
+    }
 }

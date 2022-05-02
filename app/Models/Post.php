@@ -35,10 +35,6 @@ class Post extends Model
         return $this->myReaction()->first();
     }
 
-    public function getOwnReactionAttribute(){
-        return $this->reactions()->where('reactions.id', '>', 0)->first() ?? null;
-    }
-
     public function comments(){
         return $this->hasMany(PostComment::class);
     }
