@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ReactionCollection;
 use App\Models\PostComment;
 use App\Models\ReactionType;
 use Illuminate\Http\Request;
@@ -13,9 +14,10 @@ class CommentReactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($comment_id)
     {
-        //
+        $post_comment = PostComment::findOrFail($comment_id);
+        return new ReactionCollection($post_comment->reactions()->with('user.image', 'reactionType')->orderBy('id', 'DESC')->cursorPaginate(10));
     }
 
     /**

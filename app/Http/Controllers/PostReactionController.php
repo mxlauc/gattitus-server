@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ReactionCollection;
+use App\Http\Resources\ReactionResource;
 use App\Models\Post;
 use App\Models\Reaction;
 use App\Models\ReactionType;
@@ -14,9 +16,10 @@ class PostReactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($post_id)
     {
-        
+        $post = Post::findOrFail($post_id);
+        return new ReactionCollection($post->reactions()->with('user.image', 'reactionType')->orderBy('id', 'DESC')->cursorPaginate(10));
     }
 
     /**

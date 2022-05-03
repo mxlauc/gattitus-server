@@ -20,4 +20,12 @@ class Reaction extends Model
     {
         return $this->morphTo();
     }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
+    public function reactionType(){
+        return $this->belongsTo(ReactionType::class);
+    }
 }
