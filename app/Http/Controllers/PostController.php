@@ -63,13 +63,6 @@ class PostController extends Controller
         return [
             "estado" => 'ok'
         ];
-
-        
-
-
-      
-
-
     }
 
     /**
@@ -103,7 +96,19 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $this->authorize('update', $post);
+
+        // TODO: asegurar que los gatos sean del usuario logeado
+        $post->pets()->sync($request->pets);
+
+        $post->simple_post()->update([
+            'description' => $request->description,
+        ]);
+
+        return [
+            "estado" => 'ok'
+        ];
     }
 
     /**
