@@ -20,7 +20,7 @@ class PetResource extends JsonResource
             "nickname" => $this->nickname,
             'slug' => $this->slug,
             'image' => new ImageResource($this->whenLoaded('image')),
-            'user' => new ImageResource($this->whenLoaded('user')),
+            'user' => new UserResource($this->whenLoaded('user')),
             'type' => $this->whenLoaded('petType', $this->pettype->name),
         ];
     }

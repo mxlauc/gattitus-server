@@ -74,7 +74,7 @@ class PetController extends Controller
      */
     public function show($slug)
     {
-        return new PetResource(Pet::with('image')->where('slug',$slug)->get()->first());
+        return new PetResource(Pet::with('image', 'user.image', 'user.myFollow')->where('slug',$slug)->get()->first());
     }
 
     /**

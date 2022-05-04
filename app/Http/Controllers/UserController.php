@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return UserResource::collection(User::with("image")->withCount('pets')->whereKeyNot(Auth::user()->id)->limit(3)->get());
+        return UserResource::collection(User::with("image", 'myFollow')->withCount('pets')->whereKeyNot(Auth::user()->id)->limit(3)->get());
     }
 
     /**
