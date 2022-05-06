@@ -18,7 +18,7 @@ class PetController extends Controller
      */
     public function index()
     {
-        return PetResource::collection(Pet::with('image', 'petType')->limit(4)->get());
+        return PetResource::collection(Pet::with('image', 'petType')->get());
     }
 
     /**
