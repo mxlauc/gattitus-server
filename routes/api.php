@@ -19,6 +19,7 @@ use App\Http\Controllers\admin\ReportTypeController;
 use App\Http\Controllers\admin\ReportController;
 use App\Http\Controllers\admin\ReportedPostController;
 use App\Http\Controllers\CommentReactionController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\ShowMyPetsController;
 use App\Http\Resources\UserResource;
 use App\Models\User;
@@ -53,6 +54,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('user', function(Request $request){
         return new UserResource(User::with('image', 'myFollow')->find($request->user()->id));
     });
+
+    Route::apiResource('pages', PageController::class);
 
     Route::prefix('admin')->group(function () {
         Route::apiResource('/users', UsersController::class);
