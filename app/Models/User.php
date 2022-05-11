@@ -47,6 +47,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function role(){
+        return $this->belongsTo(Role::class);
+    }
+
+    public function isAdmin() {
+        return $this->role->name === "Administrador";
+    }
+
+    public function punishments(){
+        return $this->hasMany(Punishment::class);
+    }
 
     public function setUsernameAttribute($value){
         if(!$value){
@@ -117,6 +128,10 @@ class User extends Authenticatable
     public function myFollow(){
         return $this->belongsToMany(User::class, 'user_user', 'followed_id', 'follower_id')
                 ->wherePivot('follower_id', Auth::user()->id ?? -1);
+    }
+
+    public function pets(){
+        return $this->hasMany(Pet::class);
     }
 
 }

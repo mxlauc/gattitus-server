@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Reaction;
-use App\Models\PostReaction;
+use App\Http\Resources\ReactionCollection;
+use App\Http\Resources\ReactionResource;
 use App\Models\Post;
+use App\Models\Reaction;
+use App\Models\ReactionType;
 use Illuminate\Http\Request;
 
 class PostReactionController extends Controller
@@ -14,9 +16,10 @@ class PostReactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($post_id)
     {
-        
+        $post = Post::findOrFail($post_id);
+        return new ReactionCollection($post->reactions()->with('user.image', 'reactionType')->orderBy('id', 'DESC')->cursorPaginate(10));
     }
 
     /**
@@ -37,16 +40,17 @@ class PostReactionController extends Controller
      */
     public function store(Request $request, $postId)
     {
-        $this->authorize('create', PostReaction::class);
+        $this->authorize('create', Reaction::class);
         $ownReaction = null;
         $post = Post::find($postId);
         if($post->reactions()->where('user_id', $request->user()->id)->exists()){
-            $post->reactions()->detach(1);
+            $post->reactions()->where('user_id', $request->user()->id)->delete();
         }else{
-            $post->reactions()->attach(1, [
+            $post->reactions()->create([
                 'user_id' => $request->user()->id,
+                'reaction_type_id' => ReactionType::first()->id,
             ]);
-            $ownReaction = Reaction::find(1);
+            $ownReaction = ReactionType::find(1);
         }
         
         return [

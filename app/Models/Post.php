@@ -23,27 +23,32 @@ class Post extends Model
     }
 
     public function reactions(){
-        return $this->belongsToMany(Reaction::class)
-                ->using(PostReaction::class)
-                ->withTimestamps();
+        return $this->morphMany(Reaction::class, 'reactionable');
     }
 
     public function myReaction(){
-        return $this->belongsToMany(Reaction::class)
-                ->using(PostReaction::class)
-                ->withTimestamps()
-                ->wherePivot('user_id', Auth::user()->id ?? -1);
+        return $this->morphMany(Reaction::class, 'reactionable')
+                ->where('user_id', Auth::user()->id ?? -1);
     }
 
     public function getMyReactionAttribute(){
         return $this->myReaction()->first();
     }
 
-    public function getOwnReactionAttribute(){
-        return $this->reactions()->where('reactions.id', '>', 0)->first() ?? null;
-    }
-
     public function comments(){
         return $this->hasMany(PostComment::class);
+    }
+
+    public function bestComments(){
+        // TODO: hacer query de los comentarios con mas reacciones en order de publicacion
+        return $this->hasMany(PostComment::class)->where('gif_url', '!=', null);
+    }
+
+    public function reports(){
+        return $this->hasMany(Report::class);
+    }
+
+    public function pets(){
+        return $this->belongsToMany(Pet::class);
     }
 }

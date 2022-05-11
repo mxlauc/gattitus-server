@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PostResource;
 use App\Models\Post;
 use App\Models\SimplePost;
 use Illuminate\Http\Request;
@@ -11,7 +12,7 @@ class PostController extends Controller
 
     public function __construct()
     {
-        $this->authorizeResource(Post::class);
+        //$this->authorizeResource(Post::class);
     }
 
     /**
@@ -21,7 +22,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        return Post::all();
+        return PostResource::collection(Post::with(['user.image', 'simple_post.image', 'bestComments.user.image', 'bestComments.myReaction', 'bestComments' => function($query){
+            $query->withCount('reactions');
+        }, 'myReaction', 'pets.image'])->withCount('reactions', 'comments', 'pets', 'bestComments')->orderBy('id', 'DESC')->get());
     }
 
     /**
@@ -46,6 +49,10 @@ class PostController extends Controller
         $post = Post::create([
             'user_id' => $request->user()->id,
         ]);
+        
+        $post->pets()->attach($request->pets);
+
+        // TODO: asegurar que los gatos sean del usuario logeado
 
         SimplePost::create([
             'description' => $request->description,
@@ -56,13 +63,6 @@ class PostController extends Controller
         return [
             "estado" => 'ok'
         ];
-
-        
-
-
-      
-
-
     }
 
     /**
@@ -73,7 +73,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        return new PostResource(Post::with('user.image', 'simple_post.image', 'myReaction', 'pets.image')->withCount('reactions', 'comments', 'pets')->findOrFail($id));
     }
 
     /**
@@ -96,7 +96,19 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $this->authorize('update', $post);
+
+        // TODO: asegurar que los gatos sean del usuario logeado
+        $post->pets()->sync($request->pets);
+
+        $post->simple_post()->update([
+            'description' => $request->description,
+        ]);
+
+        return [
+            "estado" => 'ok'
+        ];
     }
 
     /**
@@ -107,6 +119,10 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $this->authorize($post);
+        $post->delete();
+
+        return response()->json('ok');
     }
 }

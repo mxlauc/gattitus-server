@@ -18,7 +18,7 @@ class ReactionPolicy
      */
     public function viewAny(User $user)
     {
-        return false;
+        return true;
     }
 
     /**
@@ -30,7 +30,7 @@ class ReactionPolicy
      */
     public function view(User $user, reaction $reaction)
     {
-        return false;
+        return true;
     }
 
     /**
@@ -41,7 +41,7 @@ class ReactionPolicy
      */
     public function create(User $user)
     {
-        return false;
+        return true;
     }
 
     /**
@@ -53,7 +53,7 @@ class ReactionPolicy
      */
     public function update(User $user, reaction $reaction)
     {
-        return false;
+        return $user->id === $reaction->user_id;
     }
 
     /**
@@ -65,7 +65,7 @@ class ReactionPolicy
      */
     public function delete(User $user, reaction $reaction)
     {
-        return false;
+        return $user->id === $reaction->user_id;
     }
 
     /**

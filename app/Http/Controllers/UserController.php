@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cat;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -15,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return UserResource::collection(User::with("image", 'myFollow')->withCount('pets')->whereKeyNot(Auth::user()->id)->get());
     }
 
     /**
@@ -47,11 +48,7 @@ class UserController extends Controller
      */
     public function show(Request $request, User $user)
     {
-        if($request->ajax()){
-            return User::with('image', 'myFollow')->find($user->id);
-        }
-        $cats = Cat::with('image')->get();
-        return view('pages.users.show', compact('user', 'cats'));
+        return new UserResource(User::with('image', 'myFollow')->find($user->id));
     }
 
     /**
