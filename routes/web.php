@@ -20,8 +20,8 @@ Route::get('/auth/callback/facebook', [AuthController::class, 'callbackFacebook'
 
 Route::get('/', function(){
     return redirect(env("SPA_URL")); //esto puede fallar en produccion
-})->name("login");
+})->name("goToFrontend");
 
 Route::get('{path}', function (){
-    return redirect()->route('login');
+    return redirect()->route('goToFrontend');
 })->where('path', '.*');
