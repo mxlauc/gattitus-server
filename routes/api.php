@@ -19,7 +19,6 @@ use App\Http\Controllers\admin\ReportTypeController;
 use App\Http\Controllers\admin\ReportController;
 use App\Http\Controllers\admin\ReportedPostController;
 use App\Http\Controllers\CommentReactionController;
-use App\Http\Controllers\PageController;
 use App\Http\Controllers\ShowMyPetsController;
 use App\Http\Controllers\UserPostsController;
 use App\Http\Resources\UserResource;
@@ -61,8 +60,6 @@ Route::get('user', function(Request $request){
     }
     
 });
-
-Route::apiResource('pages', PageController::class);
 
 Route::prefix('admin')->group(function () {
     Route::apiResource('/users', UsersController::class);
