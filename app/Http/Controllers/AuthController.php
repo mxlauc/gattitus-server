@@ -71,16 +71,29 @@ class AuthController extends Controller
                 null,
                 null,
                 false);
-        return $this->login($user);
+        $this->login($user);
+        return $this->returnJs();
+
     }
 
     public function login($user){
         Auth::login($user, true);
-        return redirect(env('SPA_URL', '') . '/#');
     }
 
     public function logout(){
         Auth::guard('web')->logout();
+    }
+    
+    public function returnJs(){
+        return "
+        <script>
+        if (window.opener && window.opener !== window) {
+            window.close();
+        }else{
+            window.location.replace('" . env('SPA_URL', '') . "');
+        }
+        </script>
+        ";
     }
 
 }
