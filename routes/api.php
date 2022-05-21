@@ -21,6 +21,7 @@ use App\Http\Controllers\admin\ReportedPostController;
 use App\Http\Controllers\CommentReactionController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ShowMyPetsController;
+use App\Http\Controllers\UserPostsController;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 
@@ -44,6 +45,7 @@ Route::apiResource('posts.comments', PostCommentController::class)->shallow()->n
 Route::apiResource('comments.reactions', CommentReactionController::class)->shallow();
 Route::apiResource('posts.reactions', PostReactionController::class)->shallow();
 Route::apiResource('users.pets', UserPetController::class)->shallow()->only(['index']);
+Route::get('users/{id}/posts', UserPostsController::class);
 Route::get('pets/mine', ShowMyPetsController::class);
 Route::apiResource('pets', PetController::class);
 Route::apiResource('reaction_types', ReactionTypeController::class);
