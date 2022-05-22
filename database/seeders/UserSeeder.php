@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $users_count = 5;
+        $users_count = 50;
         $users = User::factory()->count($users_count)->create();
 
         $images = Image::factory()->count($users_count)->is_photo()->create();
