@@ -26,7 +26,6 @@ class UsersDiscoverController extends Controller
                         $query->where('follower_id', 51);
                     })
                     ->inRandomOrder()
-                    ->orderBy('id', 'DESC')
                     ->limit(5)
                     ->get()
         );
