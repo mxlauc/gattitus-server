@@ -19,6 +19,8 @@ use App\Http\Controllers\admin\ReportTypeController;
 use App\Http\Controllers\admin\ReportController;
 use App\Http\Controllers\admin\ReportedPostController;
 use App\Http\Controllers\CommentReactionController;
+use App\Http\Controllers\UsersSearchController;
+use App\Http\Controllers\UsersDiscoverController;
 use App\Http\Controllers\ShowMyPetsController;
 use App\Http\Controllers\UserPostsController;
 use App\Http\Resources\UserResource;
@@ -51,6 +53,8 @@ Route::apiResource('reaction_types', ReactionTypeController::class);
 Route::apiResource('followers', FollowersController::class);
 
 Route::get('/users', [UserController::class, 'index']);
+Route::get('/users/search', UsersSearchController::class);
+Route::get('/users/discover', UsersDiscoverController::class);
 Route::get('/@{user:username}', [UserController::class, 'show']);
 Route::get('user', function(Request $request){
     if($request->user()){
