@@ -20,6 +20,7 @@ use App\Http\Controllers\admin\ReportController;
 use App\Http\Controllers\admin\ReportedPostController;
 use App\Http\Controllers\CommentReactionController;
 use App\Http\Controllers\PetDiscoverController;
+use App\Http\Controllers\PetsSearchController;
 use App\Http\Controllers\UsersSearchController;
 use App\Http\Controllers\UsersDiscoverController;
 use App\Http\Controllers\ShowMyPetsController;
@@ -50,6 +51,7 @@ Route::apiResource('users.pets', UserPetController::class)->shallow()->only(['in
 Route::get('users/{id}/posts', UserPostsController::class);
 Route::get('pets/mine', ShowMyPetsController::class);
 Route::get('/pets/discover', PetDiscoverController::class);
+Route::get('/pets/search', PetsSearchController::class);
 Route::apiResource('pets', PetController::class);
 Route::apiResource('reaction_types', ReactionTypeController::class);
 Route::apiResource('followers', FollowersController::class);
