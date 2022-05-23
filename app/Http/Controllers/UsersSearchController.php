@@ -29,7 +29,7 @@ class UsersSearchController extends Controller
         
 
         return UserResource::collection(
-            $query->cursorPaginate(10)
+            $query->cursorPaginate(12)
         );
     }
 }
