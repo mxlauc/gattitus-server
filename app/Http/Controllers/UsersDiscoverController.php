@@ -20,10 +20,10 @@ class UsersDiscoverController extends Controller
         return UserResource::collection(
             User::with("image", 'myFollow')
                     ->withCount('pets')
-                    ->where('id', '!=', 51)
+                    ->where('id', '!=', $request->user()->id)
                     
                     ->whereDoesntHave('followers', function($query) use ($request){
-                        $query->where('follower_id', 51);
+                        $query->where('follower_id', $request->user()->id);
                     })
                     ->inRandomOrder()
                     ->limit(5)
