@@ -25,7 +25,6 @@ class PostCommentController extends Controller
      */
     public function index(Request $request, $id)
     {
-        $this->authorize(PostComment::class);
         return new PostCommentCollection(PostComment::with('user.image', 'myReaction')->withCount('reactions')->where('post_id', $id)->orderBy('id', 'desc')->cursorPaginate(5));
 
     }
