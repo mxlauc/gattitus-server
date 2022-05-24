@@ -54,9 +54,7 @@ class PetPolicy
      */
     public function update(User $user, Pet $pet)
     {
-        return $pet->user_id === $user->id ?
-                Response::allow()
-                : Response::deny('No estas autorizado para realizar esta acción');
+        return $pet->user_id === $user->id;
     }
 
     /**
@@ -68,9 +66,7 @@ class PetPolicy
      */
     public function delete(User $user, Pet $pet)
     {
-        return $pet->user_id === $user->id ?
-                Response::allow()
-                : Response::deny('No estas autorizado para realizar esta acción');
+        return $pet->user_id === $user->id;
 
     }
 
