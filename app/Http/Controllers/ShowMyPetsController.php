@@ -17,6 +17,6 @@ class ShowMyPetsController extends Controller
     public function __invoke(Request $request)
     {
         
-        return PetResource::collection(Pet::with('image', 'petType')->get());
+        return PetResource::collection(Pet::with('image', 'petType')->where('user_id', $request->user()->id)->get());
     }
 }
