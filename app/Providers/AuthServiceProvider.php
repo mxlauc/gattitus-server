@@ -7,6 +7,7 @@ use App\Models\Reaction;
 use App\Models\Post;
 use App\Models\PostComment;
 use App\Policies\ImagePolicy;
+use App\Policies\PetPolicy;
 use App\Policies\PostCommentPolicy;
 use App\Policies\PostPolicy;
 use App\Policies\ReactionPolicy;
@@ -26,6 +27,7 @@ class AuthServiceProvider extends ServiceProvider
         PostComment::class => PostCommentPolicy::class,
         Image::class => ImagePolicy::class,
         Reaction::class => ReactionPolicy::class,
+        Pet::class => PetPolicy::class,
     ];
 
     /**

@@ -74,7 +74,7 @@ class PetController extends Controller
      */
     public function show($slug)
     {
-        return new PetResource(Pet::with('image', 'user.image', 'user.myFollow')->where('slug',$slug)->get()->first());
+        return new PetResource(Pet::with('image', 'user.image', 'user.myFollow')->where('slug',$slug)->firstOrFail());
     }
 
     /**
@@ -106,8 +106,10 @@ class PetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $r)
     {
-        //
+        $pet = Pet::findOrFail($id);
+        $this->authorize('delete', $pet);
+        $pet->delete();
     }
 }
