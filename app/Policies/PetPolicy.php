@@ -42,7 +42,7 @@ class PetPolicy
      */
     public function create(User $user)
     {
-        //
+        return true;
     }
 
     /**
@@ -54,7 +54,9 @@ class PetPolicy
      */
     public function update(User $user, Pet $pet)
     {
-        //
+        return $pet->user_id === $user->id ?
+                Response::allow()
+                : Response::deny('No estas autorizado para realizar esta acción');
     }
 
     /**

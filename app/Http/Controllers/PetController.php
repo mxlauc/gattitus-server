@@ -39,6 +39,7 @@ class PetController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Pet::class);
         $this->tryCreatePet($request);
 
         return [
@@ -97,7 +98,14 @@ class PetController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $pet = Pet::findOrFail($id);
+        $this->authorize('update', $pet);
+        $pet->name = $request->name;
+        $pet->nickname = $request->nickname;
+        if($request->image_id !== null && $request->image_id !== 'null'){
+            $pet->image_id = $request->image_id;
+        }
+        $pet->save();
     }
 
     /**
