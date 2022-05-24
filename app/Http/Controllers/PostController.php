@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\PostResource;
+use App\Models\Pet;
 use App\Models\Post;
 use App\Models\SimplePost;
 use Illuminate\Http\Request;
@@ -50,19 +51,13 @@ class PostController extends Controller
             'user_id' => $request->user()->id,
         ]);
         
-        $post->pets()->attach($request->pets);
-
-        // TODO: asegurar que los gatos sean del usuario logeado
+        $post->pets()->attach(Pet::whereIn('id', $request->pets)->where('user_id', $request->user()->id)->get());
 
         SimplePost::create([
             'description' => $request->description,
             'post_id' => $post->id,
             'image_id' => $request->image_id,
         ]);
-
-        return [
-            "estado" => 'ok'
-        ];
     }
 
     /**
@@ -99,8 +94,7 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         $this->authorize('update', $post);
 
-        // TODO: asegurar que los gatos sean del usuario logeado
-        $post->pets()->sync($request->pets);
+        $post->pets()->sync(Pet::whereIn('id', $request->pets)->where('user_id', $request->user()->id)->get());
 
         $post->simple_post()->update([
             'description' => $request->description,
