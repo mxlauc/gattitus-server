@@ -57,8 +57,10 @@ class PostController extends Controller
         $post = Post::create([
             'user_id' => $request->user()->id,
         ]);
+        if($request->pets){
+            $post->pets()->attach(Pet::whereIn('id', $request->pets)->where('user_id', $request->user()->id)->get());
+        }
         
-        $post->pets()->attach(Pet::whereIn('id', $request->pets)->where('user_id', $request->user()->id)->get());
 
         SimplePost::create([
             'description' => $request->description,
@@ -101,7 +103,9 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         $this->authorize('update', $post);
 
-        $post->pets()->sync(Pet::whereIn('id', $request->pets)->where('user_id', $request->user()->id)->get());
+        if($request->pets){
+            $post->pets()->sync(Pet::whereIn('id', $request->pets)->where('user_id', $request->user()->id)->get());
+        }
 
         $post->simple_post()->update([
             'description' => $request->description,
