@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\PostResource;
+use App\Models\Image;
 use App\Models\Pet;
 use App\Models\Post;
 use App\Models\SimplePost;
@@ -47,6 +48,12 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $this->authorize('create', Post::class);
+
+        $image = Image::findOrFail($request->image_id);
+        if($image->user_id !== $request->user()->id){
+            abort(403);
+        }
+
         $post = Post::create([
             'user_id' => $request->user()->id,
         ]);
