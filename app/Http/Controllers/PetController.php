@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePetRequest;
+use App\Http\Requests\UpdatePetRequest;
 use App\Http\Resources\PetResource;
+use App\Models\Image;
 use App\Models\Pet;
 use App\Models\PetType;
 use Exception;
@@ -37,9 +40,15 @@ class PetController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePetRequest $request)
     {
         $this->authorize('create', Pet::class);
+        
+        $image = Image::findOrFail($request->image_id);
+        if($image->user_id !== $request->user()->id){
+            abort(403);
+        }
+
         $this->tryCreatePet($request);
 
         return [
@@ -47,7 +56,7 @@ class PetController extends Controller
         ];
     }
 
-    function tryCreatePet(Request $request, $try = 0){
+    function tryCreatePet(StorePetRequest $request, $try = 0){
         $result = false;
         try{
             $result = Pet::create([
@@ -96,15 +105,21 @@ class PetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdatePetRequest $request, $id)
     {
         $pet = Pet::findOrFail($id);
         $this->authorize('update', $pet);
-        $pet->name = $request->name;
-        $pet->nickname = $request->nickname;
+
         if($request->image_id !== null && $request->image_id !== 'null'){
+            $image = Image::findOrFail($request->image_id);
+            if($image->user_id !== $request->user()->id){
+                abort(403);
+            }
             $pet->image_id = $request->image_id;
         }
+        $pet->name = $request->name;
+        $pet->nickname = $request->nickname;
+        
         $pet->save();
     }
 
