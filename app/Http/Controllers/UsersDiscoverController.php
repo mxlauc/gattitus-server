@@ -17,17 +17,20 @@ class UsersDiscoverController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return UserResource::collection(
-            User::with("image", 'myFollow')
-                    ->withCount('pets')
-                    ->where('id', '!=', $request->user()->id)
+        $q = User::with("image", 'myFollow')
+                    ->withCount('pets');
+        if($request->user()){
+            $q->where('id', '!=', $request->user()->id)
+            ->whereDoesntHave('followers', function($query) use ($request){
+                $query->where('follower_id', $request->user()->id);
+            });
+        }
                     
-                    ->whereDoesntHave('followers', function($query) use ($request){
-                        $query->where('follower_id', $request->user()->id);
-                    })
-                    ->inRandomOrder()
-                    ->limit(5)
-                    ->get()
+        $q->inRandomOrder()
+        ->limit(5);
+
+        return UserResource::collection(
+            $q->get()
         );
     }
 }

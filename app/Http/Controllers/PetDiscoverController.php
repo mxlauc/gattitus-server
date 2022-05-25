@@ -18,7 +18,7 @@ class PetDiscoverController extends Controller
     {
         return PetResource::collection(
             Pet::with('image', 'petType')
-                    ->where('user_id', '!=', $request->user()->id)
+                    ->where('user_id', '!=', $request->user() ? $request->user()->id : null)
                     ->inRandomOrder()
                     ->limit(6)
                     ->get()
