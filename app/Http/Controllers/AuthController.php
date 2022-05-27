@@ -20,9 +20,11 @@ class AuthController extends Controller
 
     public function callbackFacebook(){
         $user_social = Socialite::driver('facebook')->user();
-        $user = User::where('facebook_id', $user_social->getId())->first();
+        $user = User::withTrashed()->where('facebook_id', $user_social->getId())->first();
 
-        if(!$user){
+        $trashed = ($user && $user->trashed());
+
+        if(!$user || $trashed){
             $user_picture_url = "https://graph.facebook.com/v3.3/{$user_social->id}/picture?width=1000&height=1000&access_token={$user_social->token}";
             $customFirebaseUploader = new CustomFirebaseUploader();
 
@@ -50,14 +52,20 @@ class AuthController extends Controller
 
             
             
+            if($trashed){
+                $user->restore();
+            }else{
+                $user = new User();
+            }
             
-            $user = new User();
             $user->name = $user_social->getName();
             $user->email = $user_social->getEmail();
             $user->image_id = $image->id;
             $user->facebook_id = $user_social->getId();
             $user->role_id = 1;
-            $user->username = null;
+            if(!$trashed){
+                $user->username = null;
+            }
             $user->save();
 
             $image->user_id = $user->id;

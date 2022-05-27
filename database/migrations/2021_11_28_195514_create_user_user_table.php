@@ -17,8 +17,8 @@ class CreateUserUserTable extends Migration
             $table->id();
             $table->unsignedBigInteger('followed_id');
             $table->unsignedBigInteger('follower_id');
-            $table->foreign('followed_id')->references('id')->on('users');
-            $table->foreign('follower_id')->references('id')->on('users');
+            $table->foreign('followed_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreign('follower_id')->references('id')->on('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }

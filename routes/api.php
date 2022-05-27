@@ -19,6 +19,7 @@ use App\Http\Controllers\admin\ReportTypeController;
 use App\Http\Controllers\admin\ReportController;
 use App\Http\Controllers\admin\ReportedPostController;
 use App\Http\Controllers\CommentReactionController;
+use App\Http\Controllers\DeleteAccountController;
 use App\Http\Controllers\PetDiscoverController;
 use App\Http\Controllers\PetsSearchController;
 use App\Http\Controllers\UsersSearchController;
@@ -57,6 +58,7 @@ Route::apiResource('reaction_types', ReactionTypeController::class);
 Route::apiResource('followers', FollowersController::class);
 
 Route::get('/users', [UserController::class, 'index']);
+Route::delete('/user', DeleteAccountController::class);
 Route::get('/users/search', UsersSearchController::class);
 Route::get('/users/discover', UsersDiscoverController::class);
 Route::get('/@{user:username}', [UserController::class, 'show']);

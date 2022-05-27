@@ -14,7 +14,7 @@ class AddImageIdToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('image_id')->nullable()->after('facebook_id');
+            $table->foreignId('image_id')->nullable()->after('facebook_id')->constrained()->nullOnDelete();
         });
     }
 

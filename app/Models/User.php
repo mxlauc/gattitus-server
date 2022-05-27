@@ -9,10 +9,12 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use SoftDeletes, HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -63,7 +65,7 @@ class User extends Authenticatable
         if(!$value){
             $contador = 1;
             $value = $this->generateUsername($contador);
-            while(User::whereUsername($value)->exists()){
+            while(User::withTrashed()->whereUsername($value)->exists()){
                 $value = $this->generateUsername($contador);
                 $contador++;
             }
@@ -99,6 +101,10 @@ class User extends Authenticatable
 
     public function getUrl(){
         return "/@$this->username";
+    }
+
+    public function posts(){
+        return $this->hasMany(Post::class);
     }
 
     public function image(){

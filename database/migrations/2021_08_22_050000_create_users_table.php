@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('avatar');
             $table->string('facebook_id')->nullable();
             $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
