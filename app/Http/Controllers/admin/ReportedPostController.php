@@ -17,6 +17,6 @@ class ReportedPostController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return PostResource::collection(Post::with('user.image', 'simple_post.image', 'bestComments.user.image', 'myReaction', 'reports.user', 'reports.report_type')->withCount('reactions', 'comments')->has('reports', '>', 0)->orderBy('id', 'DESC')->cursorPaginate());
+        return PostResource::collection(Post::with('user.image', 'simple_post.image', 'bestComments.user.image', 'myReaction', 'reports.user', 'reports.report_type')->withCount('reactions', 'comments')->has('reports', '>', 0)->orderBy('created_at', 'DESC')->cursorPaginate());
     }
 }

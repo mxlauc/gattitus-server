@@ -25,7 +25,7 @@ class PetsSearchController extends Controller
             $query->orWhere('name', 'like', '%' . $qp . '%');
             $query->orWhere('nickname', 'like', '%' . $qp . '%');
         }
-        $query->orderBy('id', 'DESC');
+        $query->orderBy('created_at', 'DESC');
 
         return PetResource::collection(
             $query->cursorPaginate(12)

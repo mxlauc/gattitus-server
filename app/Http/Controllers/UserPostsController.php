@@ -21,7 +21,7 @@ class UserPostsController extends Controller
         }, 'myReaction', 'pets.image'])
         ->withCount('reactions', 'comments', 'pets', 'bestComments')
         ->where('user_id', $id)
-        ->orderBy('id', 'DESC')
+        ->orderBy('created_at', 'DESC')
         ->get());
     }
 }

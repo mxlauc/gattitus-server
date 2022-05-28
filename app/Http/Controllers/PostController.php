@@ -26,7 +26,7 @@ class PostController extends Controller
     {
         return PostResource::collection(Post::with(['user.image', 'simple_post.image', 'bestComments.user.image', 'bestComments.myReaction', 'bestComments' => function($query){
             $query->withCount('reactions');
-        }, 'myReaction', 'pets.image'])->withCount('reactions', 'comments', 'pets', 'bestComments')->orderBy('id', 'DESC')->cursorPaginate(3));
+        }, 'myReaction', 'pets.image'])->withCount('reactions', 'comments', 'pets', 'bestComments')->orderBy('created_at', 'DESC')->cursorPaginate(3));
     }
 
     /**

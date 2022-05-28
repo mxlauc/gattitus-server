@@ -25,7 +25,7 @@ class PostCommentController extends Controller
      */
     public function index(Request $request, $id)
     {
-        return new PostCommentCollection(PostComment::with('user.image', 'myReaction')->withCount('reactions')->where('post_id', $id)->orderBy('id', 'desc')->cursorPaginate(5));
+        return new PostCommentCollection(PostComment::with('user.image', 'myReaction')->withCount('reactions')->where('post_id', $id)->orderBy('created_at', 'desc')->cursorPaginate(5));
 
     }
 

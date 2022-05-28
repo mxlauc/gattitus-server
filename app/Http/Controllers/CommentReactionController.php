@@ -17,7 +17,7 @@ class CommentReactionController extends Controller
     public function index($comment_id)
     {
         $post_comment = PostComment::findOrFail($comment_id);
-        return new ReactionCollection($post_comment->reactions()->with('user.image', 'reactionType')->orderBy('id', 'DESC')->cursorPaginate(10));
+        return new ReactionCollection($post_comment->reactions()->with('user.image', 'reactionType')->orderBy('created_at', 'DESC')->cursorPaginate(10));
     }
 
     /**

@@ -19,7 +19,7 @@ class PostReactionController extends Controller
     public function index($post_id)
     {
         $post = Post::findOrFail($post_id);
-        return new ReactionCollection($post->reactions()->with('user.image', 'reactionType')->orderBy('id', 'DESC')->cursorPaginate(6));
+        return new ReactionCollection($post->reactions()->with('user.image', 'reactionType')->orderBy('created_at', 'DESC')->cursorPaginate(6));
     }
 
     /**

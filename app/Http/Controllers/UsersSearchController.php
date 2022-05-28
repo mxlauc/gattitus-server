@@ -25,7 +25,7 @@ class UsersSearchController extends Controller
         foreach($q_params as $qp){
             $query->orWhere('name', 'like', '%' . $qp . '%');
         }
-        $query->orderBy('id', 'DESC');
+        $query->orderBy('created_at', 'DESC');
         
 
         return UserResource::collection(
